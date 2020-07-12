@@ -1,0 +1,34 @@
+@import '../../../colors/colors.scss';
+
+.Link {
+  text-decoration: none;
+
+  &_bg_white {
+    color: $MainBlack;
+
+    &:hover,
+    &:active {
+      color: $MainAccent;
+    }
+  }
+
+  &_bg_black {
+    &_green {
+      color: $MainAccent;
+
+      &:hover,
+      &:active {
+        color: $GrayLight;
+      }
+    }
+
+    &_white {
+      color: $GrayLight;
+
+      &:hover,
+      &:active {
+        color: $MainAccent;
+      }
+    }
+  }
+}

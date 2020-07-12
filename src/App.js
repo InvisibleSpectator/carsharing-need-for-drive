@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.scss';
-import { Button } from './components/core/Button';
+import { MainPage } from './components/pages/MainPage';
+
 
 function App() {
   return (
     <div className="App">
-      <Button className="Button_loading Button_decline "></Button>
+<MainPage></MainPage>     
     </div>
   );
 }
