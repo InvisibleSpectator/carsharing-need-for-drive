@@ -6,9 +6,10 @@
   height: 100%;
   background-color: white;
   box-sizing: border-box;
-overflow: hidden;
-display: flex;
-flex-direction: row;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+
   &-Arrow {
     height: 100%;
     position: absolute;
@@ -65,30 +66,35 @@ flex-direction: row;
 
   &-Slide {
     width: 0;
-    &_active{
+    transition: width 0.5s ease-in-out;
+
+    &_active {
       width: 100%;
     }
 
-
-    &-Content{
     overflow: hidden;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: column;
-    padding-left:64px;
-    padding-right: 64px;
-    padding-top: 285px;
-     background-blend-mode: overlay;
-    @media (min-width:1440px) {
-      padding-left: 96px;
-      padding-right: 96px;
-      padding-top: 237px;
+
+    &-Content {
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      box-sizing: border-box;
+      flex-direction: column;
+      padding-left: 64px;
+      padding-right: 64px;
+      padding-top: 285px;
+      background-blend-mode: overlay;
+
+      @media (min-width:1440px) {
+        padding-left: 96px;
+        padding-right: 96px;
+        padding-top: 237px;
+      }
     }
-  }
+
     &-Name {
       font-weight: 500;
       font-size: 40px;
@@ -100,7 +106,8 @@ flex-direction: row;
       font-weight: 300;
       font-size: 24px;
       line-height: 90%;
-      color:$GrayLight;
+      color: $GrayLight;
+      min-width: 280px;
     }
   }
 }

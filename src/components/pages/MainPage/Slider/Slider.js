@@ -12,22 +12,32 @@ class Slider extends React.Component {
     };
   }
 
+  isReadyToSlide = true;
+
   arrowLeftAction = () => {
-    let tmp = this.state.current;
-    tmp--;
-    if (tmp < 0) {
-      tmp = this.state.data.length - 1;
+    if (this.isReadyToSlide) {
+      this.isReadyToSlide = false;
+      let tmp = this.state.current;
+      tmp--;
+      if (tmp < 0) {
+        tmp = this.state.data.length - 1;
+      }
+      this.setActive(tmp);
+      setTimeout(() => (this.isReadyToSlide = true), 500);
     }
-    this.setActive(tmp);
   };
 
   arrowRightAction = () => {
-    let tmp = this.state.current;
-    tmp++;
-    if (tmp > this.state.data.length - 1) {
-      tmp = 0;
+    if (this.isReadyToSlide) {
+      this.isReadyToSlide = false;
+      let tmp = this.state.current;
+      tmp++;
+      if (tmp > this.state.data.length - 1) {
+        tmp = 0;
+      }
+      this.setActive(tmp);
+      setTimeout(() => (this.isReadyToSlide = true), 500);
     }
-    this.setActive(tmp);
   };
 
   setActive(index) {
@@ -49,7 +59,14 @@ class Slider extends React.Component {
         ></div>
         {this.state.data.map((e, i) => {
           return (
-            <Slide head={e.name} text={e.text} img={e.img} key={i} className={i===this.state.current?"Slider-Slide_active":""}></Slide>
+            <Slide
+              head={e.name}
+              text={e.text}
+              img={e.img}
+              key={i}
+              buttonIndex={i%3}
+              className={i === this.state.current ? "Slider-Slide_active" : ""}
+            ></Slide>
           );
         })}
 
