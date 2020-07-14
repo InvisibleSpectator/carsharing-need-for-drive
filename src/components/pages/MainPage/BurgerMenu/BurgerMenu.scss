@@ -128,6 +128,9 @@
 
     @media (max-width:767px) {
       top: 16px;
+      background-image: none;
+      mask: url('./assets/menu_btn_open.svg');
+      background-color: $MainBlack;
     }
   }
 
@@ -173,6 +176,8 @@
 
   &_isOpened {
     .BurgerMenu-ToggleButton {
+      mask: none;
+      background: none;
       background-image: url('./assets/menu_btn_close.svg');
     }
 

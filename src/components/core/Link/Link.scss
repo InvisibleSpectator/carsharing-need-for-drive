@@ -31,4 +31,22 @@
       }
     }
   }
+
+  &_footer{
+    color: $MainBlack;
+
+    &:hover,
+    &:active {
+      color: $MainAccent;
+    }
+
+    @media (max-width:767px) {
+      color: $MainAccent;
+
+      &:hover,
+      &:active {
+        color: $GrayLight;
+      }
+    }
+  }
 }

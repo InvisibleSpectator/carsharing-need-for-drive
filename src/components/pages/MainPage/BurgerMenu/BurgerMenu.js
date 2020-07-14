@@ -14,7 +14,7 @@ class BurgerMenu extends React.Component {
 
   render = () => {
     return (
-      <div className="BurgerMenu" ref={this.BurgerMenu}>
+      <aside className="BurgerMenu" ref={this.BurgerMenu}>
         <label
           className="BurgerMenu-ToggleButton"
           onClick={this.toggleBurger}
@@ -56,7 +56,7 @@ class BurgerMenu extends React.Component {
         <button className="BurgerMenu-LangButton">
           <span>ENG</span>
         </button>
-      </div>
+      </aside>
     );
   };
 }

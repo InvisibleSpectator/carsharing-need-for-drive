@@ -10,6 +10,7 @@
   padding-right: 48px;
   outline: none;
   position: relative;
+  width: fit-content;
   cursor: pointer;
 
   &-Spinner {
@@ -61,9 +62,17 @@
     &:active {
       background: linear-gradient(90deg, #076432 2.61%, #013C27 112.6%);
     }
+
+    
   }
 
-
+  &_main{
+    @extend .Button_default;
+      @media (max-width:767px) {
+        border-radius: 0;
+        width: 100%;
+      }
+  }
 
 }
 
