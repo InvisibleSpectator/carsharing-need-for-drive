@@ -1,22 +1,17 @@
 import React from "react";
-import { BurgerMenu } from "./BurgerMenu";
+import { BurgerMenu } from "../../core/BurgerMenu";
 import "./MainPage.scss";
 import { Slider } from "./Slider";
 import { Button } from "../../core/Button";
 import { Link } from "../../core/Link";
+import { Header } from "../../core/Header";
 
 const MainPage = () => {
   return (
     <div className="MainPage">
-      <BurgerMenu></BurgerMenu>
+      <BurgerMenu />
       <div className="MainPage-MainContent">
-        <header className="MainPage-MainContent-Header">
-          <h1 className="MainPage-MainContent-Head">Need for drive</h1>
-          <div className="MainPage-MainContent-Location">
-            <img src={require("../../../assets/marker.svg")} />
-            <span>Ульяновск</span>
-          </div>
-        </header>
+        <Header />
         <main className="MainPage-MainContent-Main">
           <p>Каршеринг</p>
           <p>Need for drive</p>

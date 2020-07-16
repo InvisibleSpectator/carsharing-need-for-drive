@@ -26,39 +26,6 @@
     flex-direction: column;
     justify-content: space-between;
 
-    &-Header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-
-      @media (max-width:767px) {
-        flex-direction: column;
-        align-items: flex-end;
-        padding-right: 16px;
-        padding-top: 16px;
-      }
-    }
-
-    &-Head {
-      font-weight: bold;
-      font-size: 30px;
-      line-height: 35px;
-      color: $MainAccent;
-      margin: 0;
-    }
-
-    &-Location {
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 16px;
-      width: 90px;
-      color: $GrayDark;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
     &-Main {
       box-sizing: border-box;
 
