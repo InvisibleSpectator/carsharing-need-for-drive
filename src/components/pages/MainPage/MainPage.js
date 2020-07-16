@@ -13,7 +13,7 @@ const MainPage = () => {
         <header className="MainPage-MainContent-Header">
           <h1 className="MainPage-MainContent-Head">Need for drive</h1>
           <div className="MainPage-MainContent-Location">
-            <img src={require("./assets/marker.svg")} />
+            <img src={require("../../../assets/marker.svg")} />
             <span>Ульяновск</span>
           </div>
         </header>

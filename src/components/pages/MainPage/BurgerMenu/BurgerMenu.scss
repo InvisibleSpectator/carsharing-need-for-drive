@@ -92,15 +92,15 @@
     justify-content: space-between;
 
     &_telegram {
-      mask: url('./assets/Telegram.svg');
+      mask: url('../../../../assets/Telegram.svg');
     }
 
     &_facebook {
-      mask: url('./assets/Facebook.svg');
+      mask: url('../../../../assets/Facebook.svg');
     }
 
     &_instagram {
-      mask: url('./assets/Instagram.svg');
+      mask: url('../../../../assets/Instagram.svg');
     }
 
     & a {
@@ -123,13 +123,13 @@
     padding: 0;
     width: 32px;
     height: 32px;
-    background-image: url('./assets/menu_btn_open.svg');
+    background-image: url('../../../../assets/menu_btn_open.svg');
     transition: background-image 0.5s;
 
     @media (max-width:767px) {
       top: 16px;
       background-image: none;
-      mask: url('./assets/menu_btn_open.svg');
+      mask: url('../../../../assets/menu_btn_open.svg');
       background-color: $MainBlack;
     }
   }
@@ -178,7 +178,7 @@
     .BurgerMenu-ToggleButton {
       mask: none;
       background: none;
-      background-image: url('./assets/menu_btn_close.svg');
+      background-image: url('../../../../assets/menu_btn_close.svg');
     }
 
     @media (min-width:768px) {
