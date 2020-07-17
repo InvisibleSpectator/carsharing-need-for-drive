@@ -47,9 +47,6 @@ class Slider extends React.Component {
   }
 
   render = () => {
-    let current = this.state.current;
-    let next = current === this.state.data.length - 1 ? 0 : current + 1;
-    let prev = current === 0 ? this.state.data.length - 1 : current - 1;
     return (
       <div className="Slider">
         <div

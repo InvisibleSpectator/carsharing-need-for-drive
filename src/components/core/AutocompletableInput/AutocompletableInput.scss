@@ -1,0 +1,56 @@
+@import '../../../colors/colors.scss';
+
+.AutocompletableInput {
+  position: relative;
+  width: fit-content;
+
+  &-Input {
+    border: 0;
+    border-bottom: 1px solid $GrayDark;
+  }
+
+  &-Clear {
+    position: absolute;
+    right: 2px;
+    bottom: 25%;
+    width: 8px;
+    height: 8px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: none;
+
+    &_isOpen {
+      display: block;
+    }
+  }
+
+  &-Variants {
+    position: absolute;
+    width: 100%;
+    display: none;
+    // height: 90px;
+    overflow-y: auto;
+
+
+    &-Variant {
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 16px;
+      color: $GrayDark;
+      margin: 3px 0;
+
+      &:hover {
+        color: $MainAccent;
+        cursor: pointer;
+      }
+    }
+
+    &_isOpen {
+      display: block;
+      height: fit-content;
+      max-height: 80px;
+    }
+  }
+
+}
