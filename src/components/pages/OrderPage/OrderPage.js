@@ -38,7 +38,7 @@ class OrderPage extends Component {
           name: "Итого",
           linkNext: "/",
           link: "/total",
-          isDone: false,
+          isDone: true,
           buttonText: "Заказать",
         },
       ],
