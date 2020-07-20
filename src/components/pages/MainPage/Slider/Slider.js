@@ -41,9 +41,7 @@ class Slider extends React.Component {
   };
 
   setActive(index) {
-    this.setState((state) => {
-      return { ...this.state, current: index };
-    });
+    this.setState({ current: index });
   }
 
   render = () => {
@@ -64,7 +62,7 @@ class Slider extends React.Component {
               text={e.text}
               img={e.img}
               key={i}
-              buttonIndex={i%4}
+              buttonIndex={i % 4}
               className={i === this.state.current ? "Slider-Slide_active" : ""}
             ></Slide>
           );

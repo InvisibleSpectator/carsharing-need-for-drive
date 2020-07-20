@@ -4,14 +4,14 @@ import "./AutocompletableInput.scss";
 
 const Variant = (props) => {
   return (
-    <option
+    <p
       className="AutocompletableInput-Variants-Variant"
       onClick={(event) => {
         props.setInputValue(props.text);
       }}
     >
       {props.text}
-    </option>
+    </p>
   );
 };
 
@@ -20,67 +20,59 @@ class AutocompletableInput extends Component {
     super(props);
     this.input = React.createRef();
     this.variants = React.createRef();
-    this.state = { value: "", variants: props.variants || [] };
+    this.state = {
+      value: "",
+      variants: props.variants || [],
+      isDone: false,
+    };
+    this.state.filtered = props.variants.filter((variant) =>
+      variant.toLowerCase().startsWith(this.state.value.toLowerCase())
+    );
   }
 
-  toggleVariants = () => {
-    setTimeout(() => {
-      this.variants.current.classList.toggle(
-        "AutocompletableInput-Variants_isOpen"
-      );
-    }, 38);
+  isDone = () => {
+    return this.state.isDone;
+  };
+
+  getValue = () => {
+    return this.state.value;
   };
 
   setInputValue = (value) => {
-    this.input.current.focus();
     this.setState((state) => {
-      return { ...state, value: value };
-    });
+      return {
+        value: value,
+        filtered: state.variants.filter((variant) =>
+          variant.toLowerCase().startsWith(value.toLowerCase())
+        ),
+        isDone: state.variants.includes(value),
+      };
+    },this.props.onChange);
   };
 
   render = () => {
     return (
-      <div className="AutocompletableInput">
+      <div className={`${this.props.className || ""} AutocompletableInput`}>
         <input
           value={this.state.value}
           className="AutocompletableInput-Input"
           ref={this.input}
-          onFocus={this.toggleVariants}
-          onBlur={() => {
-            this.setState((state) => {
-              return { ...state, value: this.input.current.value.trim() };
-            });
-            this.toggleVariants();
-          }}
           placeholder={this.props.placeholder || ""}
           onChange={() => {
-            this.setState((state) => {
-              return { ...state, value: this.input.current.value.trim() };
-            });
+            this.setInputValue(this.input.current.value.trim());
           }}
-        >
-        </input>
-        {/* <button
-          className={`AutocompletableInput-Clear ${this.input.current.focus}`}
+        ></input>
+        <button
+          className={`AutocompletableInput-Clear`}
           onClick={() => this.setInputValue("")}
-        ></button> */}
-        <datalist
-          className="AutocompletableInput-Variants"
-          ref={this.variants}
-          onClick={(event) => {
-            console.log(event.target);
-          }}
-        >
-          {this.state.variants
-            .filter((variant) =>
-              variant.toLowerCase().startsWith(this.state.value.toLowerCase())
-            )
-            .map((e, i) => {
-              return (
-                <Variant text={e} key={i} setInputValue={this.setInputValue} />
-              );
-            })}
-        </datalist>
+        ></button>
+        <div className="AutocompletableInput-Variants" ref={this.variants}>
+          {this.state.filtered.map((e, i) => {
+            return (
+              <Variant text={e} key={i} setInputValue={this.setInputValue} />
+            );
+          })}
+        </div>
       </div>
     );
   };

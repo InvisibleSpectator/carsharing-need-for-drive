@@ -2,25 +2,50 @@
 
 .AutocompletableInput {
   position: relative;
-  width: fit-content;
+  width: 100%;
+  min-width: 50px;
 
   &-Input {
     border: 0;
     border-bottom: 1px solid $GrayDark;
+    color: $MainBlack;
+    padding-right: 20px;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    width: 100%;
+    font-weight: 300;
+
+    ::placeholder {
+      z-index: 0;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 16px;
+      color: $GrayDark;
+    }
+
+    &:focus~* {
+      display: block;
+    }
   }
 
   &-Clear {
     position: absolute;
     right: 2px;
-    bottom: 25%;
-    width: 8px;
-    height: 8px;
+    bottom: 10%;
+    width: 16px;
+    height: 16px;
     border: 0;
     margin: 0;
     padding: 0;
     display: none;
+    background-color: black;
+    mask: url('../../../assets/menu_btn_close.svg');
+    mask-size: cover;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    cursor: pointer;
 
-    &_isOpen {
+    &:hover {
       display: block;
     }
   }
@@ -29,11 +54,15 @@
     position: absolute;
     width: 100%;
     display: none;
-    // height: 90px;
     overflow-y: auto;
-
+    height: fit-content;
+    max-height: 80px;
+    background-color: white;
+    border: 1px solid $GrayLight;
+    z-index: 6;
 
     &-Variant {
+      background-color: white;
       font-weight: 300;
       font-size: 14px;
       line-height: 16px;
@@ -46,10 +75,8 @@
       }
     }
 
-    &_isOpen {
+    &:hover {
       display: block;
-      height: fit-content;
-      max-height: 80px;
     }
   }
 

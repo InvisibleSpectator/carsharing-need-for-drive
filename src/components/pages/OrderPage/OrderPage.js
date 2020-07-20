@@ -1,14 +1,57 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Header } from "../../core/Header";
 import { BurgerMenu } from "../../core/BurgerMenu";
-import { Button } from "../../core/Button";
 import { Detail } from "./-Detail";
 import "./OrderPage.scss";
-import { AutocompletableInput } from "../../core/AutocompletableInput";
+import { Location } from "./-Location";
+import { Route, Link } from "react-router-dom";
 
 class OrderPage extends Component {
   constructor(props) {
     super(props);
+    this.activePage = React.createRef();
+
+    this.state = {
+      pages: [
+        {
+          name: "Местоположение",
+          linkNext: "/model",
+          link: "/location",
+          isDone: false,
+          buttonText: "Выбрать модель",
+        },
+        {
+          name: "Модель",
+          linkNext: "/extra",
+          link: "/model",
+          isDone: false,
+          buttonText: "Дополнительно",
+        },
+        {
+          name: "Дополнительно",
+          linkNext: "/total",
+          link: "/extra",
+          isDone: false,
+          buttonText: "Итого",
+        },
+        {
+          name: "Итого",
+          linkNext: "/",
+          link: "/total",
+          isDone: false,
+          buttonText: "Заказать",
+        },
+      ],
+      page: 0,
+      location: null,
+      model: null,
+      color: null,
+      duration: null,
+      rate: null,
+      priceLow: 0,
+      priceHigh: 0,
+      isDone: false,
+    };
   }
 
   render = () => {
@@ -23,36 +66,186 @@ class OrderPage extends Component {
           </div>
           <div className="OrderPage-Content-Tabs">
             <div className="OrderPage-ContentWrapper">
-              <span className="OrderPage-Content-Tabs-Tab">Местоположение</span>
-              <span className="OrderPage-Content-Tabs-Tab">Модель</span>
-              <span className="OrderPage-Content-Tabs-Tab">Дополнительно</span>
-              <span className="OrderPage-Content-Tabs-Tab">Итого</span>
+              {this.state.pages.map((e, i) => {
+                return (
+                  <span
+                    className={`OrderPage-Content-Tabs-Tab ${
+                      i < this.state.page
+                        ? "OrderPage-Content-Tabs-Tab_visited"
+                        : i === this.state.page
+                        ? "OrderPage-Content-Tabs-Tab_active"
+                        : ""
+                    }`}
+                    key={i}
+                  >
+                    <Link
+                      to={`/order${e.link}`}
+                      onClick={() => {
+                        this.setState({ page: i });
+                      }}
+                    >
+                      {e.name}
+                    </Link>
+                  </span>
+                );
+              })}
             </div>
           </div>
           <div className="OrderPage-Content-Order">
             <div className="OrderPage-ContentWrapper">
               <div className="OrderPage-Content-Order-Options">
-                <AutocompletableInput placeholder="Выберете город..." variants={["Самара", "Москва", "Ульяновск", "Нижний", "Омск"]}/>
+                <Route
+                  exact
+                  path="/order/location"
+                  render={(props) => (
+                    <Location
+                      ref={this.activePage}
+                      {...props}
+                      onChange={() => {
+                        this.setState((state) => {
+                          const tmp = {
+                            ...state,
+                            location: this.activePage.current.getData(),
+                          };
+                          tmp.pages[
+                            state.page
+                          ].isDone = this.activePage.current.isDone();
+                          return tmp;
+                        });
+                      }}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/order/model"
+                  render={(props) => (
+                    <Location
+                      ref={this.activePage}
+                      {...props}
+                      onChange={() => {
+                        this.setState((state) => {
+                          const tmp = {
+                            ...state,
+                            location: this.activePage.current.getData(),
+                          };
+                          tmp.pages[
+                            state.page
+                          ].isDone = this.activePage.current.isDone();
+                          return tmp;
+                        });
+                      }}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/order/extra"
+                  render={(props) => (
+                    <Location
+                      ref={this.activePage}
+                      {...props}
+                      onChange={() => {
+                        this.setState((state) => {
+                          const tmp = {
+                            ...state,
+                            location: this.activePage.current.getData(),
+                          };
+                          tmp.pages[
+                            state.page
+                          ].isDone = this.activePage.current.isDone();
+                          return tmp;
+                        });
+                      }}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/order/total"
+                  render={(props) => (
+                    <Location
+                      ref={this.activePage}
+                      {...props}
+                      onChange={() => {
+                        this.setState((state) => {
+                          const tmp = {
+                            ...state,
+                            location: this.activePage.current.getData(),
+                          };
+                          tmp.pages[
+                            state.page
+                          ].isDone = this.activePage.current.isDone();
+                          return tmp;
+                        });
+                      }}
+                    />
+                  )}
+                />
               </div>
               <aside className="OrderPage-Content-Order-Details">
                 <span className="OrderPage-Content-Order-Details-Title">
                   Ваш заказ:
                 </span>
                 <div className="OrderPage-Content-Order-Details-Grid">
-                  <Detail
-                    name="Пункт выдачи"
-                    value="Ульяновск, Нариманова 42"
-                  />
-                  <Detail name="Модель" value="Hyndai, i30 N" />
-                  <Detail name="Цвет" value="Голубой" />
+                  {this.state.location ? (
+                    <Detail name="Пункт выдачи" value={this.state.location} />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.model ? (
+                    <Detail name="Модель" value={this.state.model} />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.color ? (
+                    <Detail name="Цвет" value={this.state.color} />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.duration ? (
+                    <Detail
+                      name="Длительность аренды"
+                      value={this.state.duration}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.rate ? (
+                    <Detail name="Тариф" value={this.state.rate} />
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <span className="OrderPage-Content-Order-Details-Price">
                   <span className="OrderPage-Content-Order-Details-Title">
                     Цена:
-                  </span>{" "}
-                  от ,,, до ,,, ₽
+                  </span>
+                  {this.state.priceLow === this.state.priceHigh
+                    ? ` ${this.state.priceHigh}`
+                    : `от ${this.state.priceLow} до ${this.state.priceHigh}`}{" "}
+                  ₽
                 </span>
-                <Button text="Выбрать модель" />
+                <Link
+                  to={`/order${this.state.pages[this.state.page].linkNext}`}
+                  className={`Button Button_max ${
+                    !this.state.pages[this.state.page].isDone
+                      ? "Button_disabled"
+                      : ""
+                  }`}
+                  onClick={() => {
+                    this.setState((state) => {
+                      return {
+                        ...state,
+                        page: state.page + 1,
+                      };
+                    });
+                  }}
+                >
+                  <div className="Button-Text">
+                    {this.state.pages[this.state.page].buttonText}
+                  </div>
+                </Link>
               </aside>
             </div>
           </div>
