@@ -12,32 +12,24 @@ class Slider extends React.Component {
     };
   }
 
-  isReadyToSlide = true;
-
   arrowLeftAction = () => {
-    if (this.isReadyToSlide) {
-      this.isReadyToSlide = false;
-      let tmp = this.state.current;
-      tmp--;
-      if (tmp < 0) {
-        tmp = this.state.data.length - 1;
-      }
-      this.setActive(tmp);
-      setTimeout(() => (this.isReadyToSlide = true), 500);
+    this.isReadyToSlide = false;
+    let tmp = this.state.current;
+    tmp--;
+    if (tmp < 0) {
+      tmp = this.state.data.length - 1;
     }
+    this.setActive(tmp);
   };
 
   arrowRightAction = () => {
-    if (this.isReadyToSlide) {
-      this.isReadyToSlide = false;
-      let tmp = this.state.current;
-      tmp++;
-      if (tmp > this.state.data.length - 1) {
-        tmp = 0;
-      }
-      this.setActive(tmp);
-      setTimeout(() => (this.isReadyToSlide = true), 500);
+    this.isReadyToSlide = false;
+    let tmp = this.state.current;
+    tmp++;
+    if (tmp > this.state.data.length - 1) {
+      tmp = 0;
     }
+    this.setActive(tmp);
   };
 
   setActive(index) {
@@ -47,9 +39,6 @@ class Slider extends React.Component {
   }
 
   render = () => {
-    let current = this.state.current;
-    let next = current === this.state.data.length - 1 ? 0 : current + 1;
-    let prev = current === 0 ? this.state.data.length - 1 : current - 1;
     return (
       <div className="Slider">
         <div
@@ -60,18 +49,25 @@ class Slider extends React.Component {
           className="Slider-Arrow Slider-Arrow_right"
           onClick={this.arrowRightAction}
         ></div>
-        {this.state.data.map((e, i) => {
-          return (
-            <Slide
-              head={e.name}
-              text={e.text}
-              img={e.img}
-              key={i}
-              buttonIndex={i%4}
-              className={i === this.state.current ? "Slider-Slide_active" : ""}
-            ></Slide>
-          );
-        })}
+        <div
+          className="Slider-Belt"
+          style={{ transform: `translateX(-${100 * this.state.current}%)` }}
+        >
+          {this.state.data.map((e, i) => {
+            return (
+              <Slide
+                head={e.name}
+                text={e.text}
+                img={e.img}
+                key={i}
+                buttonIndex={i % 4}
+                className={
+                  i === this.state.current ? "Slider-Slide_active" : ""
+                }
+              ></Slide>
+            );
+          })}
+        </div>
         <div className="Slider-Dots">
           {this.state.data.map((e, i) => {
             return (

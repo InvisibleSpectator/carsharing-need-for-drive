@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../../../../core/Button";
 
 const Slide = (props) => {
+  console.log(props)
   return (
     <section
       className={`${props.className} Slider-Slide`}
@@ -12,7 +13,10 @@ const Slide = (props) => {
       <div className="Slider-Slide-Content ">
         <h2 className="Slider-Slide-Name">{props.head}</h2>
         <p className="Slider-Slide-Text">{props.text}</p>
-        <Button text="Подробнее" className={`Button_slider Button_slider_index_${props.buttonIndex}`}></Button>
+        <Button
+          text="Подробнее"
+          className={`Button_slider Button_slider_index_${props.buttonIndex}`}
+        ></Button>
       </div>
     </section>
   );

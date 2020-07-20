@@ -57,11 +57,11 @@
 
     &:hover,
     &:focus {
-      background: linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%);
+      background: linear-gradient(90deg, darken(#0EC261,10%) 2.61%, darken(#039F67,10%) 112.6%);
     }
 
     &:active {
-      background: linear-gradient(90deg, #076432 2.61%, #013C27 112.6%);
+      background: linear-gradient(90deg, darken(#0EC261,20%) 2.61%, darken(#039F67,20%) 112.6%);
     }
 
 
@@ -83,18 +83,50 @@
 
       &_0 {
         background: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
+        &:hover,
+        &:focus {
+          background: linear-gradient(90deg, darken(#13493F,10%) 2.61%, darken(#0C7B1B,10%) 112.6%);
+        }
+    
+        &:active {
+          background: linear-gradient(90deg, darken(#13493F,20%) 2.61%, darken(#0C7B1B,20%) 112.6%);
+        }
       }
 
       &_1 {
         background: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
+        &:hover,
+        &:focus {
+          background: linear-gradient(90deg, darken(#132949,10%) 2.61%, darken(#0C7B67,10%) 112.6%);
+        }
+    
+        &:active {
+          background: linear-gradient(90deg, darken(#132949,20%) 2.61%, darken(#0C7B67,20%) 112.6%);
+        }
       }
 
       &_2 {
         background: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
+        &:hover,
+        &:focus {
+          background: linear-gradient(90deg, darken(#493013,10%) 2.61%, darken(#7B0C3B,10%) 112.6%);
+        }
+    
+        &:active {
+          background: linear-gradient(90deg, darken(#493013,20%) 2.61%, darken(#7B0C3B,20%) 112.6%);
+        }
       }
 
       &_3 {
         background: linear-gradient(90deg, #281349 0%, #720C7B 100%);
+        &:hover,
+        &:focus {
+          background: linear-gradient(90deg, darken(#281349,10%) 2.61%, darken(#720C7B,10%) 112.6%);
+        }
+    
+        &:active {
+          background: linear-gradient(90deg, darken(#281349,20%) 2.61%, darken(#720C7B,20%) 112.6%);
+        }
       }
     }
   }
