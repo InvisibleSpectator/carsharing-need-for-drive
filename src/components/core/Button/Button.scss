@@ -12,6 +12,12 @@
   position: relative;
   width: fit-content;
   cursor: pointer;
+text-decoration: none;
+
+  &_max{
+    @extend .Button_default;
+    width: 100%;
+  }
 
   &-Spinner {
     position: absolute;
@@ -44,13 +50,7 @@
     background: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
   }
 
-  &_disabled {
-    background-color: $GrayLight;
-  }
 
-  &_decline {
-    background: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
-  }
 
   &_default {
     background: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
@@ -65,6 +65,15 @@
     }
 
 
+  }
+
+  &_disabled {
+    background: $GrayLight !important;
+    pointer-events:none;
+  }
+
+  &_decline {
+    background: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
   }
 
   &_main {

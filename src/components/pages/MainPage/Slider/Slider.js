@@ -33,9 +33,7 @@ class Slider extends React.Component {
   };
 
   setActive(index) {
-    this.setState((state) => {
-      return { ...this.state, current: index };
-    });
+    this.setState({ current: index });
   }
 
   render = () => {

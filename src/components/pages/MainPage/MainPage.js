@@ -16,7 +16,13 @@ const MainPage = () => {
           <p>Каршеринг</p>
           <p>Need for drive</p>
           <p>Поминутная аренда авто твоего города</p>
-          <Button text="Забронировать" className="Button_main"></Button>
+          <Button
+            text="Забронировать"
+            className="Button_main"
+            onClick={() => {
+              window.location.href = "/order/location";
+            }}
+          />
         </main>
         <footer className="MainPage-MainContent-Footer">
           <span className="MainPage-MainContent-Footer-Copyright">

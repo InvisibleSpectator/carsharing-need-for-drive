@@ -1,15 +1,17 @@
 import React from "react";
-import './Header.scss'
+import "./Header.scss";
 const Header = () => {
   return (
     <header className="Header">
-      <h1 className="Header-Head">Need for drive</h1>
+      <a href="/carsharing-need-for-drive">
+        <h1 className="Header-Head">Need for drive</h1>
+      </a>
       <div className="Header-Location">
-        <img src={require("../../../assets/marker.svg")} />
+        <img src={require("../../../assets/marker.svg")} alt="marker" />
         <span>Ульяновск</span>
       </div>
     </header>
   );
 };
 
-export default Header
+export default Header;
