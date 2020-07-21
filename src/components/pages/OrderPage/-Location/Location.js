@@ -28,8 +28,12 @@ class Location extends Component {
           (this.addressInput.current.getValue() &&
             this.addressInput.current.isDone())
             ? {
-                city: this.cityInput.current.getValue(),
-                address: this.addressInput.current.getValue(),
+                city: this.cityInput.current.isDone()
+                  ? this.cityInput.current.getValue()
+                  : "",
+                address: this.addressInput.current.isDone()
+                  ? this.addressInput.current.getValue()
+                  : "",
               }
             : null,
         isDone:
