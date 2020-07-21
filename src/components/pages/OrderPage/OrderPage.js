@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { Header } from "../../core/Header";
 import { BurgerMenu } from "../../core/BurgerMenu";
 import { Detail } from "./-Detail";
-import "./OrderPage.scss";
 import { Location } from "./-Location";
+import {Model} from "./Model";
 import { Route, Link } from "react-router-dom";
+
+import "./OrderPage.scss";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -120,14 +122,14 @@ class OrderPage extends Component {
                   exact
                   path="/order/model"
                   render={(props) => (
-                    <Location
+                    <Model
                       ref={this.activePage}
                       {...props}
                       onChange={() => {
                         this.setState((state) => {
                           const tmp = {
                             ...state,
-                            location: this.activePage.current.getData(),
+                            model: this.activePage.current.getData(),
                           };
                           tmp.pages[
                             state.page
