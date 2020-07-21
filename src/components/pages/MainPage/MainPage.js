@@ -24,6 +24,7 @@ const MainPage = () => {
           </span>
           <Link
             className="MainPage-MainContent-Footer-Tel Link_footer"
+            href="tel:84952342244"
             text="8 (495) 234-22-44"
           ></Link>
         </footer>

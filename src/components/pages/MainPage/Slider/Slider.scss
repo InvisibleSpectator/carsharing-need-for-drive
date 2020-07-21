@@ -67,29 +67,17 @@
     }
   }
 
-  &-Slide {
+  &-Belt {
+    display: flex;
     width: 100%;
-    position: absolute;
-    height: 100%;
-    z-index: 0;
     transition: transform 0.5s ease-in-out;
+  }
 
-    right: 100%;
+  &-Slide {
+    min-width: 100%;
+    position: static;
+    height: 100%;
 
-
-    &:first-of-type,
-    &:last-of-type {
-      z-index: 2;
-    }
-
-    &_active~& {
-      transform: translateX(200%);
-    }
-
-
-    &_active {
-      transform: translateX(100%);
-    }
 
     overflow: hidden;
     background-position: center;
