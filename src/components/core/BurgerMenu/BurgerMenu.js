@@ -22,19 +22,16 @@ class BurgerMenu extends React.Component {
 
         <div className="BurgerMenu-Contaner">
           <div className="BurgerMenu-Draver">
-            <ul className="BurgerMenu-Content">
-              <li>
-                <Link text="ПАРКОВКА" className="Link_bg_black_white" />
-              </li>
-              <li>
-                <Link text="СТРАХОВКА" className="Link_bg_black_white" />
-              </li>
-              <li>
-                <Link text="БЕНЗИН" className="Link_bg_black_white" />
-              </li>
-              <li>
-                <Link text="ОБСЛУЖИВАНИЕ" className="Link_bg_black_white" />
-              </li>
+          <ul className="BurgerMenu-Content">
+              {["ПАРКОВКА", "СТРАХОВКА", "БЕНЗИН", "ОБСЛУЖИВАНИЕ"].map(
+                (e, i) => {
+                  return (
+                    <li>
+                      <Link text={e} key={i} className="Link_bg_black_white" />
+                    </li>
+                  );
+                }
+              )}
             </ul>
             <div className="BurgerMenu-SN">
               <a
