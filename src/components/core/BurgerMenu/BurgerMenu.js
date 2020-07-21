@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React from "react";
 import "./BurgerMenu.scss";
 import { Link } from "../Link";
@@ -22,7 +23,7 @@ class BurgerMenu extends React.Component {
 
         <div className="BurgerMenu-Contaner">
           <div className="BurgerMenu-Draver">
-          <ul className="BurgerMenu-Content">
+            <ul className="BurgerMenu-Content">
               {["ПАРКОВКА", "СТРАХОВКА", "БЕНЗИН", "ОБСЛУЖИВАНИЕ"].map(
                 (e, i) => {
                   return (

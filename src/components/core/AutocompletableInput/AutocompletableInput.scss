@@ -1,4 +1,4 @@
-@import '../../../colors/colors.scss';
+@import "../../../colors/colors.scss";
 
 .AutocompletableInput {
   position: relative;
@@ -23,7 +23,7 @@
       color: $GrayDark;
     }
 
-    &:focus~* {
+    &:focus ~ * {
       display: block;
     }
   }
@@ -39,7 +39,7 @@
     padding: 0;
     display: none;
     background-color: black;
-    mask: url('../../../assets/menu_btn_close.svg');
+    mask: url("../../../assets/menu_btn_close.svg");
     mask-size: cover;
     mask-position: center;
     mask-repeat: no-repeat;
@@ -79,5 +79,4 @@
       display: block;
     }
   }
-
 }

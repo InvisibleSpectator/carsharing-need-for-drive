@@ -41,13 +41,19 @@ class AutocompletableInput extends Component {
   setInputValue = (value) => {
     this.setState((state) => {
       return {
-        value: value,
+        value: state.variants.includes(value)
+          ? value
+          : state.variants.find((e, i) => {
+              return e.toLowerCase() === value.toLowerCase(value);
+            }) || value,
         filtered: state.variants.filter((variant) =>
           variant.toLowerCase().startsWith(value.toLowerCase())
         ),
-        isDone: state.variants.includes(value),
+        isDone: state.variants.some((e, i) => {
+          return e.toLowerCase() === value.toLowerCase(value);
+        }),
       };
-    },this.props.onChange);
+    }, this.props.onChange);
   };
 
   render = () => {
@@ -67,11 +73,25 @@ class AutocompletableInput extends Component {
           onClick={() => this.setInputValue("")}
         ></button>
         <div className="AutocompletableInput-Variants" ref={this.variants}>
-          {this.state.filtered.map((e, i) => {
-            return (
-              <Variant text={e} key={i} setInputValue={this.setInputValue} />
-            );
-          })}
+          {this.state.value.length >= 2
+            ? this.state.filtered.map((e, i) => {
+                return (
+                  <Variant
+                    text={e}
+                    key={i}
+                    setInputValue={this.setInputValue}
+                  />
+                );
+              })
+            : this.state.variants.map((e, i) => {
+                return (
+                  <Variant
+                    text={e}
+                    key={i}
+                    setInputValue={this.setInputValue}
+                  />
+                );
+              })}
         </div>
       </div>
     );

@@ -23,8 +23,10 @@ class Location extends Component {
     this.setState((state) => {
       return {
         data:
-          this.cityInput.current.getValue() ||
-          this.addressInput.current.getValue()
+          (this.cityInput.current.getValue() &&
+            this.cityInput.current.isDone()) ||
+          (this.addressInput.current.getValue() &&
+            this.addressInput.current.isDone())
             ? {
                 city: this.cityInput.current.getValue(),
                 address: this.addressInput.current.getValue(),
@@ -65,7 +67,10 @@ class Location extends Component {
         <div className="Location-Map">
           <span>Выбрать на карте:</span>
           <div className="Location-Map-MapBox">
-            <img src={require("../../../../assets/Rectangle.png")} alt="map"></img>
+            <img
+              src={require("../../../../assets/Rectangle.png")}
+              alt="map"
+            ></img>
           </div>
         </div>
       </div>
