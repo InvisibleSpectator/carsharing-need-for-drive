@@ -1,4 +1,4 @@
-@import '../../../../colors/colors.scss';
+@import "../../../../colors/colors.scss";
 
 .Slider {
   position: relative;
@@ -16,7 +16,7 @@
     position: absolute;
     width: 32px;
 
-    @media (min-width:1440px) {
+    @media (min-width: 1440px) {
       width: 64px;
     }
 
@@ -78,7 +78,6 @@
     position: static;
     height: 100%;
 
-
     overflow: hidden;
     background-position: center;
     background-repeat: no-repeat;
@@ -96,7 +95,7 @@
       padding-top: 285px;
       background-blend-mode: overlay;
 
-      @media (min-width:1440px) {
+      @media (min-width: 1440px) {
         padding-left: 96px;
         padding-right: 96px;
         padding-top: 237px;
@@ -107,7 +106,7 @@
       font-weight: 500;
       font-size: 40px;
       line-height: 47px;
-      color: #FFFFFF;
+      color: #ffffff;
     }
 
     &-Text {

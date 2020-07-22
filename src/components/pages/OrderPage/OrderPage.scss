@@ -1,17 +1,16 @@
-@import '../../../colors/colors.scss';
+@import "../../../colors/colors.scss";
 
 .OrderPage {
   box-sizing: border-box;
   display: flex;
 
-
   &-HeaderContaner {
     padding: 32px 0;
 
-    @media (max-width:767px) {
+    @media (max-width: 767px) {
       padding: 0;
 
-      @media (orientation:portrait) {
+      @media (orientation: portrait) {
         position: sticky;
         top: 0;
       }
@@ -36,11 +35,10 @@
     padding-right: 64px;
     display: flex;
 
-    @media (max-width:1023px) {
+    @media (max-width: 1023px) {
       padding-left: 32px;
       padding-right: 32px;
     }
-
   }
 
   &-Content {
@@ -64,21 +62,21 @@
       font-size: 14px;
       line-height: 16px;
 
-      &>* {
+      & > * {
         align-items: center;
       }
 
       &-Tab {
-        &_active{
+        &_active {
           color: $MainAccent;
-          &~*{
-            pointer-events:none;
+          & ~ * {
+            pointer-events: none;
           }
         }
-        &_visited{
+        &_visited {
           color: $MainBlack;
         }
-        a{
+        a {
           text-decoration: none;
           color: inherit;
         }
@@ -96,9 +94,9 @@
       display: flex;
       height: 100%;
 
-      &>* {
-        @media (max-width:767px) {
-          flex-direction: column;
+      & > * {
+        @media (max-width: 767px) {
+          flex-direction: column-reverse;
         }
       }
 
@@ -111,10 +109,9 @@
         flex-direction: column;
         padding-right: 64px;
         box-sizing: border-box;
-        @media (max-width:767px) {
+        @media (max-width: 767px) {
           padding-right: 0;
           padding-left: 0;
-
         }
       }
 
@@ -129,7 +126,7 @@
         flex-direction: column;
         align-items: flex-end;
 
-        @media (max-width:767px) {
+        @media (max-width: 767px) {
           padding-right: 0;
           padding-left: 0;
           border: 0;
@@ -195,10 +192,4 @@
       }
     }
   }
-
-
-
-
-
-
 }

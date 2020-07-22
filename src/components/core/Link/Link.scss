@@ -1,4 +1,4 @@
-@import '../../../colors/colors.scss';
+@import "../../../colors/colors.scss";
 
 .Link {
   text-decoration: none;
@@ -32,7 +32,7 @@
     }
   }
 
-  &_footer{
+  &_footer {
     color: $MainBlack;
 
     &:hover,
@@ -40,7 +40,7 @@
       color: $MainAccent;
     }
 
-    @media (max-width:767px) {
+    @media (max-width: 767px) {
       color: $MainAccent;
 
       &:hover,
