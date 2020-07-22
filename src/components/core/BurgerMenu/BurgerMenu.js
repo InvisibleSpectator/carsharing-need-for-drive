@@ -27,7 +27,7 @@ class BurgerMenu extends React.Component {
               {["ПАРКОВКА", "СТРАХОВКА", "БЕНЗИН", "ОБСЛУЖИВАНИЕ"].map(
                 (e, i) => {
                   return (
-                    <li>
+                    <li key={i}>
                       <Link text={e} key={i} className="Link_bg_black_white" />
                     </li>
                   );

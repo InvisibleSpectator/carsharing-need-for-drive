@@ -1,15 +1,14 @@
-
-@import '../../../colors/colors.scss';
+@import "../../../colors/colors.scss";
 .Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  a{
+  a {
     text-decoration: none;
   }
-  @media (max-width:767px) {
+  @media (max-width: 767px) {
     flex-direction: column;
     align-items: flex-end;
     padding-right: 16px;
@@ -17,7 +16,6 @@
     padding-bottom: 16px;
     background-color: white;
   }
-
 
   &-Head {
     font-weight: bold;

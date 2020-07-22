@@ -1,4 +1,4 @@
-@import '../../../colors/colors.scss';
+@import "../../../colors/colors.scss";
 
 .Button {
   box-sizing: border-box;
@@ -12,9 +12,9 @@
   position: relative;
   width: fit-content;
   cursor: pointer;
-text-decoration: none;
+  text-decoration: none;
 
-  &_max{
+  &_max {
     @extend .Button_default;
     width: 100%;
   }
@@ -47,39 +47,43 @@ text-decoration: none;
   }
 
   &_loading {
-    background: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
+    background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
   }
 
-
-
   &_default {
-    background: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
+    background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
 
     &:hover,
     &:focus {
-      background: linear-gradient(90deg, darken(#0EC261,10%) 2.61%, darken(#039F67,10%) 112.6%);
+      background: linear-gradient(
+        90deg,
+        darken(#0ec261, 10%) 2.61%,
+        darken(#039f67, 10%) 112.6%
+      );
     }
 
     &:active {
-      background: linear-gradient(90deg, darken(#0EC261,20%) 2.61%, darken(#039F67,20%) 112.6%);
+      background: linear-gradient(
+        90deg,
+        darken(#0ec261, 20%) 2.61%,
+        darken(#039f67, 20%) 112.6%
+      );
     }
-
-
   }
 
   &_disabled {
     background: $GrayLight !important;
-    pointer-events:none;
+    pointer-events: none;
   }
 
   &_decline {
-    background: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
+    background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
   }
 
   &_main {
     @extend .Button_default;
 
-    @media (max-width:767px) {
+    @media (max-width: 767px) {
       border-radius: 0;
       width: 100%;
     }
@@ -89,52 +93,83 @@ text-decoration: none;
     border-radius: 4px;
 
     &_index {
-
       &_0 {
-        background: linear-gradient(90deg, #13493F 0%, #0C7B1B 100%);
+        background: linear-gradient(90deg, #13493f 0%, #0c7b1b 100%);
         &:hover,
         &:focus {
-          background: linear-gradient(90deg, darken(#13493F,10%) 2.61%, darken(#0C7B1B,10%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#13493f, 10%) 2.61%,
+            darken(#0c7b1b, 10%) 112.6%
+          );
         }
-    
+
         &:active {
-          background: linear-gradient(90deg, darken(#13493F,20%) 2.61%, darken(#0C7B1B,20%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#13493f, 20%) 2.61%,
+            darken(#0c7b1b, 20%) 112.6%
+          );
         }
       }
 
       &_1 {
-        background: linear-gradient(90deg, #132949 0%, #0C7B67 100%);
+        background: linear-gradient(90deg, #132949 0%, #0c7b67 100%);
         &:hover,
         &:focus {
-          background: linear-gradient(90deg, darken(#132949,10%) 2.61%, darken(#0C7B67,10%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#132949, 10%) 2.61%,
+            darken(#0c7b67, 10%) 112.6%
+          );
         }
-    
+
         &:active {
-          background: linear-gradient(90deg, darken(#132949,20%) 2.61%, darken(#0C7B67,20%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#132949, 20%) 2.61%,
+            darken(#0c7b67, 20%) 112.6%
+          );
         }
       }
 
       &_2 {
-        background: linear-gradient(90deg, #493013 0%, #7B0C3B 100%);
+        background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
         &:hover,
         &:focus {
-          background: linear-gradient(90deg, darken(#493013,10%) 2.61%, darken(#7B0C3B,10%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#493013, 10%) 2.61%,
+            darken(#7b0c3b, 10%) 112.6%
+          );
         }
-    
+
         &:active {
-          background: linear-gradient(90deg, darken(#493013,20%) 2.61%, darken(#7B0C3B,20%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#493013, 20%) 2.61%,
+            darken(#7b0c3b, 20%) 112.6%
+          );
         }
       }
 
       &_3 {
-        background: linear-gradient(90deg, #281349 0%, #720C7B 100%);
+        background: linear-gradient(90deg, #281349 0%, #720c7b 100%);
         &:hover,
         &:focus {
-          background: linear-gradient(90deg, darken(#281349,10%) 2.61%, darken(#720C7B,10%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#281349, 10%) 2.61%,
+            darken(#720c7b, 10%) 112.6%
+          );
         }
-    
+
         &:active {
-          background: linear-gradient(90deg, darken(#281349,20%) 2.61%, darken(#720C7B,20%) 112.6%);
+          background: linear-gradient(
+            90deg,
+            darken(#281349, 20%) 2.61%,
+            darken(#720c7b, 20%) 112.6%
+          );
         }
       }
     }
