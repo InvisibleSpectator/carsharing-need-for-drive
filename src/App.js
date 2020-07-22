@@ -1,6 +1,6 @@
 import React from "react";
-import { MainPage } from "./components/pages/MainPage";
-import { OrderPage } from "./components/pages/OrderPage";
+import { MainPage } from "./pages/MainPage";
+import { OrderPage } from "./pages/OrderPage";
 import { Switch, Route } from "react-router-dom";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/carsharing-need-for-drive" component={MainPage} />
-        <Route path="/order" component={OrderPage}/>
+        <Route path="/order" component={OrderPage} />
       </Switch>
     </div>
   );
