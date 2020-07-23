@@ -7,6 +7,7 @@ import { Model } from "../../components/Model";
 import { Route, Link } from "react-router-dom";
 
 import "./OrderPage.scss";
+import Extra from "../../components/Extra/Extra";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class OrderPage extends Component {
           name: "Модель",
           linkNext: "/extra",
           link: "/model",
-          isDone: false,
+          isDone: true,
           buttonText: "Дополнительно",
         },
         {
@@ -144,7 +145,7 @@ class OrderPage extends Component {
                   exact
                   path="/order/extra"
                   render={(props) => (
-                    <Location
+                    <Extra
                       ref={this.activePage}
                       {...props}
                       onChange={() => {
