@@ -1,13 +1,13 @@
 import React, { Component } from "react";
+import { Button } from "../../core/Button";
 import { Header } from "../../core/Header";
 import { BurgerMenu } from "../../core/BurgerMenu";
-import { Button } from "../../core/Button";
 import { Detail } from "../../components/Detail";
 import { Location } from "../../components/Location";
 import { Model } from "../../components/Model";
 
 import "./OrderPage.scss";
-import Extra from "../../components/Extra/Extra";
+import { Extra } from "../../components/Extra";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -18,33 +18,26 @@ class OrderPage extends Component {
       pages: [
         {
           name: "Местоположение",
-          linkNext: "/model",
-          link: "/location",
           isDone: false,
           buttonText: "Выбрать модель",
         },
         {
           name: "Модель",
-          linkNext: "/extra",
-          link: "/model",
           isDone: false,
           buttonText: "Дополнительно",
         },
         {
           name: "Дополнительно",
-          linkNext: "/total",
-          link: "/extra",
           isDone: false,
           buttonText: "Итого",
         },
         {
           name: "Итого",
-          linkNext: "/",
-          link: "/total",
-          isDone: true,
+          isDone: false,
           buttonText: "Заказать",
         },
       ],
+      car: null,
       page: 0,
       rate: {},
       dateFrom: 0,
