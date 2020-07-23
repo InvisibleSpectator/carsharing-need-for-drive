@@ -13,50 +13,46 @@ class BurgerMenu extends React.Component {
     this.BurgerMenu.current.classList.toggle("BurgerMenu_isOpened");
   };
 
-  render = () => {
-    return (
-      <aside className="BurgerMenu" ref={this.BurgerMenu}>
-        <label
-          className="BurgerMenu-ToggleButton"
-          onClick={this.toggleBurger}
-        />
+  render = () => (
+    <aside className="BurgerMenu" ref={this.BurgerMenu}>
+      <div
+        className="BurgerMenu-ToggleButton"
+        onClick={this.toggleBurger}
+        role="button"
+        onKeyDown={this.toggleBurger}
+      />
 
-        <div className="BurgerMenu-Contaner">
-          <div className="BurgerMenu-Draver">
-            <ul className="BurgerMenu-Content">
-              {["ПАРКОВКА", "СТРАХОВКА", "БЕНЗИН", "ОБСЛУЖИВАНИЕ"].map(
-                (e, i) => {
-                  return (
-                    <li key={i}>
-                      <Link text={e} className="Link_bg_black_white" />
-                    </li>
-                  );
-                }
-              )}
-            </ul>
-            <div className="BurgerMenu-SN">
-              <a
-                href="https://telegram.org/"
-                className="BurgerMenu-SN_telegram"
-              ></a>
-              <a
-                href="https://ru-ru.facebook.com/"
-                className="BurgerMenu-SN_facebook"
-              ></a>
-              <a
-                href="https://www.instagram.com/?hl=ru"
-                className="BurgerMenu-SN_instagram"
-              ></a>
-            </div>
+      <div className="BurgerMenu-Contaner">
+        <div className="BurgerMenu-Draver">
+          <ul className="BurgerMenu-Content">
+            {["ПАРКОВКА", "СТРАХОВКА", "БЕНЗИН", "ОБСЛУЖИВАНИЕ"].map((e, i) => (
+              <li key={i}>
+                <Link text={e} className="Link_bg_black_white" />
+              </li>
+            ))}
+          </ul>
+          <div className="BurgerMenu-SN">
+            <a
+              href="https://telegram.org/"
+              className="BurgerMenu-SN_telegram"
+            />
+            <a
+              href="https://ru-ru.facebook.com/"
+              className="BurgerMenu-SN_facebook"
+            />
+            <a
+              href="https://www.instagram.com/?hl=ru"
+              className="BurgerMenu-SN_instagram"
+            />
           </div>
-          <div className="BurgerMenu-Background" onClick={this.toggleBurger} />
         </div>
-        <button className="BurgerMenu-LangButton">
-          <span>ENG</span>
-        </button>
-      </aside>
-    );
-  };
+        <div className="BurgerMenu-Background" onClick={this.toggleBurger} />
+      </div>
+      <button className="BurgerMenu-LangButton" type="button">
+        <span>ENG</span>
+      </button>
+    </aside>
+  );
 }
 
 export default BurgerMenu;

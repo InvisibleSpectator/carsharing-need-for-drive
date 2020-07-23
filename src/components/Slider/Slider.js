@@ -12,6 +12,10 @@ class Slider extends React.Component {
     };
   }
 
+  setActive(index) {
+    this.setState({ current: index });
+  }
+
   arrowLeftAction = () => {
     this.isReadyToSlide = false;
     let tmp = this.state.current;
@@ -32,58 +36,54 @@ class Slider extends React.Component {
     this.setActive(tmp);
   };
 
-  setActive(index) {
-    this.setState({ current: index });
-  }
-
-  render = () => {
-    return (
-      <div className="Slider">
-        <div
-          className="Slider-Arrow Slider-Arrow_left"
-          onClick={this.arrowLeftAction}
-        ></div>
-        <div
-          className="Slider-Arrow Slider-Arrow_right"
-          onClick={this.arrowRightAction}
-        ></div>
-        <div
-          className="Slider-Belt"
-          style={{ transform: `translateX(-${100 * this.state.current}%)` }}
-        >
-          {this.state.data.map((e, i) => {
-            return (
-              <Slide
-                head={e.name}
-                text={e.text}
-                img={e.img}
-                key={i}
-                buttonIndex={i % 4}
-                className={
-                  i === this.state.current ? "Slider-Slide_active" : ""
-                }
-              ></Slide>
-            );
-          })}
-        </div>
-        <div className="Slider-Dots">
-          {this.state.data.map((e, i) => {
-            return (
-              <div
-                className={`${
-                  i === this.state.current ? "Slider-Dot_active " : ""
-                }Slider-Dot`}
-                key={i}
-                onClick={() => {
-                  this.setActive(i);
-                }}
-              ></div>
-            );
-          })}
-        </div>
+  render = () => (
+    <div className="Slider">
+      <div
+        role="button"
+        className="Slider-Arrow Slider-Arrow_left"
+        onClick={this.arrowLeftAction}
+        onKeyDown={this.arrowLeftAction}
+      />
+      <div
+        role="button"
+        className="Slider-Arrow Slider-Arrow_right"
+        onClick={this.arrowRightAction}
+        onKeyDown={this.arrowRightAction}
+      />
+      <div
+        className="Slider-Belt"
+        style={{ transform: `translateX(-${100 * this.state.current}%)` }}
+      >
+        {this.state.data.map((e, i) => (
+          <Slide
+            head={e.name}
+            text={e.text}
+            img={e.img}
+            key={i}
+            buttonIndex={i % 4}
+            className={i === this.state.current ? "Slider-Slide_active" : ""}
+          />
+        ))}
       </div>
-    );
-  };
+      <div className="Slider-Dots">
+        {this.state.data.map((e, i) => (
+          <div
+            className={`${
+              i === this.state.current ? "Slider-Dot_active " : ""
+            }Slider-Dot`}
+            key={i}
+            onClick={() => {
+              this.setActive(i);
+            }}
+            role="button"
+            onKeyDown={() => {
+              this.setActive(i);
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default Slider;

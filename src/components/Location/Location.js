@@ -11,17 +11,13 @@ class Location extends Component {
     this.state = { isDone: false, data: { city: "", address: "" } };
   }
 
-  getData = () => {
-    return this.state.data;
-  };
+  getData = () => this.state.data;
 
-  isDone = () => {
-    return this.state.isDone;
-  };
+  isDone = () => this.state.isDone;
 
   updateData = () => {
-    this.setState((state) => {
-      return {
+    this.setState(
+      () => ({
         data:
           (this.cityInput.current.getValue() &&
             this.cityInput.current.isDone()) ||
@@ -38,45 +34,44 @@ class Location extends Component {
             : null,
         isDone:
           this.cityInput.current.isDone() && this.addressInput.current.isDone(),
-      };
-    }, this.props.onChange);
-  };
-
-  render = () => {
-    return (
-      <div className="Location">
-        <div className="Location-EditableFields">
-          <span>Город</span>
-          <AutocompletableInput
-            ref={this.cityInput}
-            onChange={() => this.updateData()}
-            placeholder="Начните вводить город выдачи"
-            variants={[
-              "Самара",
-              "Москва",
-              "Ульяновск",
-              "Саратов",
-              "Нижний",
-              "Омск",
-            ]}
-          />
-          <span>Пункт выдачи</span>
-          <AutocompletableInput
-            ref={this.addressInput}
-            onChange={() => this.updateData()}
-            placeholder="Начните вводить пункт выдачи"
-            variants={["Выше", "Ниже", "Левее", "Правее", "Центр", "Омск"]}
-          />
-        </div>
-        <div className="Location-Map">
-          <span>Выбрать на карте:</span>
-          <div className="Location-Map-MapBox">
-            <img src={require("../../assets/Rectangle.png")} alt="map"></img>
-          </div>
-        </div>
-      </div>
+      }),
+      this.props.onChange
     );
   };
+
+  render = () => (
+    <div className="Location">
+      <div className="Location-EditableFields">
+        <span>Город</span>
+        <AutocompletableInput
+          ref={this.cityInput}
+          onChange={() => this.updateData()}
+          placeholder="Начните вводить город выдачи"
+          variants={[
+            "Самара",
+            "Москва",
+            "Ульяновск",
+            "Саратов",
+            "Нижний",
+            "Омск",
+          ]}
+        />
+        <span>Пункт выдачи</span>
+        <AutocompletableInput
+          ref={this.addressInput}
+          onChange={() => this.updateData()}
+          placeholder="Начните вводить пункт выдачи"
+          variants={["Выше", "Ниже", "Левее", "Правее", "Центр", "Омск"]}
+        />
+      </div>
+      <div className="Location-Map">
+        <span>Выбрать на карте:</span>
+        <div className="Location-Map-MapBox">
+          <img src={require("../../assets/Rectangle.png")} alt="map" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Location;

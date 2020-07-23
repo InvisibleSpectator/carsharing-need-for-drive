@@ -67,15 +67,16 @@
       }
 
       &-Tab {
+        &_visited {
+          color: $MainBlack;
+        }
         &_active {
           color: $MainAccent;
           & ~ * {
             pointer-events: none;
           }
         }
-        &_visited {
-          color: $MainBlack;
-        }
+
         a {
           text-decoration: none;
           color: inherit;

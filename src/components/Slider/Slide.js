@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "../../core/Button";
 
 const Slide = (props) => {
-  console.log(props);
   return (
     <section
       className={`${props.className} Slider-Slide`}
@@ -16,7 +15,7 @@ const Slide = (props) => {
         <Button
           text="Подробнее"
           className={`Button_slider Button_slider_index_${props.buttonIndex}`}
-        ></Button>
+        />
       </div>
     </section>
   );

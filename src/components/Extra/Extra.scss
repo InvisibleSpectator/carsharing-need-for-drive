@@ -1,0 +1,31 @@
+@import "../../assets/style/colors.scss";
+
+.Extra {
+  &-Titie {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    color: $MainBlack;
+  }
+
+  &-Colors {
+    display: flex;
+  }
+  &-TimeRange {
+    display: grid;
+    grid-template-columns: max-content fit-content(224px);
+    grid-auto-rows: auto;
+    column-gap: 10px;
+    row-gap: 8px;
+    &-Input {
+      border: 0;
+      border-bottom: 1px solid $GrayDark;
+      color: $MainBlack;
+
+      text-overflow: ellipsis;
+      box-sizing: border-box;
+      width: 100%;
+      font-weight: 300;
+    }
+  }
+}
