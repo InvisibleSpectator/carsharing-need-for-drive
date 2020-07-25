@@ -91,12 +91,12 @@ class Extra extends Component {
               }
               type="datetime-local"
               onChange={(e) => {
-                const date = e.target.value;
+                const date = new Date(e.target.value);
                 this.setState((state) => {
                   return {
                     data: {
                       ...state.data,
-                      dateFrom: new Date(date),
+                      dateFrom: date.getTime(),
                     },
                   };
                 }, this.setDone);
@@ -114,12 +114,12 @@ class Extra extends Component {
                   : this.formatDate(new Date(this.state.data.dateTo))
               }
               onChange={(e) => {
-                const date = e.target.value;
+                const date = new Date(e.target.value);
                 this.setState((state) => {
                   return {
                     data: {
                       ...state.data,
-                      dateTo: new Date(date),
+                      dateTo: date.getTime(),
                     },
                   };
                 }, this.setDone);
