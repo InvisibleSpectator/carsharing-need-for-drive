@@ -67,14 +67,15 @@
       }
 
       &-Tab {
+        pointer-events: none;
         &_visited {
+          pointer-events: initial;
           color: $MainBlack;
+          cursor: pointer;
         }
         &_active {
+          pointer-events: initial;
           color: $MainAccent;
-          & ~ * {
-            pointer-events: none;
-          }
         }
 
         a {

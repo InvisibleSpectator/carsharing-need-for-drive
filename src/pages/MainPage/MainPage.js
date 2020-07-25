@@ -19,7 +19,7 @@ const MainPage = () => (
           text="Забронировать"
           className="Button_main"
           onClick={() => {
-            window.location.href = "/order/location";
+            window.location.href = "/order";
           }}
         />
       </main>
