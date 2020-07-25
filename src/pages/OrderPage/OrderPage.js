@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { Route, Link } from "react-router-dom";
 import { Header } from "../../core/Header";
 import { BurgerMenu } from "../../core/BurgerMenu";
 import { Detail } from "../../components/Detail";
 import { Location } from "../../components/Location";
 import { Model } from "../../components/Model";
-import { Route, Link } from "react-router-dom";
 
 import "./OrderPage.scss";
 import Extra from "../../components/Extra/Extra";
@@ -46,14 +46,15 @@ class OrderPage extends Component {
         },
       ],
       page: 0,
-      location: null,
-      model: null,
+      rate: {},
+      dateFrom: 0,
+      dateTo: 0,
       color: null,
-      duration: null,
-      rate: null,
+      isFullTank: false,
+      isRightWheel: false,
+      isNeedChildChair: false,
       priceLow: 0,
       priceHigh: 0,
-      isDone: false,
     };
   }
 
@@ -152,7 +153,7 @@ class OrderPage extends Component {
                         this.setState((state) => {
                           const tmp = {
                             ...state,
-                            location: this.activePage.current.getData(),
+                            ...this.activePage.current.getData(),
                           };
                           tmp.pages[
                             state.page
@@ -216,6 +217,21 @@ class OrderPage extends Component {
                   )}
                   {this.state.rate ? (
                     <Detail name="Тариф" value={this.state.rate} />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.isFullTank ? (
+                    <Detail name="Полный бак" value="Да" />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.isNeedChildChair ? (
+                    <Detail name="Детское кресло" value="Да" />
+                  ) : (
+                    ""
+                  )}
+                  {this.state.isRightWheel ? (
+                    <Detail name="Правый руль" value="Да" />
                   ) : (
                     ""
                   )}

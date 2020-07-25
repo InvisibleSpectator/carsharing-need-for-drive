@@ -19,8 +19,6 @@ const Variant = (props) => (
 class AutocompletableInput extends Component {
   constructor(props) {
     super(props);
-    this.input = React.createRef();
-    this.variants = React.createRef();
     this.state = {
       value: "",
       variants: props.variants || [],
@@ -59,10 +57,9 @@ class AutocompletableInput extends Component {
       <input
         value={this.state.value}
         className="AutocompletableInput-Input"
-        ref={this.input}
         placeholder={this.props.placeholder || ""}
-        onChange={() => {
-          this.setInputValue(this.input.current.value.trim());
+        onChange={(e) => {
+          this.setInputValue(e.target.value.trim());
         }}
       />
       <button
@@ -70,7 +67,7 @@ class AutocompletableInput extends Component {
         className="AutocompletableInput-Clear"
         onClick={() => this.setInputValue("")}
       />
-      <div className="AutocompletableInput-Variants" ref={this.variants}>
+      <div className="AutocompletableInput-Variants">
         {this.state.value.length >= 2
           ? this.state.filtered.map((e, i) => (
               <Variant text={e} key={i} setInputValue={this.setInputValue} />
