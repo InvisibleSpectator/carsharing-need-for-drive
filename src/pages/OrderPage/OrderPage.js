@@ -105,6 +105,18 @@ class OrderPage extends Component {
     }
   };
 
+  dateDifference = (start, end) => {
+    const diffMs = end - start;
+    const diffDays = Math.floor(diffMs / 86400000);
+    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+
+    let str = `${diffDays ? `${diffDays} д` : ""} ${
+      diffHrs ? `${diffHrs} ч` : ""
+    } ${diffMins ? `${diffMins} м` : ""}`;
+    return str;
+  };
+
   render = () => (
     <div className="OrderPage">
       <BurgerMenu />
@@ -164,10 +176,13 @@ class OrderPage extends Component {
                 ) : (
                   ""
                 )}
-                {this.state.duration ? (
+                {this.state.dateTo - this.state.dateFrom >0 ? (
                   <Detail
                     name="Длительность аренды"
-                    value={this.state.duration}
+                    value={this.dateDifference(
+                      this.state.dateFrom,
+                      this.state.dateTo
+                    )}
                   />
                 ) : (
                   ""
