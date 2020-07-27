@@ -67,7 +67,7 @@ class Model extends Component {
 
   getData = () => {
     return {
-      car: this.state.data,
+      carId: this.state.data,
       category: this.state.category,
     };
   };

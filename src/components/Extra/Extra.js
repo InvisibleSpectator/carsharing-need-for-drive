@@ -10,7 +10,7 @@ class Extra extends Component {
     this.state = {
       isDone: false,
       data: {
-        rate: {},
+        rateId: {},
         dateFrom: this.props.dateFrom
           ? this.formatDate(new Date(this.props.dateFrom))
           : 0,

@@ -8,6 +8,7 @@ import { Model } from "../../components/Model";
 
 import "./OrderPage.scss";
 import { Extra } from "../../components/Extra";
+import { Total } from "../../components/Total";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -37,9 +38,9 @@ class OrderPage extends Component {
           buttonText: "Заказать",
         },
       ],
-      car: null,
+      carId: null,
       page: 0,
-      rate: {},
+      rateId: {},
       dateFrom: 0,
       dateTo: 0,
       color: null,
@@ -52,6 +53,7 @@ class OrderPage extends Component {
   }
 
   conditionalRendering = () => {
+    // eslint-disable-next-line default-case
     switch (this.state.page) {
       case 0:
         return (
@@ -73,7 +75,7 @@ class OrderPage extends Component {
         return (
           <Model
             ref={this.activePage}
-            data={this.state.car}
+            data={this.state.carId}
             onChange={() => {
               this.setState((state) => {
                 const tmp = {
@@ -102,6 +104,35 @@ class OrderPage extends Component {
             }}
           />
         );
+      case 3:
+        return (
+          <Total
+            ref={this.activePage}
+            data={{
+              orderStatusId: {},
+              cityId: {},
+              pointId: {},
+              carId: this.state.carId,
+              color: this.state.color,
+              dateFrom: this.state.dateFrom,
+              dateTo: this.state.dateTo,
+              rateId: this.state.rateId,
+              price: this.state.price,
+              isFullTank: this.state.isFullTank,
+              isNeedChildChair: this.state.isFullTank,
+              isRightWheel: this.state.isRightWheel,
+            }}
+            onChange={() => {
+              this.setState((state) => {
+                const tmp = {
+                  ...state,
+                };
+                tmp.pages[state.page].isDone = this.activePage.current.isDone();
+                return tmp;
+              });
+            }}
+          />
+        );
     }
   };
 
@@ -111,7 +142,7 @@ class OrderPage extends Component {
     const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
     const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
 
-    let str = `${diffDays ? `${diffDays} д` : ""} ${
+    const str = `${diffDays ? `${diffDays} д` : ""} ${
       diffHrs ? `${diffHrs} ч` : ""
     } ${diffMins ? `${diffMins} м` : ""}`;
     return str;
@@ -166,8 +197,8 @@ class OrderPage extends Component {
                 ) : (
                   ""
                 )}
-                {this.state.car ? (
-                  <Detail name="Модель" value={this.state.car.name} />
+                {this.state.carId ? (
+                  <Detail name="Модель" value={this.state.carId.name} />
                 ) : (
                   ""
                 )}
@@ -176,7 +207,7 @@ class OrderPage extends Component {
                 ) : (
                   ""
                 )}
-                {this.state.dateTo - this.state.dateFrom >0 ? (
+                {this.state.dateTo - this.state.dateFrom > 0 ? (
                   <Detail
                     name="Длительность аренды"
                     value={this.dateDifference(
@@ -223,10 +254,13 @@ class OrderPage extends Component {
                     ? "Button_disabled"
                     : ""
                 }`}
-                onClick={() =>
-                  this.setState((state) => {
-                    return { page: state.page + 1 };
-                  })
+                onClick={
+                  this.state.page < 3
+                    ? () =>
+                        this.setState((state) => {
+                          return { page: state.page + 1 };
+                        })
+                    : () => this.activePage.current.action()
                 }
                 text={this.state.pages[this.state.page].buttonText}
               />
