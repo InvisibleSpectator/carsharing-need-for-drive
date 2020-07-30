@@ -8,23 +8,45 @@ class Extra extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDone: false,
+      isDone: props.dateFrom < props.dateTo,
+      colors: [{ value: "Любой", text: "Любой" }].concat(
+        props.colors.map((e) => {
+          return { value: e, text: e };
+        })
+      ),
+      rates: [],
       data: {
-        rateId: {},
-        dateFrom: this.props.dateFrom
-          ? this.formatDate(new Date(this.props.dateFrom))
-          : 0,
-        dateTo: this.props.dateTo
-          ? this.formatDate(new Date(this.props.To))
-          : 0,
-        color: "Любой",
-        isFullTank: false,
-        isRightWheel: false,
-        isNeedChildChair: false,
+        rateId: props.rateId || null,
+        dateFrom: props.dateFrom ? props.dateFrom : 0,
+        dateTo: props.dateTo ? props.dateTo : 0,
+        color: props.color || "Любой",
+        isFullTank: props.isFullTank,
+        isRightWheel: props.isRightWheel,
+        isNeedChildChair: props.isNeedChildChair,
       },
     };
     this.props.onChange();
   }
+
+  componentDidMount = async () => {
+    const rateResponse = await fetch(
+      "http://api-factory.simbirsoft1.com/api/db/rate",
+      {
+        method: "GET",
+        headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
+      }
+    );
+    const rates = await rateResponse.json();
+    this.setState((state) => {
+      return {
+        rates: rates.data,
+        data: {
+          ...state.data,
+          rateId: state.data.rateId ? state.data.rateId : rates.data[0],
+        },
+      };
+    }, this.setPrice);
+  };
 
   getData = () => this.state.data;
 
@@ -46,6 +68,32 @@ class Extra extends Component {
     this.setState((state) => {
       return {
         isDone: state.data.dateFrom < state.data.dateTo,
+      };
+    }, this.setPrice);
+  };
+
+  setPrice = () => {
+    let newPrice;
+    switch (this.state.data.rateId.rateTypeId.unit) {
+      case "мин":
+        newPrice =
+          Math.floor(
+            (this.state.data.dateTo - this.state.data.dateFrom) / 60000
+          ) * this.state.data.rateId.price;
+        break;
+      case "сутки":
+        newPrice =
+          Math.floor(
+            (this.state.data.dateTo - this.state.data.dateFrom) / 86400000
+          ) * this.state.data.rateId.price;
+        break;
+    }
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          price: Math.max(0, newPrice),
+        },
       };
     }, this.props.onChange);
   };
@@ -69,11 +117,7 @@ class Extra extends Component {
                   };
                 }, this.props.onChange);
               }}
-              data={[
-                { value: "Любой", text: "Любой" },
-                { value: "Красный", text: "Красный" },
-                { value: "Синий", text: "Синий" },
-              ]}
+              data={this.state.colors}
             />
           </div>
         </div>
@@ -127,30 +171,54 @@ class Extra extends Component {
             />
           </div>
         </div>
-        <div className="Extra-Rate">
-          <p className="Extra-Title">Тариф</p>
-          <div>
-            <RadiobuttonGroup
-              name="rate"
-              data={[
-                { value: "Поминутно", text: "Поминутно, 7₽/мин" },
-                { value: "Посуточно", text: "На сутки, 1999 ₽/сутки" },
-              ]}
-            />
+        {this.state.rates.length > 0 ? (
+          <div className="Extra-Rate">
+            <p className="Extra-Title">Тариф</p>
+            <div>
+              <RadiobuttonGroup
+                name="rate"
+                data={this.state.rates.map((e) => {
+                  return {
+                    value: e.id,
+                    text: `${e.rateTypeId.name}, ${e.price}₽/${e.rateTypeId.unit}`,
+                  };
+                })}
+                defaultValue={
+                  this.state.data.rateId ? this.state.data.rateId.id : null
+                }
+                onChange={(value) => {
+                  this.setState((state) => {
+                    const newRate = state.rates.find((e) => e.id === value);
+                    return {
+                      data: {
+                        ...state.data,
+                        rateId: newRate,
+                      },
+                    };
+                  }, this.setPrice);
+                }}
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
+
         <div className="Extra-Extra">
           <p className="Extra-Title">Доп опции</p>
           <div>
             <Checkbox
               text="Полный бак, 500р"
-              checked={this.state.isFullTank}
+              checked={this.state.data.isFullTank}
               onChange={(newValue) => {
                 this.setState((state) => {
                   return {
                     data: {
                       ...state.data,
                       isFullTank: newValue,
+                      price: newValue
+                        ? state.data.price + 500
+                        : state.data.price - 500,
                     },
                   };
                 }, this.props.onChange);
@@ -158,13 +226,16 @@ class Extra extends Component {
             />
             <Checkbox
               text="Детское кресло, 200р"
-              checked={this.state.isNeedChildChair}
+              checked={this.state.data.isNeedChildChair}
               onChange={(newValue) => {
                 this.setState((state) => {
                   return {
                     data: {
                       ...state.data,
                       isNeedChildChair: newValue,
+                      price: newValue
+                        ? state.data.price + 200
+                        : state.data.price - 200,
                     },
                   };
                 }, this.props.onChange);
@@ -172,13 +243,16 @@ class Extra extends Component {
             />
             <Checkbox
               text="Правый руль, 1600р"
-              checked={this.state.isRightWheel}
+              checked={this.state.data.isRightWheel}
               onChange={(newValue) => {
                 this.setState((state) => {
                   return {
                     data: {
                       ...state.data,
                       isRightWheel: newValue,
+                      price: newValue
+                        ? state.data.price + 1600
+                        : state.data.price - 1600,
                     },
                   };
                 }, this.props.onChange);
