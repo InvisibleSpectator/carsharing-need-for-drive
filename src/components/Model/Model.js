@@ -17,8 +17,10 @@ const CarCard = (props) => (
       <span>{props.car.priceMin}</span> - <span>{props.car.priceMax}</span> ₽
     </span>
     <img
+      crossOrigin="anonymous"
+      referrerPolicy="origin"
       alt="car"
-      src={`http://api-factory.simbirsoft1.com/${props.car.thumbnail.path}`}
+      src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${props.car.thumbnail.path}`}
     />
   </div>
 );
@@ -37,7 +39,7 @@ class Model extends Component {
 
   componentDidMount = async () => {
     const carsResponse = await fetch(
-      "http://api-factory.simbirsoft1.com/api/db/car",
+      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car",
       {
         method: "GET",
         headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
@@ -46,7 +48,7 @@ class Model extends Component {
     const cars = await carsResponse.json();
 
     const categoryResponse = await fetch(
-      "http://api-factory.simbirsoft1.com/api/db/category",
+      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/category",
       {
         method: "GET",
         headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
