@@ -39,8 +39,9 @@ class OrderPage extends Component {
         },
       ],
       carId: null,
+      price: 0,
       page: 0,
-      rateId: {},
+      rateId: null,
       dateFrom: 0,
       dateTo: 0,
       color: null,
@@ -92,6 +93,15 @@ class OrderPage extends Component {
         return (
           <Extra
             ref={this.activePage}
+            colors={this.state.carId.colors}
+            color={this.state.color}
+            dateFrom={this.state.dateFrom}
+            dateTo={this.state.dateTo}
+            rateId={this.state.rateId}
+            price={this.state.price}
+            isFullTank={this.state.isFullTank}
+            isNeedChildChair={this.state.isFullTank}
+            isRightWheel={this.state.isRightWheel}
             onChange={() => {
               this.setState((state) => {
                 const tmp = {
@@ -218,8 +228,11 @@ class OrderPage extends Component {
                 ) : (
                   ""
                 )}
-                {this.state.rate ? (
-                  <Detail name="Тариф" value={this.state.rate} />
+                {this.state.rateId ? (
+                  <Detail
+                    name="Тариф"
+                    value={this.state.rateId.rateTypeId.name}
+                  />
                 ) : (
                   ""
                 )}
@@ -244,7 +257,7 @@ class OrderPage extends Component {
                   Цена:
                 </span>
                 {this.state.priceLow === this.state.priceHigh
-                  ? ` ${this.state.priceHigh}`
+                  ? ` ${this.state.price}`
                   : `от ${this.state.priceLow} до ${this.state.priceHigh}`}{" "}
                 ₽
               </span>
