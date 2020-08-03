@@ -39,6 +39,8 @@ class OrderPage extends Component {
         },
       ],
       carId: null,
+      cityId: null,
+      pointId: null,
       price: 0,
       page: 0,
       rateId: null,
@@ -48,8 +50,6 @@ class OrderPage extends Component {
       isFullTank: false,
       isRightWheel: false,
       isNeedChildChair: false,
-      priceLow: 0,
-      priceHigh: 0,
     };
   }
 
@@ -60,11 +60,17 @@ class OrderPage extends Component {
         return (
           <Location
             ref={this.activePage}
+            city={this.state.cityId}
+            point={this.state.pointId}
             onChange={() => {
               this.setState((state) => {
                 const tmp = {
                   ...state,
-                  location: this.activePage.current.getData(),
+                  ...this.activePage.current.getData(),
+                  pages: state.pages.map((e, i) => ({
+                    ...e,
+                    isDone: i <= state.page,
+                  })),
                 };
                 tmp.pages[state.page].isDone = this.activePage.current.isDone();
                 return tmp;
@@ -120,8 +126,8 @@ class OrderPage extends Component {
             ref={this.activePage}
             data={{
               orderStatusId: {},
-              cityId: {},
-              pointId: {},
+              cityId: this.state.cityId,
+              pointId: this.state.pointId,
               carId: this.state.carId,
               color: this.state.color,
               dateFrom: this.state.dateFrom,
@@ -202,8 +208,14 @@ class OrderPage extends Component {
                 Ваш заказ:
               </span>
               <div className="OrderPage-Content-Order-Details-Grid">
-                {this.state.location ? (
-                  <Detail name="Пункт выдачи" value={this.state.location} />
+                {this.state.pointId ? (
+                  <Detail
+                    name="Пункт выдачи"
+                    value={{
+                      city: this.state.pointId.cityId.name,
+                      address: this.state.pointId.address,
+                    }}
+                  />
                 ) : (
                   ""
                 )}
@@ -256,10 +268,7 @@ class OrderPage extends Component {
                 <span className="OrderPage-Content-Order-Details-Title">
                   Цена:
                 </span>
-                {this.state.priceLow === this.state.priceHigh
-                  ? ` ${this.state.price}`
-                  : `от ${this.state.priceLow} до ${this.state.priceHigh}`}{" "}
-                ₽
+                {this.state.price} ₽
               </span>
               <Button
                 className={`Button_max ${

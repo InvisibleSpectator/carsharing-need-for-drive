@@ -21,7 +21,6 @@ class AutocompletableInput extends Component {
     super(props);
     this.state = {
       value: "",
-      variants: props.variants || [],
       isDone: false,
     };
     this.state.filtered = props.variants.filter((variant) =>
@@ -35,20 +34,20 @@ class AutocompletableInput extends Component {
 
   setInputValue = (value) => {
     this.setState(
-      (state) => ({
-        value: state.variants.includes(value)
+      {
+        value: this.props.variants.includes(value)
           ? value
-          : state.variants.find(
+          : this.props.variants.find(
               (e) => e.toLowerCase() === value.toLowerCase(value)
             ) || value,
-        filtered: state.variants.filter((variant) =>
+        filtered: this.props.variants.filter((variant) =>
           variant.toLowerCase().startsWith(value.toLowerCase())
         ),
-        isDone: state.variants.some(
-          (e) => e.toLowerCase() === value.toLowerCase(value)
+        isDone: this.props.variants.some(
+          (e) => e.toLowerCase() === value.toLowerCase()
         ),
-      }),
-      this.props.onChange
+      },
+      () => this.props.onChange(this.state.value)
     );
   };
 
@@ -56,6 +55,7 @@ class AutocompletableInput extends Component {
     <div className={`${this.props.className || ""} AutocompletableInput`}>
       <input
         value={this.state.value}
+        disabled={this.props.disabled}
         className="AutocompletableInput-Input"
         placeholder={this.props.placeholder || ""}
         onChange={(e) => {
@@ -72,7 +72,7 @@ class AutocompletableInput extends Component {
           ? this.state.filtered.map((e, i) => (
               <Variant text={e} key={i} setInputValue={this.setInputValue} />
             ))
-          : this.state.variants.map((e, i) => (
+          : this.props.variants.map((e, i) => (
               <Variant text={e} key={i} setInputValue={this.setInputValue} />
             ))}
       </div>
