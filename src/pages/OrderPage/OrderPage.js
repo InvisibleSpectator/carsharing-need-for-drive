@@ -67,7 +67,7 @@ class OrderPage extends Component {
           isDone: false,
           buttonText: "Заказать",
           data: {
-            orderStatusId: "5e26a191099b810b946c5d89",
+            orderStatusId: { id: "5e26a191099b810b946c5d89", name: "new" },
             cityId: null,
             pointId: null,
             carId: null,
@@ -80,7 +80,7 @@ class OrderPage extends Component {
             isRightWheel: false,
             price: 0,
           },
-          onClick: () => () => this.activePage.current.action(),
+          onClick: () => this.activePage.current.action(),
           render: (pageProps) => <Total {...pageProps} />,
         },
       ],

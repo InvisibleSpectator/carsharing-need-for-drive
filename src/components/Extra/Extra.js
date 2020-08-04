@@ -54,7 +54,7 @@ class Extra extends Component {
           ) * this.state.data.rateId.price;
         break;
     }
-    newPrice = newPrice || 0;
+    newPrice = Math.max(0, newPrice) || 0;
     newPrice += this.state.data.isFullTank * 500;
     newPrice += this.state.data.isNeedChildChair * 200;
     newPrice += this.state.data.isRightWheel * 1600;

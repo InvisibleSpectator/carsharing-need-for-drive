@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Total.scss";
 import { Button } from "../../core/Button";
-import { formatDate } from "../../utils";
+import { formatDate, postToTableClient } from "../../utils";
 
 class Total extends Component {
   constructor(props) {
@@ -65,7 +65,16 @@ class Total extends Component {
             <Button
               text="Подтвердить"
               className="Button_max Total-Modal-Accept"
-              onClick={() => this.action()}
+              onClick={() =>
+                postToTableClient("order", {
+                  ...this.state.data,
+                  orderStatusId: this.state.data.orderStatusId.id,
+                  cityId: this.state.data.cityId.id,
+                  pointId: this.state.data.pointId.id,
+                  carId: this.state.data.carId.id,
+                  rateId: this.state.data.rateId.id,
+                })
+              }
             />
             <Button
               text="Вернуться"
