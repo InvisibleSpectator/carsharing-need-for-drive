@@ -17,7 +17,7 @@
   }
   &-Text,
   &-Image {
-    width: 256px;
+    width: 260px;
   }
 
   &-Text {
@@ -50,6 +50,15 @@
       font-weight: bold;
       font-size: 14px;
       line-height: 16px;
+    }
+
+    &-Value {
+      border: 0;
+      color: $MainBlack;
+      background-color: white;
+      box-sizing: border-box;
+      width: 180px;
+      font-weight: 100;
     }
   }
 

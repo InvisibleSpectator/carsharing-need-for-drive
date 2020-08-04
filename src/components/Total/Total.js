@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Total.scss";
 import { Button } from "../../core/Button";
+import { formatDate } from "../../utils";
 
 class Total extends Component {
   constructor(props) {
@@ -9,6 +10,8 @@ class Total extends Component {
     this.state = { isDone: true, data: this.props.data || {} };
     props.onChange();
   }
+
+  getData = () => null;
 
   isDone = () => this.state.isDone;
 
@@ -21,14 +24,33 @@ class Total extends Component {
       <div className="Total">
         <div className="Total-Text">
           <h2>{this.state.data.carId.name}</h2>
-          <span className="Total-Text-Number">Н 404 НН 63</span>
-          <span>
-            <span className="Total-Text-Title">Топливо</span>{" "}
-            <span className="Total-Text-Value">100%</span>
-          </span>
+          {this.state.data.carId.number ? (
+            <span className="Total-Text-Number">
+              {this.state.data.carId.number}
+            </span>
+          ) : (
+            ""
+          )}
+          {this.state.data.carId.tank ? (
+            <span>
+              <span className="Total-Text-Title">Топливо</span>{" "}
+              <span className="Total-Text-Value">
+                {this.state.data.carId.tank}%
+              </span>
+            </span>
+          ) : (
+            ""
+          )}
+
           <span>
             <span className="Total-Text-Title">Доступна с </span>{" "}
-            <span className="Total-Text-Value">12.06.2019 12:00</span>
+            <input
+              type="datetime-local"
+              disabled
+              readOnly
+              className="Total-Text-Value"
+              defaultValue={formatDate(new Date(this.state.data.dateFrom))}
+            />
           </span>
         </div>
         <div className="Total-Image">

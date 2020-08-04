@@ -1,10 +1,10 @@
 import React from "react";
 
 const Detail = (props) => (
-  <div className="OrderPage-Content-Order-Details-Row">
-    <p className="OrderPage-Content-Order-Details-Detail">{props.name}</p>
-    <div className="OrderPage-Content-Order-Details-Separator" />
-    <p className="OrderPage-Content-Order-Details-Value">
+  <div className="OrderDetails-Row">
+    <p className="OrderDetails-Detail">{props.name}</p>
+    <div className="OrderDetails-Separator" />
+    <p className="OrderDetails-Value">
       {typeof props.value === "object" ? (
         <>
           <span>

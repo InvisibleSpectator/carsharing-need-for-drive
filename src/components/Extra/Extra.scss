@@ -10,6 +10,8 @@
 
   &-Colors {
     display: flex;
+    flex-wrap: wrap;
+    text-transform: capitalize;
   }
   &-TimeRange {
     display: grid;
@@ -29,10 +31,10 @@
       border: 0;
       border-bottom: 1px solid $GrayDark;
       color: $MainBlack;
-
+      background-color: white;
       text-overflow: ellipsis;
       box-sizing: border-box;
-      width: 100%;
+      min-width: 100%;
       font-weight: 300;
     }
   }
