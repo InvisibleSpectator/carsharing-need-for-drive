@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { Button } from "../../core/Button";
+
 import { Header } from "../../core/Header";
 import { BurgerMenu } from "../../core/BurgerMenu";
-import { Detail } from "../../components/Detail";
 import { Location } from "../../components/Location";
 import { Model } from "../../components/Model";
 
 import "./OrderPage.scss";
 import { Extra } from "../../components/Extra";
 import { Total } from "../../components/Total";
+import { OrderDetails } from "../../components/OrderDetails";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -16,152 +16,134 @@ class OrderPage extends Component {
     this.activePage = React.createRef();
 
     this.state = {
+      order: {},
       pages: [
         {
           name: "Местоположение",
           isDone: false,
           buttonText: "Выбрать модель",
+          data: { cityId: null, pointId: null },
+          onClick: () =>
+            this.setState((state) => {
+              return { page: state.page + 1 };
+            }),
+          render: (pageProps) => <Location {...pageProps} />,
         },
         {
           name: "Модель",
           isDone: false,
           buttonText: "Дополнительно",
+          data: { carId: null, category: "" },
+          onClick: () =>
+            this.setState((state) => {
+              return { page: state.page + 1 };
+            }),
+          render: (pageProps) => <Model {...pageProps} />,
         },
         {
           name: "Дополнительно",
           isDone: false,
           buttonText: "Итого",
+          data: {
+            color: "Любой",
+            dateFrom: 0,
+            dateTo: 0,
+            rateId: null,
+            isFullTank: false,
+            isNeedChildChair: false,
+            isRightWheel: false,
+            price: 0,
+          },
+          onClick: () =>
+            this.setState((state) => {
+              return { page: state.page + 1 };
+            }),
+          render: (pageProps) => (
+            <Extra colors={this.state.order.carId.colors} {...pageProps} />
+          ),
         },
         {
           name: "Итого",
           isDone: false,
           buttonText: "Заказать",
+          data: {
+            orderStatusId: "5e26a191099b810b946c5d89",
+            cityId: null,
+            pointId: null,
+            carId: null,
+            color: "Любой",
+            dateFrom: 0,
+            dateTo: 0,
+            rateId: null,
+            isFullTank: false,
+            isNeedChildChair: false,
+            isRightWheel: false,
+            price: 0,
+          },
+          onClick: () => () => this.activePage.current.action(),
+          render: (pageProps) => <Total {...pageProps} />,
         },
       ],
-      carId: null,
-      cityId: null,
-      pointId: null,
-      price: 0,
       page: 0,
-      rateId: null,
-      dateFrom: 0,
-      dateTo: 0,
-      color: null,
-      isFullTank: false,
-      isRightWheel: false,
-      isNeedChildChair: false,
     };
   }
 
   conditionalRendering = () => {
-    // eslint-disable-next-line default-case
-    switch (this.state.page) {
-      case 0:
-        return (
-          <Location
-            ref={this.activePage}
-            city={this.state.cityId}
-            point={this.state.pointId}
-            onChange={() => {
-              this.setState((state) => {
-                const tmp = {
-                  ...state,
-                  ...this.activePage.current.getData(),
-                  pages: state.pages.map((e, i) => ({
-                    ...e,
-                    isDone: i <= state.page,
-                  })),
-                };
-                tmp.pages[state.page].isDone = this.activePage.current.isDone();
-                return tmp;
-              });
-            }}
-          />
-        );
-      case 1:
-        return (
-          <Model
-            ref={this.activePage}
-            data={this.state.carId}
-            onChange={() => {
-              this.setState((state) => {
-                const tmp = {
-                  ...state,
-                  ...this.activePage.current.getData(),
-                };
-                tmp.pages[state.page].isDone = this.activePage.current.isDone();
-                return tmp;
-              });
-            }}
-          />
-        );
-      case 2:
-        return (
-          <Extra
-            ref={this.activePage}
-            colors={this.state.carId.colors}
-            color={this.state.color}
-            dateFrom={this.state.dateFrom}
-            dateTo={this.state.dateTo}
-            rateId={this.state.rateId}
-            price={this.state.price}
-            isFullTank={this.state.isFullTank}
-            isNeedChildChair={this.state.isFullTank}
-            isRightWheel={this.state.isRightWheel}
-            onChange={() => {
-              this.setState((state) => {
-                const tmp = {
-                  ...state,
-                  ...this.activePage.current.getData(),
-                };
-                tmp.pages[state.page].isDone = this.activePage.current.isDone();
-                return tmp;
-              });
-            }}
-          />
-        );
-      case 3:
-        return (
-          <Total
-            ref={this.activePage}
-            data={{
-              orderStatusId: {},
-              cityId: this.state.cityId,
-              pointId: this.state.pointId,
-              carId: this.state.carId,
-              color: this.state.color,
-              dateFrom: this.state.dateFrom,
-              dateTo: this.state.dateTo,
-              rateId: this.state.rateId,
-              price: this.state.price,
-              isFullTank: this.state.isFullTank,
-              isNeedChildChair: this.state.isFullTank,
-              isRightWheel: this.state.isRightWheel,
-            }}
-            onChange={() => {
-              this.setState((state) => {
-                const tmp = {
-                  ...state,
-                };
-                tmp.pages[state.page].isDone = this.activePage.current.isDone();
-                return tmp;
-              });
-            }}
-          />
-        );
-    }
-  };
-
-  dateDifference = (start, end) => {
-    const diffMs = end - start;
-    const diffDays = Math.floor(diffMs / 86400000);
-    const diffHrs = Math.floor((diffMs % 86400000) / 3600000);
-    const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-
-    const str = `${diffDays ? `${diffDays} д` : ""} ${
-      diffHrs ? `${diffHrs} ч` : ""
-    } ${diffMins ? `${diffMins} м` : ""}`;
-    return str;
+    const init = {
+      ref: this.activePage,
+      data: (() => {
+        const tmp = {};
+        Object.keys(this.state.pages[this.state.page].data).forEach((key) => {
+          if (Object.prototype.hasOwnProperty.call(this.state.order, key))
+            tmp[key] = this.state.order[key];
+          else tmp[key] = this.state.pages[this.state.page].data[key];
+        });
+        return tmp;
+      })(),
+      onLoad: () => {
+        this.setState((state) => {
+          const tmp = {
+            ...state,
+            order: {
+              ...state.order,
+              ...this.activePage.current.getData(),
+            },
+            pages: state.pages,
+          };
+          tmp.pages[state.page].isDone = this.activePage.current.isDone();
+          return tmp;
+        });
+      },
+      onChange: () => {
+        this.setState((state) => {
+          const tmp = {
+            ...state,
+            order: {
+              ...state.order,
+              ...this.activePage.current.getData(),
+            },
+            pages: state.pages.map((e, i) => ({
+              ...e,
+              isDone: i <= state.page,
+            })),
+          };
+          const filledFields = Array.from(
+            new Set(
+              state.pages
+                .slice(0, state.page + 1)
+                .map((e) => Object.keys(e.data))
+                .flat()
+            )
+          );
+          Object.keys(tmp.order).forEach((e) => {
+            if (!filledFields.includes(e)) delete tmp.order[e];
+          });
+          tmp.pages[state.page].isDone = this.activePage.current.isDone();
+          return tmp;
+        });
+      },
+    };
+    return this.state.pages[this.state.page].render(init);
   };
 
   render = () => (
@@ -203,90 +185,16 @@ class OrderPage extends Component {
             <div className="OrderPage-Content-Order-Options">
               {this.conditionalRendering()}
             </div>
-            <aside className="OrderPage-Content-Order-Details">
-              <span className="OrderPage-Content-Order-Details-Title">
-                Ваш заказ:
-              </span>
-              <div className="OrderPage-Content-Order-Details-Grid">
-                {this.state.pointId ? (
-                  <Detail
-                    name="Пункт выдачи"
-                    value={{
-                      city: this.state.pointId.cityId.name,
-                      address: this.state.pointId.address,
-                    }}
-                  />
-                ) : (
-                  ""
-                )}
-                {this.state.carId ? (
-                  <Detail name="Модель" value={this.state.carId.name} />
-                ) : (
-                  ""
-                )}
-                {this.state.color ? (
-                  <Detail name="Цвет" value={this.state.color} />
-                ) : (
-                  ""
-                )}
-                {this.state.dateTo - this.state.dateFrom > 0 ? (
-                  <Detail
-                    name="Длительность аренды"
-                    value={this.dateDifference(
-                      this.state.dateFrom,
-                      this.state.dateTo
-                    )}
-                  />
-                ) : (
-                  ""
-                )}
-                {this.state.rateId ? (
-                  <Detail
-                    name="Тариф"
-                    value={this.state.rateId.rateTypeId.name}
-                  />
-                ) : (
-                  ""
-                )}
-                {this.state.isFullTank ? (
-                  <Detail name="Полный бак" value="Да" />
-                ) : (
-                  ""
-                )}
-                {this.state.isNeedChildChair ? (
-                  <Detail name="Детское кресло" value="Да" />
-                ) : (
-                  ""
-                )}
-                {this.state.isRightWheel ? (
-                  <Detail name="Правый руль" value="Да" />
-                ) : (
-                  ""
-                )}
-              </div>
-              <span className="OrderPage-Content-Order-Details-Price">
-                <span className="OrderPage-Content-Order-Details-Title">
-                  Цена:
-                </span>
-                {this.state.price} ₽
-              </span>
-              <Button
-                className={`Button_max ${
-                  !this.state.pages[this.state.page].isDone
-                    ? "Button_disabled"
-                    : ""
-                }`}
-                onClick={
-                  this.state.page < 3
-                    ? () =>
-                        this.setState((state) => {
-                          return { page: state.page + 1 };
-                        })
-                    : () => this.activePage.current.action()
-                }
-                text={this.state.pages[this.state.page].buttonText}
-              />
-            </aside>
+            <OrderDetails
+              order={this.state.order}
+              onClick={this.state.pages[this.state.page].onClick}
+              buttonClass={
+                !this.state.pages[this.state.page].isDone
+                  ? "Button_disabled"
+                  : ""
+              }
+              buttonText={this.state.pages[this.state.page].buttonText}
+            />
           </div>
         </div>
       </div>

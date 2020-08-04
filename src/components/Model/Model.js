@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Model.scss";
 import { RadiobuttonGroup } from "../../core/RadiobuttonGroup";
+import { getAllFromTableClient } from "../../utils";
 
 const CarCard = (props) => (
   <div
@@ -20,7 +21,7 @@ const CarCard = (props) => (
       crossOrigin="anonymous"
       referrerPolicy="origin"
       alt="car"
-      src={`https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${props.car.thumbnail.path}`}
+      src={`http://api-factory.simbirsoft1.com${props.car.thumbnail.path}`}
     />
   </div>
 );
@@ -29,32 +30,15 @@ class Model extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDone: false,
-      data: this.props.data || null,
+      data: props.data,
       cars: [],
       categories: [{ text: "Все модели", value: "" }],
-      category: props.category || "",
     };
   }
 
   componentDidMount = async () => {
-    const carsResponse = await fetch(
-      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car",
-      {
-        method: "GET",
-        headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-      }
-    );
-    const cars = await carsResponse.json();
-
-    const categoryResponse = await fetch(
-      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/category",
-      {
-        method: "GET",
-        headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-      }
-    );
-    const categories = await categoryResponse.json();
+    const cars = await getAllFromTableClient("car");
+    const categories = await getAllFromTableClient("category");
     this.setState((state) => {
       return {
         cars: cars.data,
@@ -67,17 +51,21 @@ class Model extends Component {
     });
   };
 
-  getData = () => {
-    return {
-      carId: this.state.data,
-      category: this.state.category,
-    };
-  };
+  getData = () => this.state.data;
 
-  isDone = () => this.state.isDone;
+  isDone = () =>
+    this.state.cars.some((e) =>
+      this.state.data.carId ? e.id === this.state.data.carId.id : false
+    );
 
   setData = (car) => {
-    this.setState({ data: car, isDone: true }, this.props.onChange);
+    this.setState(
+      (state) => ({
+        ...state,
+        data: { ...state.data, carId: car },
+      }),
+      this.props.onChange
+    );
   };
 
   render = () => (
@@ -86,21 +74,30 @@ class Model extends Component {
         <RadiobuttonGroup
           name="priceRange"
           data={this.state.categories}
+          defaultValue={this.state.data.category}
           onChange={(value) =>
-            this.setState({ category: value }, this.props.onChange)
+            this.setState(
+              (state) => ({
+                ...state,
+                data: { ...state.data, category: value },
+              }),
+              this.props.onLoad
+            )
           }
         />
       </div>
       <div className="Model-ModelList">
         <div className="Model-ModelList-Belt">
-          {this.state.category === ""
+          {this.state.data.category === ""
             ? this.state.cars.map((e, i) => {
                 return (
                   <CarCard
                     key={i}
                     onClick={this.setData}
                     className={
-                      (this.state.data ? this.state.data.id : "") === e.id
+                      (this.state.data.carId
+                        ? this.state.data.carId.id
+                        : "") === e.id
                         ? "Model-CarCard_selected"
                         : ""
                     }
@@ -109,13 +106,15 @@ class Model extends Component {
                 );
               })
             : this.state.cars
-                .filter((e) => e.categoryId.id === this.state.category)
+                .filter((e) => e.categoryId.id === this.state.data.category)
                 .map((e, i) => (
                   <CarCard
                     key={i}
                     onClick={this.setData}
                     className={
-                      (this.state.data ? this.state.data.id : "") === e.id
+                      (this.state.data.carId
+                        ? this.state.data.carId.id
+                        : "") === e.id
                         ? "Model-CarCard_selected"
                         : ""
                     }

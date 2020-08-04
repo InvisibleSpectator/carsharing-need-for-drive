@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { AutocompletableInput } from "../../core/AutocompletableInput";
+import { getAllFromTableClient } from "../../utils";
 
 import "./Location.scss";
 
@@ -11,64 +12,39 @@ class Location extends Component {
     this.state = {
       cities: [],
       points: [],
-      city: props.city ? props.city.name : "",
+      city: props.data.cityId ? props.data.cityId.name : "",
       isCityDone: false,
-      isDone: false,
-      data: { cityId: props.city || {}, pointId: props.point || {} },
+      data: props.data,
     };
   }
 
   getData = () => this.state.data;
 
-  isDone = () => this.state.isDone;
+  isDone = () =>
+    this.cityInput.current.isDone() && this.addressInput.current.isDone();
 
   updateData = (point) => {
     this.setState(
       (state) => ({
+        isCityDone: this.cityInput.current.isDone(),
         data: {
           cityId: state.cities.find((e) => e.name === state.city),
           pointId: state.points.find(
             (e) => e.cityId.name === state.city && e.name === point
           ),
         },
-        isDone:
-          this.cityInput.current.isDone() && this.addressInput.current.isDone(),
       }),
       this.props.onChange
     );
   };
 
   componentDidMount = async () => {
-    const citiesResponse = await fetch(
-      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/city",
-      {
-        method: "GET",
-        headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-      }
-    );
-    const cities = await citiesResponse.json();
-    const pointsResponse = await fetch(
-      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/point",
-      {
-        method: "GET",
-        headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-      }
-    );
-    const points = await pointsResponse.json();
-    this.setState(
-      {
-        cities: cities.data,
-        points: points.data,
-      },
-      () => {
-        this.addressInput.current.setInputValue(
-          this.props.point ? this.props.point.name : ""
-        );
-        this.cityInput.current.setInputValue(
-          this.props.city ? this.props.city.name : ""
-        );
-      }
-    );
+    const cities = await getAllFromTableClient("city");
+    const points = await getAllFromTableClient("point");
+    this.setState({
+      cities: cities.data,
+      points: points.data,
+    });
   };
 
   render = () => (
@@ -77,6 +53,9 @@ class Location extends Component {
         <span>Город</span>
         <AutocompletableInput
           ref={this.cityInput}
+          defaultValue={
+            this.state.data.cityId ? this.state.data.cityId.name : ""
+          }
           onChange={(value) =>
             this.setState((state) => {
               if (state.city !== value)
@@ -93,7 +72,10 @@ class Location extends Component {
         <span>Пункт выдачи</span>
         <AutocompletableInput
           ref={this.addressInput}
-          disabled={!this.state.isCityDone}
+          defaultValue={
+            this.state.data.pointId ? this.state.data.pointId.name : ""
+          }
+          disabled={!(this.state.isCityDone || this.state.data.pointId)}
           onChange={(point) => this.updateData(point)}
           placeholder="Начните вводить пункт выдачи"
           variants={this.state.points

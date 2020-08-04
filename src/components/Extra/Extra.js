@@ -4,39 +4,24 @@ import { RadiobuttonGroup } from "../../core/RadiobuttonGroup";
 import "./Extra.scss";
 import { Checkbox } from "../../core/Checkbox";
 
+import { formatDate, getAllFromTableClient } from "../../utils";
+
 class Extra extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDone: props.dateFrom < props.dateTo,
       colors: [{ value: "Любой", text: "Любой" }].concat(
         props.colors.map((e) => {
           return { value: e, text: e };
         })
       ),
       rates: [],
-      data: {
-        rateId: props.rateId || null,
-        dateFrom: props.dateFrom ? props.dateFrom : 0,
-        dateTo: props.dateTo ? props.dateTo : 0,
-        color: props.color || "Любой",
-        isFullTank: props.isFullTank,
-        isRightWheel: props.isRightWheel,
-        isNeedChildChair: props.isNeedChildChair,
-      },
+      data: props.data,
     };
-    this.props.onChange();
   }
 
   componentDidMount = async () => {
-    const rateResponse = await fetch(
-      "https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/rate",
-      {
-        method: "GET",
-        headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-      }
-    );
-    const rates = await rateResponse.json();
+    const rates = await getAllFromTableClient("rate");
     this.setState((state) => {
       return {
         rates: rates.data,
@@ -45,35 +30,16 @@ class Extra extends Component {
           rateId: state.data.rateId ? state.data.rateId : rates.data[0],
         },
       };
-    }, this.setPrice);
+    }, this.props.onLoad);
   };
 
   getData = () => this.state.data;
 
-  isDone = () => this.state.isDone;
-
-  formatDate = (normalDate) => {
-    const formatter = new Intl.NumberFormat("ru", { minimumIntegerDigits: 2 });
-
-    return normalDate
-      ? `${normalDate.getFullYear()}-${formatter.format(
-          normalDate.getMonth() + 1
-        )}-${formatter.format(normalDate.getDate())}T${formatter.format(
-          normalDate.getHours()
-        )}:${formatter.format(normalDate.getMinutes())}`
-      : "";
-  };
-
-  setDone = () => {
-    this.setState((state) => {
-      return {
-        isDone: state.data.dateFrom < state.data.dateTo,
-      };
-    }, this.setPrice);
-  };
+  isDone = () => this.state.data.dateFrom < this.state.data.dateTo;
 
   setPrice = () => {
     let newPrice;
+    // eslint-disable-next-line default-case
     switch (this.state.data.rateId.rateTypeId.unit) {
       case "мин":
         newPrice =
@@ -88,11 +54,15 @@ class Extra extends Component {
           ) * this.state.data.rateId.price;
         break;
     }
+    newPrice = newPrice || 0;
+    newPrice += this.state.data.isFullTank * 500;
+    newPrice += this.state.data.isNeedChildChair * 200;
+    newPrice += this.state.data.isRightWheel * 1600;
     this.setState((state) => {
       return {
         data: {
           ...state.data,
-          price: Math.max(0, newPrice),
+          price: newPrice,
         },
       };
     }, this.props.onChange);
@@ -127,11 +97,11 @@ class Extra extends Component {
             <span>С</span>
             <input
               className="Extra-TimeRange-Input"
-              min={this.formatDate(new Date())}
+              min={formatDate(new Date())}
               value={
                 this.state.data.dateFrom === 0
                   ? ""
-                  : this.formatDate(new Date(this.state.data.dateFrom))
+                  : formatDate(new Date(this.state.data.dateFrom))
               }
               type="datetime-local"
               onChange={(e) => {
@@ -140,10 +110,11 @@ class Extra extends Component {
                   return {
                     data: {
                       ...state.data,
-                      dateFrom: date.getTime(),
+                      dateFrom: date.getTime() || 0,
+                      dateTo: date.getTime() ? state.data.dateTo : 0,
                     },
                   };
-                }, this.setDone);
+                }, this.setPrice);
               }}
             />
             <span>По</span>
@@ -151,11 +122,11 @@ class Extra extends Component {
               className="Extra-TimeRange-Input"
               type="datetime-local"
               disabled={!this.state.data.dateFrom}
-              min={this.formatDate(new Date(this.state.data.dateFrom))}
+              min={formatDate(new Date(this.state.data.dateFrom))}
               value={
                 this.state.data.dateFrom >= this.state.data.dateTo
                   ? ""
-                  : this.formatDate(new Date(this.state.data.dateTo))
+                  : formatDate(new Date(this.state.data.dateTo))
               }
               onChange={(e) => {
                 const date = new Date(e.target.value);
@@ -163,10 +134,10 @@ class Extra extends Component {
                   return {
                     data: {
                       ...state.data,
-                      dateTo: date.getTime(),
+                      dateTo: date.getTime() || 0,
                     },
                   };
-                }, this.setDone);
+                }, this.setPrice);
               }}
             />
           </div>
@@ -208,7 +179,7 @@ class Extra extends Component {
           <p className="Extra-Title">Доп опции</p>
           <div>
             <Checkbox
-              text="Полный бак, 500р"
+              text="Полный бак, 500 ₽"
               checked={this.state.data.isFullTank}
               onChange={(newValue) => {
                 this.setState((state) => {
@@ -216,16 +187,13 @@ class Extra extends Component {
                     data: {
                       ...state.data,
                       isFullTank: newValue,
-                      price: newValue
-                        ? state.data.price + 500
-                        : state.data.price - 500,
                     },
                   };
-                }, this.props.onChange);
+                }, this.setPrice);
               }}
             />
             <Checkbox
-              text="Детское кресло, 200р"
+              text="Детское кресло, 200 ₽"
               checked={this.state.data.isNeedChildChair}
               onChange={(newValue) => {
                 this.setState((state) => {
@@ -233,16 +201,13 @@ class Extra extends Component {
                     data: {
                       ...state.data,
                       isNeedChildChair: newValue,
-                      price: newValue
-                        ? state.data.price + 200
-                        : state.data.price - 200,
                     },
                   };
-                }, this.props.onChange);
+                }, this.setPrice);
               }}
             />
             <Checkbox
-              text="Правый руль, 1600р"
+              text="Правый руль, 1600 ₽"
               checked={this.state.data.isRightWheel}
               onChange={(newValue) => {
                 this.setState((state) => {
@@ -250,12 +215,9 @@ class Extra extends Component {
                     data: {
                       ...state.data,
                       isRightWheel: newValue,
-                      price: newValue
-                        ? state.data.price + 1600
-                        : state.data.price - 1600,
                     },
                   };
-                }, this.props.onChange);
+                }, this.setPrice);
               }}
             />
           </div>
