@@ -16,6 +16,7 @@ const dateDifference = (start, end) => {
 };
 
 const OrderDetails = (props) => {
+  console.log(props)
   return (
     <aside className="OrderDetails">
       <span className="OrderDetails-Title">Ваш заказ:</span>
@@ -24,7 +25,7 @@ const OrderDetails = (props) => {
           <Detail
             name="Пункт выдачи"
             value={{
-              city: props.order.pointId.cityId.name,
+              city: props.order.cityId.name,
               address: props.order.pointId.address,
             }}
           />

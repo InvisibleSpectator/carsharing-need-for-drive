@@ -50,6 +50,10 @@
     background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
   }
 
+  &_hidden{
+    display: none;
+  }
+
   &_default {
     background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
 
