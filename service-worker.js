@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/carsharing-need-for-drive/precache-manifest.740f1358364375cf74ea9fbfcc9db587.js"
+  "/carsharing-need-for-drive/precache-manifest.fef01540491d58f1d53657abf2a0c89f.js"
 );
 
 self.addEventListener('message', (event) => {
