@@ -16,7 +16,6 @@ const dateDifference = (start, end) => {
 };
 
 const OrderDetails = (props) => {
-  console.log(props)
   return (
     <aside className="OrderDetails">
       <span className="OrderDetails-Title">Ваш заказ:</span>

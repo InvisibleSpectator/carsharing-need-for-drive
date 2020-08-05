@@ -1,11 +1,11 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { BurgerMenu } from "../../core/BurgerMenu";
 import "./MainPage.scss";
 import { Slider } from "../../components/Slider";
 import { Button } from "../../core/Button";
 import { Link } from "../../core/Link";
 import { Header } from "../../core/Header";
-import { Link as RouterLink } from "react-router-dom";
 
 const MainPage = () => (
   <div className="MainPage">

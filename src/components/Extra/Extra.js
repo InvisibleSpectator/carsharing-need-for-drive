@@ -3,6 +3,7 @@ import { RadiobuttonGroup } from "../../core/RadiobuttonGroup";
 
 import "./Extra.scss";
 import { Checkbox } from "../../core/Checkbox";
+import { Spinner } from "../../core/Spinner";
 
 import { formatDate, getAllFromTableClient } from "../../utils";
 
@@ -10,6 +11,7 @@ class Extra extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       colors: [{ value: "Любой", text: "Любой" }].concat(
         props.colors.map((e) => {
           return { value: e, text: e };
@@ -24,6 +26,7 @@ class Extra extends Component {
     const rates = await getAllFromTableClient("rate");
     this.setState((state) => {
       return {
+        loaded: true,
         rates: rates.data,
         data: {
           ...state.data,
@@ -69,7 +72,7 @@ class Extra extends Component {
   };
 
   render = () => {
-    return (
+    return this.state.loaded ? (
       <div className="Extra">
         <div className="Extra-Color">
           <p className="Extra-Title">Цвет</p>
@@ -223,6 +226,8 @@ class Extra extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <Spinner />
     );
   };
 }

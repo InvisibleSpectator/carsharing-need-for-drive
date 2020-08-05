@@ -10,6 +10,7 @@ import { Extra } from "../../components/Extra";
 import { Total } from "../../components/Total";
 import { OrderDetails } from "../../components/OrderDetails";
 import { getFromTableByIdClient } from "../../utils";
+import { Spinner } from "../../core/Spinner";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class OrderPage extends Component {
 
     this.state = {
       order: {},
-      loaded: false,
       pages: [
         {
           name: "Местоположение",
@@ -90,14 +90,13 @@ class OrderPage extends Component {
     };
   }
 
-  componentDidMount = async () => {
+  getData = async () => {
     if (this.props.match.params.id) {
       const order = await getFromTableByIdClient(
         "order",
         this.props.match.params.id
       );
       this.setState({
-        loaded: true,
         order: (({
           id,
           orderStatusId,
@@ -128,13 +127,22 @@ class OrderPage extends Component {
           isRightWheel,
         }))(order.data),
       });
-    } else {
-      this.setState({ loaded: true });
+    } else this.setState({ order: {} });
+  };
+
+  componentDidMount = async () => {
+    await this.getData();
+  };
+
+  componentDidUpdate = async (prevProps) => {
+    if (this.props.match.params.id !== prevProps.match.params.id) {
+      await this.getData();
     }
   };
 
   conditionalRendering = () => {
     const init = {
+      ...this.props,
       ref: this.activePage,
       data: (() => {
         const tmp = {};
@@ -229,14 +237,21 @@ class OrderPage extends Component {
             )}
           </div>
         </div>
-        {this.state.loaded ? (
+        {!this.props.match.params.id || this.state.order.id ? (
           <div className="OrderPage-Content-Order">
             <div className="OrderPage-ContentWrapper">
               <div className="OrderPage-Content-Order-Options">
                 {this.props.match.params.id ? (
-                  <Total ref={this.activePage} data={this.state.order} />
-                ) : (
+                  <Total
+                    {...this.props}
+                    ref={this.activePage}
+                    data={this.state.order}
+                    onChange={this.getData}
+                  />
+                ) : !this.state.order.id ? (
                   this.conditionalRendering()
+                ) : (
+                  ""
                 )}
               </div>
 
@@ -245,7 +260,10 @@ class OrderPage extends Component {
                 onClick={
                   this.props.match.params.id &&
                   this.state.order.orderStatusId.name === "new"
-                    ? () => this.activePage.current.editOrder()
+                    ? (e) => {
+                        e.currentTarget.classList.toggle("Button_loading");
+                        this.activePage.current.editOrder();
+                      }
                     : this.state.pages[this.state.page].onClick
                 }
                 buttonClass={
@@ -267,7 +285,7 @@ class OrderPage extends Component {
             </div>
           </div>
         ) : (
-          ""
+          <Spinner />
         )}
       </div>
     </div>

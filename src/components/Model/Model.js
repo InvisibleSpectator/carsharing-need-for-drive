@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Model.scss";
 import { RadiobuttonGroup } from "../../core/RadiobuttonGroup";
 import { getAllFromTableClient } from "../../utils";
+import { Spinner } from "../../core/Spinner";
 
 const CarCard = (props) => (
   <div
@@ -31,6 +32,7 @@ class Model extends Component {
     super(props);
     this.state = {
       data: props.data,
+      loaded: false,
       cars: [],
       categories: [{ text: "Все модели", value: "" }],
     };
@@ -41,6 +43,7 @@ class Model extends Component {
     const categories = await getAllFromTableClient("category");
     this.setState((state) => {
       return {
+        loaded: true,
         cars: cars.data,
         categories: state.categories.concat(
           categories.data.map((e) => {
@@ -68,63 +71,66 @@ class Model extends Component {
     );
   };
 
-  render = () => (
-    <div className="Model">
-      <div className="Model-Prices">
-        <RadiobuttonGroup
-          name="priceRange"
-          data={this.state.categories}
-          defaultValue={this.state.data.category}
-          onChange={(value) =>
-            this.setState(
-              (state) => ({
-                ...state,
-                data: { ...state.data, category: value },
-              }),
-              this.props.onLoad
-            )
-          }
-        />
-      </div>
-      <div className="Model-ModelList">
-        <div className="Model-ModelList-Belt">
-          {this.state.data.category === ""
-            ? this.state.cars.map((e, i) => {
-                return (
-                  <CarCard
-                    key={i}
-                    onClick={this.setData}
-                    className={
-                      (this.state.data.carId
-                        ? this.state.data.carId.id
-                        : "") === e.id
-                        ? "Model-CarCard_selected"
-                        : ""
-                    }
-                    car={e}
-                  />
-                );
-              })
-            : this.state.cars
-                .filter((e) => e.categoryId.id === this.state.data.category)
-                .map((e, i) => (
-                  <CarCard
-                    key={i}
-                    onClick={this.setData}
-                    className={
-                      (this.state.data.carId
-                        ? this.state.data.carId.id
-                        : "") === e.id
-                        ? "Model-CarCard_selected"
-                        : ""
-                    }
-                    car={e}
-                  />
-                ))}
+  render = () =>
+    this.state.loaded ? (
+      <div className="Model">
+        <div className="Model-Prices">
+          <RadiobuttonGroup
+            name="priceRange"
+            data={this.state.categories}
+            defaultValue={this.state.data.category}
+            onChange={(value) =>
+              this.setState(
+                (state) => ({
+                  ...state,
+                  data: { ...state.data, category: value },
+                }),
+                this.props.onLoad
+              )
+            }
+          />
+        </div>
+        <div className="Model-ModelList">
+          <div className="Model-ModelList-Belt">
+            {this.state.data.category === ""
+              ? this.state.cars.map((e, i) => {
+                  return (
+                    <CarCard
+                      key={i}
+                      onClick={this.setData}
+                      className={
+                        (this.state.data.carId
+                          ? this.state.data.carId.id
+                          : "") === e.id
+                          ? "Model-CarCard_selected"
+                          : ""
+                      }
+                      car={e}
+                    />
+                  );
+                })
+              : this.state.cars
+                  .filter((e) => e.categoryId.id === this.state.data.category)
+                  .map((e, i) => (
+                    <CarCard
+                      key={i}
+                      onClick={this.setData}
+                      className={
+                        (this.state.data.carId
+                          ? this.state.data.carId.id
+                          : "") === e.id
+                          ? "Model-CarCard_selected"
+                          : ""
+                      }
+                      car={e}
+                    />
+                  ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    ) : (
+      <Spinner />
+    );
 }
 
 export default Model;

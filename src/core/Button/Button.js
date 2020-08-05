@@ -6,7 +6,7 @@ const Button = (props) => (
     type="button"
     disabled={props.className.includes("Button_disabled")}
     className={`Button ${props.className}`}
-    onClick={props.onClick || function () {}}
+    onClick={props.onClick}
   >
     <span
       className={
@@ -17,16 +17,14 @@ const Button = (props) => (
     >
       {props.text}
     </span>
-    <span
-      className={
-        props.className.includes("Button_loading")
-          ? "Button-Spinner"
-          : "Button-Spinner_disabled"
-      }
-    />
+    <span className="Button-Spinner" />
   </button>
 );
 
-Button.defaultProps = { className: "Button_default", text: "" };
+Button.defaultProps = {
+  className: "Button_default",
+  text: "",
+  onClick: () => {},
+};
 
 export default Button;

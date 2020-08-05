@@ -3,10 +3,6 @@ import React, { Component } from "react";
 import "./Checkbox.scss";
 
 class Checkbox extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   getValue = () => this.state.value;
 
   render = () => (

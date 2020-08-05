@@ -20,6 +20,7 @@
   }
 
   &-Spinner {
+    display: none;
     position: absolute;
     top: 8px;
     left: calc(50% - 16px);
@@ -46,11 +47,7 @@
     }
   }
 
-  &_loading {
-    background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
-  }
-
-  &_hidden{
+  &_hidden {
     display: none;
   }
 
@@ -72,6 +69,16 @@
         darken(#0ec261, 20%) 2.61%,
         darken(#039f67, 20%) 112.6%
       );
+    }
+  }
+
+  &_loading {
+    pointer-events: none;
+    & > .Button-Text {
+      visibility: hidden;
+    }
+    & > .Button-Spinner {
+      display: block;
     }
   }
 

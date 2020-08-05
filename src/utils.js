@@ -11,7 +11,7 @@ export const formatDate = (normalDate) => {
 
 export const getAllFromTableClient = async (table) => {
   const response = await fetch(
-    `http://api-factory.simbirsoft1.com/api/db/${table}`,
+    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}`,
     {
       method: "GET",
       headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
@@ -23,7 +23,7 @@ export const getAllFromTableClient = async (table) => {
 
 export const getFromTableByIdClient = async (table, id) => {
   const response = await fetch(
-    `http://api-factory.simbirsoft1.com/api/db/${table}/${id}`,
+    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}/${id}`,
     {
       method: "GET",
       headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
@@ -35,7 +35,7 @@ export const getFromTableByIdClient = async (table, id) => {
 
 export const postToTableClient = async (table, data) => {
   const response = await fetch(
-    `http://api-factory.simbirsoft1.com/api/db/${table}`,
+    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}`,
     {
       method: "POST",
       headers: {
@@ -51,7 +51,7 @@ export const postToTableClient = async (table, data) => {
 
 export const putToTableClient = async (table, id, data) => {
   const response = await fetch(
-    `http://api-factory.simbirsoft1.com/api/db/${table}/${id}`,
+    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}/${id}`,
     {
       method: "PUT",
       headers: {
