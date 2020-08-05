@@ -9,6 +9,7 @@ import "./OrderPage.scss";
 import { Extra } from "../../components/Extra";
 import { Total } from "../../components/Total";
 import { OrderDetails } from "../../components/OrderDetails";
+import { getFromTableByIdClient } from "../../utils";
 
 class OrderPage extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class OrderPage extends Component {
 
     this.state = {
       order: {},
+      loaded: false,
       pages: [
         {
           name: "Местоположение",
@@ -88,6 +90,49 @@ class OrderPage extends Component {
     };
   }
 
+  componentDidMount = async () => {
+    if (this.props.match.params.id) {
+      const order = await getFromTableByIdClient(
+        "order",
+        this.props.match.params.id
+      );
+      this.setState({
+        loaded: true,
+        order: (({
+          id,
+          orderStatusId,
+          cityId,
+          pointId,
+          carId,
+          color,
+          dateFrom,
+          dateTo,
+          rateId,
+          price,
+          isFullTank,
+          isNeedChildChair,
+          isRightWheel,
+        }) => ({
+          id,
+          orderStatusId,
+          cityId,
+          pointId,
+          carId,
+          color,
+          dateFrom,
+          dateTo,
+          rateId,
+          price,
+          isFullTank,
+          isNeedChildChair,
+          isRightWheel,
+        }))(order.data),
+      });
+    } else {
+      this.setState({ loaded: true });
+    }
+  };
+
   conditionalRendering = () => {
     const init = {
       ref: this.activePage,
@@ -157,46 +202,73 @@ class OrderPage extends Component {
         </div>
         <div className="OrderPage-Content-Tabs">
           <div className="OrderPage-ContentWrapper">
-            {this.state.pages.map((e, i) => (
-              <span
-                className={`OrderPage-Content-Tabs-Tab ${
-                  e.isDone || (i > 0 && this.state.pages[i - 1].isDone)
-                    ? "OrderPage-Content-Tabs-Tab_visited"
-                    : " "
-                }
+            {this.props.match.params.id ? (
+              <span className="OrderPage-Content-Tabs-Tab OrderPage-Content-Tabs-Tab_visited">{`Заказ номер ${this.props.match.params.id}`}</span>
+            ) : (
+              this.state.pages.map((e, i) => (
+                <span
+                  className={`OrderPage-Content-Tabs-Tab ${
+                    e.isDone || (i > 0 && this.state.pages[i - 1].isDone)
+                      ? "OrderPage-Content-Tabs-Tab_visited"
+                      : " "
+                  }
                    ${
                      i === this.state.page
                        ? "OrderPage-Content-Tabs-Tab_active"
                        : " "
                    }
                 `}
-                key={i}
-                onClick={() => {
-                  this.setState({ page: i });
-                }}
-              >
-                {e.name}
-              </span>
-            ))}
+                  key={i}
+                  onClick={() => {
+                    this.setState({ page: i });
+                  }}
+                >
+                  {e.name}
+                </span>
+              ))
+            )}
           </div>
         </div>
-        <div className="OrderPage-Content-Order">
-          <div className="OrderPage-ContentWrapper">
-            <div className="OrderPage-Content-Order-Options">
-              {this.conditionalRendering()}
+        {this.state.loaded ? (
+          <div className="OrderPage-Content-Order">
+            <div className="OrderPage-ContentWrapper">
+              <div className="OrderPage-Content-Order-Options">
+                {this.props.match.params.id ? (
+                  <Total ref={this.activePage} data={this.state.order} />
+                ) : (
+                  this.conditionalRendering()
+                )}
+              </div>
+
+              <OrderDetails
+                order={this.state.order}
+                onClick={
+                  this.props.match.params.id &&
+                  this.state.order.orderStatusId.name === "new"
+                    ? () => this.activePage.current.editOrder()
+                    : this.state.pages[this.state.page].onClick
+                }
+                buttonClass={
+                  this.props.match.params.id
+                    ? this.state.order.orderStatusId.name === "new"
+                      ? "Button_decline"
+                      : "Button_hidden"
+                    : !this.state.pages[this.state.page].isDone
+                    ? "Button_disabled"
+                    : ""
+                }
+                buttonText={
+                  this.props.match.params.id &&
+                  this.state.order.orderStatusId.name === "new"
+                    ? "Отменить"
+                    : this.state.pages[this.state.page].buttonText
+                }
+              />
             </div>
-            <OrderDetails
-              order={this.state.order}
-              onClick={this.state.pages[this.state.page].onClick}
-              buttonClass={
-                !this.state.pages[this.state.page].isDone
-                  ? "Button_disabled"
-                  : ""
-              }
-              buttonText={this.state.pages[this.state.page].buttonText}
-            />
           </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
