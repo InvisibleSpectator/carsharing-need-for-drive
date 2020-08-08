@@ -64,3 +64,11 @@ export const putToTableClient = async (table, id, data) => {
   const json = await response.json();
   return json;
 };
+
+export const getGeoData = async (key, address) => {
+  const response = await fetch(
+    `https://geocode-maps.yandex.ru/1.x?apikey=${key}&geocode=${address}&format=json`
+  );
+  const json = await response.json();
+  return json.response;
+};
