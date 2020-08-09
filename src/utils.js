@@ -1,3 +1,5 @@
+export const YANDEX_API_KEY = "1254b552-75fa-48c4-88c3-5df1350fbe3e";
+
 export const formatDate = (normalDate) => {
   const formatter = new Intl.NumberFormat("ru", { minimumIntegerDigits: 2 });
   return normalDate

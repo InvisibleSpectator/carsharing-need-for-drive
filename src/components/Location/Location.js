@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { YMaps, Map, Placemark, Clusterer } from "react-yandex-maps";
+import {
+  YMaps,
+  Map,
+  Placemark,
+  Clusterer,
+  ZoomControl,
+} from "react-yandex-maps";
 import { AutocompletableInput } from "../../core/AutocompletableInput";
-import { getAllFromTableClient, getGeoData } from "../../utils";
+import { getAllFromTableClient, getGeoData, YANDEX_API_KEY } from "../../utils";
 
 import "./Location.scss";
 import { Spinner } from "../../core/Spinner";
@@ -61,7 +67,7 @@ class Location extends Component {
       geomarkers.push({
         // eslint-disable-next-line no-await-in-loop
         ...(await getGeoData(
-          "1254b552-75fa-48c4-88c3-5df1350fbe3e",
+          YANDEX_API_KEY,
           `${address.cityId.name},${address.address}`
         )),
         ...address,
@@ -105,7 +111,12 @@ class Location extends Component {
             }
             disabled={!(this.state.isCityDone || this.state.data.pointId)}
             onChange={(point) => this.updateData(point)}
-            placeholder="Начните вводить пункт выдачи"
+            placeholder={
+              this.state.points.filter((e) => e.cityId.name === this.state.city)
+                .length > 0 || !this.state.isCityDone
+                ? "Начните вводить пункт выдачи"
+                : "Пунктов выдачи нет"
+            }
             variants={this.state.points
               .filter((e) => e.cityId.name === this.state.city)
               .map((e) => e.name)}
@@ -113,58 +124,55 @@ class Location extends Component {
         </div>
         <div className="Location-Map">
           <span>Выбрать на карте:</span>
-          <div className="Location-Map-MapBox">
-            <YMaps>
-              <Map
-                style={{ width: "100%", height: "100%" }}
-                options={{ autoFitToViewport: "always" }}
-                state={{
-                  center: this.state.data.pointId
-                    ? this.state.data.pointId.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-                        .split(" ")
-                        .reverse()
-                    : [0, 0],
-                  zoom: 17,
-                }}
-                instanceRef={(ref) => {
-                  this.map = ref;
-                }}
-              >
-                {this.state.cities.map((city) => {
-                  return (
-                    <Clusterer
-                      key={city.id}
-                      options={{
-                        preset: "islands#invertedGreenClusterIcons",
-                        groupByCoordinates: false,
-                      }}
-                    >
-                      {this.state.points
-                        .filter((point) => point.cityId.id === city.id)
-                        .map((point) => (
-                          <Placemark
-                            key={point.id}
-                            properties={{ iconCaption: point.name }}
-                            options={{
-                              preset: "islands#greenCircleIcon",
-                            }}
-                            onClick={() => {
-                              this.cityInput.current.setInputValue(city.name);
-                              this.addressInput.current.setInputValue(
-                                point.name
-                              );
-                            }}
-                            geometry={point.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-                              .split(" ")
-                              .reverse()}
-                          />
-                        ))}
-                    </Clusterer>
-                  );
-                })}
-              </Map>
-            </YMaps>
-          </div>
+          <YMaps>
+            <Map
+              className="Location-Map-MapBox"
+              options={{ autoFitToViewport: "always" }}
+              defaultState={{
+                center: this.state.data.pointId
+                  ? this.state.data.pointId.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                      .split(" ")
+                      .reverse()
+                  : [0, 0],
+                zoom: 17,
+              }}
+              instanceRef={(ref) => {
+                this.map = ref;
+              }}
+            >
+              {this.state.cities.map((city) => {
+                return (
+                  <Clusterer
+                    key={city.id}
+                    options={{
+                      preset: "islands#invertedGreenClusterIcons",
+                      groupByCoordinates: false,
+                    }}
+                  >
+                    {this.state.points
+                      .filter((point) => point.cityId.id === city.id)
+                      .map((point) => (
+                        <Placemark
+                          key={point.id}
+                          properties={{ iconCaption: point.name }}
+                          options={{
+                            preset: "islands#greenCircleIcon",
+                          }}
+                          onClick={() => {
+                            this.cityInput.current.setInputValue(city.name);
+                            this.addressInput.current.setInputValue(point.name);
+                          }}
+                          geometry={point.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+                            .split(" ")
+                            .reverse()}
+                        />
+                      ))}
+                  </Clusterer>
+                );
+              })}
+              <ZoomControl />
+            </Map>
+          </YMaps>
         </div>
       </div>
     ) : (
