@@ -19,6 +19,7 @@
     grid-auto-rows: auto;
     column-gap: 10px;
     row-gap: 8px;
+
     & > span {
       text-align: center;
       font-weight: 300;
@@ -28,6 +29,7 @@
       align-self: center;
     }
     &-Input {
+      cursor: pointer;
       border: 0;
       border-bottom: 1px solid $GrayDark;
       color: $MainBlack;

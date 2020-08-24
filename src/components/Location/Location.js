@@ -155,8 +155,8 @@ class Location extends Component {
                   ? this.state.data.pointId.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
                       .split(" ")
                       .reverse()
-                  : [53.12319, 50.1136],
-                zoom: 10,
+                  : [60.4, 93.98],
+                zoom: 3,
               }}
               instanceRef={(ref) => {
                 this.map = ref;

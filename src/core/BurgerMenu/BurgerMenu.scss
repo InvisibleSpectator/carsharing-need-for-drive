@@ -42,7 +42,7 @@
     width: auto;
     flex-basis: 410px;
     height: 100vh;
-
+cursor: pointer;
     @media (max-width: 1023px) {
       display: none;
     }
@@ -116,6 +116,7 @@
 
   &-ToggleButton {
     position: absolute;
+    cursor: pointer;
     top: 32px;
     left: 16px;
     border: 0;
@@ -145,7 +146,7 @@
     padding: 0;
     outline: none;
     background-color: transparent;
-
+    cursor: pointer;
     @media (max-width: 767px) {
       display: none;
     }
