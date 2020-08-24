@@ -80,6 +80,15 @@ class Location extends Component {
     });
   };
 
+  onCityChange = (value) =>
+    this.setState((state) => {
+      if (state.city !== value) this.addressInput.current.setInputValue("");
+      return {
+        city: value,
+        isCityDone: this.cityInput.current.isDone(),
+      };
+    });
+
   render = () =>
     this.state.loaded ? (
       <div className="Location">
@@ -90,16 +99,7 @@ class Location extends Component {
             defaultValue={
               this.state.data.cityId ? this.state.data.cityId.name : ""
             }
-            onChange={(value) =>
-              this.setState((state) => {
-                if (state.city !== value)
-                  this.addressInput.current.setInputValue("");
-                return {
-                  city: value,
-                  isCityDone: this.cityInput.current.isDone(),
-                };
-              })
-            }
+            onChange={this.onCityChange}
             placeholder="Начните вводить город выдачи"
             variants={this.state.cities.map((e) => e.name)}
           />
@@ -110,7 +110,7 @@ class Location extends Component {
               this.state.data.pointId ? this.state.data.pointId.name : ""
             }
             disabled={!(this.state.isCityDone || this.state.data.pointId)}
-            onChange={(point) => this.updateData(point)}
+            onChange={this.updateData}
             placeholder={
               this.state.points.filter((e) => e.cityId.name === this.state.city)
                 .length > 0 || !this.state.isCityDone
@@ -133,8 +133,8 @@ class Location extends Component {
                   ? this.state.data.pointId.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
                       .split(" ")
                       .reverse()
-                  : [0, 0],
-                zoom: 17,
+                  : [53.12319, 50.1136],
+                zoom: 10,
               }}
               instanceRef={(ref) => {
                 this.map = ref;

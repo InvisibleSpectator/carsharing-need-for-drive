@@ -140,6 +140,53 @@ class OrderPage extends Component {
     }
   };
 
+  // #region CallbacksForTab
+  onTabLoad = () => {
+    this.setState((state) => {
+      const tmp = {
+        ...state,
+        order: {
+          ...state.order,
+          ...this.activePage.current.getData(),
+        },
+        pages: state.pages,
+      };
+      tmp.pages[state.page].isDone = this.activePage.current.isDone();
+      return tmp;
+    });
+  };
+
+  onTabChange = () => {
+    this.setState((state) => {
+      const tmp = {
+        ...state,
+        order: {
+          ...state.order,
+          ...this.activePage.current.getData(),
+        },
+        pages: state.pages.map((e, i) => ({
+          ...e,
+          isDone: i <= state.page,
+        })),
+      };
+      const filledFields = Array.from(
+        new Set(
+          state.pages
+            .slice(0, state.page + 1)
+            .map((e) => Object.keys(e.data))
+            .flat()
+        )
+      );
+      Object.keys(tmp.order).forEach((e) => {
+        if (!filledFields.includes(e)) delete tmp.order[e];
+      });
+      tmp.pages[state.page].isDone = this.activePage.current.isDone();
+      return tmp;
+    });
+  }
+
+  // #endregion CallbacksForTab
+
   conditionalRendering = () => {
     const init = {
       ...this.props,
@@ -153,48 +200,8 @@ class OrderPage extends Component {
         });
         return tmp;
       })(),
-      onLoad: () => {
-        this.setState((state) => {
-          const tmp = {
-            ...state,
-            order: {
-              ...state.order,
-              ...this.activePage.current.getData(),
-            },
-            pages: state.pages,
-          };
-          tmp.pages[state.page].isDone = this.activePage.current.isDone();
-          return tmp;
-        });
-      },
-      onChange: () => {
-        this.setState((state) => {
-          const tmp = {
-            ...state,
-            order: {
-              ...state.order,
-              ...this.activePage.current.getData(),
-            },
-            pages: state.pages.map((e, i) => ({
-              ...e,
-              isDone: i <= state.page,
-            })),
-          };
-          const filledFields = Array.from(
-            new Set(
-              state.pages
-                .slice(0, state.page + 1)
-                .map((e) => Object.keys(e.data))
-                .flat()
-            )
-          );
-          Object.keys(tmp.order).forEach((e) => {
-            if (!filledFields.includes(e)) delete tmp.order[e];
-          });
-          tmp.pages[state.page].isDone = this.activePage.current.isDone();
-          return tmp;
-        });
-      },
+      onLoad: this.onTabLoad,
+      onChange: this.onTabChange,
     };
     return this.state.pages[this.state.page].render(init);
   };

@@ -1,20 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, useCallback } from "react";
 
 import "./AutocompletableInput.scss";
 
-const Variant = (props) => (
-  <p
-    className="AutocompletableInput-Variants-Variant"
-    onClick={() => {
-      props.setInputValue(props.text);
-    }}
-    onKeyDown={() => {
-      props.setInputValue(props.text);
-    }}
-  >
-    {props.text}
-  </p>
-);
+const Variant = ({ text, setInputValue }) => {
+  const clickHandler = useCallback(() => {
+    setInputValue(text);
+  }, [text, setInputValue]);
+
+  const keyDownHandler = useCallback(() => {
+    setInputValue(text);
+  }, [text, setInputValue]);
+
+  return (
+    <p
+      className="AutocompletableInput-Variants-Variant"
+      onClick={clickHandler}
+      onKeyDown={keyDownHandler}
+    >
+      {text}
+    </p>
+  );
+};
 
 class AutocompletableInput extends Component {
   constructor(props) {
@@ -47,6 +53,12 @@ class AutocompletableInput extends Component {
     );
   };
 
+  getInputValue = (e) => {
+    this.setInputValue(e.target.value.trim());
+  };
+
+  clearInput = () => this.setInputValue("");
+
   render = () => (
     <div className={`${this.props.className || ""} AutocompletableInput`}>
       <input
@@ -54,14 +66,12 @@ class AutocompletableInput extends Component {
         disabled={this.props.disabled}
         className="AutocompletableInput-Input"
         placeholder={this.props.placeholder || ""}
-        onChange={(e) => {
-          this.setInputValue(e.target.value.trim());
-        }}
+        onChange={this.getInputValue}
       />
       <button
         type="button"
         className="AutocompletableInput-Clear"
-        onClick={() => this.setInputValue("")}
+        onClick={this.clearInput}
       />
       <div className="AutocompletableInput-Variants">
         {this.state.value.length >= 2

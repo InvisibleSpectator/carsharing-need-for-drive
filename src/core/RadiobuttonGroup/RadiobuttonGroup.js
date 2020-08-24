@@ -10,6 +10,12 @@ class RadiobuttonGroup extends Component {
 
   getValue = () => this.state.value;
 
+  onChangeHandler = (e) => {
+    this.setState({ value: e.target.value }, () =>
+      this.props.onChange(this.state.value)
+    );
+  };
+
   render = () => (
     <>
       {this.props.data.map((element, i) => (
@@ -24,11 +30,7 @@ class RadiobuttonGroup extends Component {
               className="Radiobutton-Input"
               name={this.props.name}
               value={element.value}
-              onChange={(e) => {
-                this.setState({ value: e.target.value }, () =>
-                  this.props.onChange(this.state.value)
-                );
-              }}
+              onChange={this.onChangeHandler}
             />
             <span className="Radiobutton-FakePoint">{element.text}</span>
           </label>

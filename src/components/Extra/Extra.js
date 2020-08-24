@@ -71,6 +71,75 @@ class Extra extends Component {
     }, this.props.onChange);
   };
 
+  onDateFromChange = (e) => {
+    const date = new Date(e.target.value);
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          dateFrom: date.getTime() || 0,
+          dateTo: date.getTime() ? state.data.dateTo : 0,
+        },
+      };
+    }, this.setPrice);
+  };
+
+  onDateToChange = (e) => {
+    const date = new Date(e.target.value);
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          dateTo: date.getTime() || 0,
+        },
+      };
+    }, this.setPrice);
+  };
+
+  onColorChange = (value) => {
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          color: value,
+        },
+      };
+    }, this.props.onChange);
+  };
+
+  onFullTankChange = (newValue) => {
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          isFullTank: newValue,
+        },
+      };
+    }, this.setPrice);
+  };
+
+  onChildChairChange = (newValue) => {
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          isNeedChildChair: newValue,
+        },
+      };
+    }, this.setPrice);
+  };
+
+  onRightWheelChange = (newValue) => {
+    this.setState((state) => {
+      return {
+        data: {
+          ...state.data,
+          isRightWheel: newValue,
+        },
+      };
+    }, this.setPrice);
+  };
+
   render = () => {
     return this.state.loaded ? (
       <div className="Extra">
@@ -80,16 +149,7 @@ class Extra extends Component {
             <RadiobuttonGroup
               name="colors"
               defaultValue={this.state.data.color}
-              onChange={(value) => {
-                this.setState((state) => {
-                  return {
-                    data: {
-                      ...state.data,
-                      color: value,
-                    },
-                  };
-                }, this.props.onChange);
-              }}
+              onChange={this.onColorChange}
               data={this.state.colors}
             />
           </div>
@@ -107,18 +167,7 @@ class Extra extends Component {
                   : formatDate(new Date(this.state.data.dateFrom))
               }
               type="datetime-local"
-              onChange={(e) => {
-                const date = new Date(e.target.value);
-                this.setState((state) => {
-                  return {
-                    data: {
-                      ...state.data,
-                      dateFrom: date.getTime() || 0,
-                      dateTo: date.getTime() ? state.data.dateTo : 0,
-                    },
-                  };
-                }, this.setPrice);
-              }}
+              onChange={this.onDateFromChange}
             />
             <span>По</span>
             <input
@@ -131,17 +180,7 @@ class Extra extends Component {
                   ? ""
                   : formatDate(new Date(this.state.data.dateTo))
               }
-              onChange={(e) => {
-                const date = new Date(e.target.value);
-                this.setState((state) => {
-                  return {
-                    data: {
-                      ...state.data,
-                      dateTo: date.getTime() || 0,
-                    },
-                  };
-                }, this.setPrice);
-              }}
+              onChange={this.onDateToChange}
             />
           </div>
         </div>
@@ -184,44 +223,17 @@ class Extra extends Component {
             <Checkbox
               text="Полный бак, 500 ₽"
               checked={this.state.data.isFullTank}
-              onChange={(newValue) => {
-                this.setState((state) => {
-                  return {
-                    data: {
-                      ...state.data,
-                      isFullTank: newValue,
-                    },
-                  };
-                }, this.setPrice);
-              }}
+              onChange={this.onFullTankChange}
             />
             <Checkbox
               text="Детское кресло, 200 ₽"
               checked={this.state.data.isNeedChildChair}
-              onChange={(newValue) => {
-                this.setState((state) => {
-                  return {
-                    data: {
-                      ...state.data,
-                      isNeedChildChair: newValue,
-                    },
-                  };
-                }, this.setPrice);
-              }}
+              onChange={this.onChildChairChange}
             />
             <Checkbox
               text="Правый руль, 1600 ₽"
               checked={this.state.data.isRightWheel}
-              onChange={(newValue) => {
-                this.setState((state) => {
-                  return {
-                    data: {
-                      ...state.data,
-                      isRightWheel: newValue,
-                    },
-                  };
-                }, this.setPrice);
-              }}
+              onChange={this.onRightWheelChange}
             />
           </div>
         </div>
