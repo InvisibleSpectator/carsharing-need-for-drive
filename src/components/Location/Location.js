@@ -61,6 +61,16 @@ class Location extends Component {
     const cities = await getAllFromTableClient("city");
     const points = await getAllFromTableClient("point");
     const geomarkers = [];
+    const tpmCities = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const city of cities.data) {
+      tpmCities.push({
+        // eslint-disable-next-line no-await-in-loop
+        ...(await getGeoData(YANDEX_API_KEY, `${city.name}`)),
+        ...city,
+      });
+    }
 
     // eslint-disable-next-line no-restricted-syntax
     for (const address of points.data) {
@@ -74,7 +84,7 @@ class Location extends Component {
       });
     }
     this.setState({
-      cities: cities.data,
+      cities: tpmCities,
       points: geomarkers,
       loaded: true,
     });
@@ -83,6 +93,18 @@ class Location extends Component {
   onCityChange = (value) =>
     this.setState((state) => {
       if (state.city !== value) this.addressInput.current.setInputValue("");
+      const marker = state.cities.find(
+        (e) => e.name === value
+      );
+      if (marker) {
+        this.map.setCenter(
+          marker.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            .split(" ")
+            .reverse(),
+          10,
+          { duration: 1000, timingFunction: "ease-in-out" }
+        );
+      }
       return {
         city: value,
         isCityDone: this.cityInput.current.isDone(),
