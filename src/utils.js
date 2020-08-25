@@ -1,4 +1,7 @@
 export const YANDEX_API_KEY = "1254b552-75fa-48c4-88c3-5df1350fbe3e";
+const PROXY = "https://cors-anywhere.herokuapp.com/";
+const DATABASE_URL = "http://api-factory.simbirsoft1.com/api/db/";
+const APPLICATION_ID = "5e25c641099b810b946c5d5b";
 
 export const formatDate = (normalDate) => {
   const formatter = new Intl.NumberFormat("ru", { minimumIntegerDigits: 2 });
@@ -12,57 +15,45 @@ export const formatDate = (normalDate) => {
 };
 
 export const getAllFromTableClient = async (table) => {
-  const response = await fetch(
-    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}`,
-    {
-      method: "GET",
-      headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-    }
-  );
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}`, {
+    method: "GET",
+    headers: { "X-Api-Factory-Application-Id": APPLICATION_ID },
+  });
   const json = await response.json();
   return json;
 };
 
 export const getFromTableByIdClient = async (table, id) => {
-  const response = await fetch(
-    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}/${id}`,
-    {
-      method: "GET",
-      headers: { "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b" },
-    }
-  );
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}/${id}`, {
+    method: "GET",
+    headers: { "X-Api-Factory-Application-Id": APPLICATION_ID },
+  });
   const json = await response.json();
   return json;
 };
 
 export const postToTableClient = async (table, data) => {
-  const response = await fetch(
-    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}`,
-    {
-      method: "POST",
-      headers: {
-        "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-  );
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}`, {
+    method: "POST",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
   const json = await response.json();
   return json;
 };
 
 export const putToTableClient = async (table, id, data) => {
-  const response = await fetch(
-    `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/${table}/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "X-Api-Factory-Application-Id": "5e25c641099b810b946c5d5b",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-  );
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}/${id}`, {
+    method: "PUT",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
   const json = await response.json();
   return json;
 };

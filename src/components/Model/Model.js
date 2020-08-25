@@ -1,31 +1,32 @@
-import React, { Component } from "react";
+import React, { Component, useCallback } from "react";
 import "./Model.scss";
 import { RadiobuttonGroup } from "../../core/RadiobuttonGroup";
 import { getAllFromTableClient } from "../../utils";
 import { Spinner } from "../../core/Spinner";
 
-const CarCard = (props) => (
-  <div
-    className={`Model-CarCard ${props.className || ""}`}
-    onClick={() => {
-      props.onClick(props.car);
-    }}
-    onKeyDown={() => {
-      props.onClick(props.car);
-    }}
-  >
-    <h3>{props.car.name.split(",")[1]}</h3>
-    <span>
-      <span>{props.car.priceMin}</span> - <span>{props.car.priceMax}</span> ₽
-    </span>
-    <img
-      crossOrigin="anonymous"
-      referrerPolicy="origin"
-      alt="car"
-      src={`http://api-factory.simbirsoft1.com${props.car.thumbnail.path}`}
-    />
-  </div>
-);
+const CarCard = ({ car, onClick, className }) => {
+  const onClickHandler = useCallback(() => {
+    onClick(car);
+  }, [car, onClick]);
+  return (
+    <div
+      className={`Model-CarCard ${className || ""}`}
+      onClick={onClickHandler}
+      onKeyDown={onClickHandler}
+    >
+      <h3>{car.name.split(",")[1]}</h3>
+      <span>
+        <span>{car.priceMin}</span> - <span>{car.priceMax}</span> ₽
+      </span>
+      <img
+        crossOrigin="anonymous"
+        referrerPolicy="origin"
+        alt="car"
+        src={`http://api-factory.simbirsoft1.com${car.thumbnail.path}`}
+      />
+    </div>
+  );
+};
 
 class Model extends Component {
   constructor(props) {
@@ -71,6 +72,15 @@ class Model extends Component {
     );
   };
 
+  onPriceRangeChange = (value) =>
+    this.setState(
+      (state) => ({
+        ...state,
+        data: { ...state.data, category: value },
+      }),
+      this.props.onLoad
+    );
+
   render = () =>
     this.state.loaded ? (
       <div className="Model">
@@ -79,15 +89,7 @@ class Model extends Component {
             name="priceRange"
             data={this.state.categories}
             defaultValue={this.state.data.category}
-            onChange={(value) =>
-              this.setState(
-                (state) => ({
-                  ...state,
-                  data: { ...state.data, category: value },
-                }),
-                this.props.onLoad
-              )
-            }
+            onChange={this.onPriceRangeChange}
           />
         </div>
         <div className="Model-ModelList">

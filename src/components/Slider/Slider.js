@@ -17,7 +17,6 @@ class Slider extends React.Component {
   }
 
   arrowLeftAction = () => {
-    this.isReadyToSlide = false;
     let tmp = this.state.current;
     tmp--;
     if (tmp < 0) {
@@ -27,7 +26,6 @@ class Slider extends React.Component {
   };
 
   arrowRightAction = () => {
-    this.isReadyToSlide = false;
     let tmp = this.state.current;
     tmp++;
     if (tmp > this.state.data.length - 1) {

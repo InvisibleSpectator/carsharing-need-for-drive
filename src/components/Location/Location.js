@@ -61,6 +61,16 @@ class Location extends Component {
     const cities = await getAllFromTableClient("city");
     const points = await getAllFromTableClient("point");
     const geomarkers = [];
+    const tpmCities = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const city of cities.data) {
+      tpmCities.push({
+        // eslint-disable-next-line no-await-in-loop
+        ...(await getGeoData(YANDEX_API_KEY, `${city.name}`)),
+        ...city,
+      });
+    }
 
     // eslint-disable-next-line no-restricted-syntax
     for (const address of points.data) {
@@ -74,11 +84,30 @@ class Location extends Component {
       });
     }
     this.setState({
-      cities: cities.data,
+      cities: tpmCities,
       points: geomarkers,
       loaded: true,
     });
   };
+
+  onCityChange = (value) =>
+    this.setState((state) => {
+      if (state.city !== value) this.addressInput.current.setInputValue("");
+      const marker = state.cities.find((e) => e.name === value);
+      if (marker) {
+        this.map.setCenter(
+          marker.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+            .split(" ")
+            .reverse(),
+          10,
+          { duration: 1000, timingFunction: "ease-in-out" }
+        );
+      }
+      return {
+        city: value,
+        isCityDone: this.cityInput.current.isDone(),
+      };
+    });
 
   render = () =>
     this.state.loaded ? (
@@ -90,18 +119,9 @@ class Location extends Component {
             defaultValue={
               this.state.data.cityId ? this.state.data.cityId.name : ""
             }
-            onChange={(value) =>
-              this.setState((state) => {
-                if (state.city !== value)
-                  this.addressInput.current.setInputValue("");
-                return {
-                  city: value,
-                  isCityDone: this.cityInput.current.isDone(),
-                };
-              })
-            }
+            onChange={this.onCityChange}
             placeholder="Начните вводить город выдачи"
-            variants={this.state.cities.map((e) => e.name)}
+            variants={this.state.cities.map((e) => [e.name])}
           />
           <span>Пункт выдачи</span>
           <AutocompletableInput
@@ -110,7 +130,7 @@ class Location extends Component {
               this.state.data.pointId ? this.state.data.pointId.name : ""
             }
             disabled={!(this.state.isCityDone || this.state.data.pointId)}
-            onChange={(point) => this.updateData(point)}
+            onChange={this.updateData}
             placeholder={
               this.state.points.filter((e) => e.cityId.name === this.state.city)
                 .length > 0 || !this.state.isCityDone
@@ -119,7 +139,7 @@ class Location extends Component {
             }
             variants={this.state.points
               .filter((e) => e.cityId.name === this.state.city)
-              .map((e) => e.name)}
+              .map((e) => [e.name, e.address])}
           />
         </div>
         <div className="Location-Map">
@@ -133,8 +153,8 @@ class Location extends Component {
                   ? this.state.data.pointId.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
                       .split(" ")
                       .reverse()
-                  : [0, 0],
-                zoom: 17,
+                  : [60.4, 93.98],
+                zoom: 3,
               }}
               instanceRef={(ref) => {
                 this.map = ref;

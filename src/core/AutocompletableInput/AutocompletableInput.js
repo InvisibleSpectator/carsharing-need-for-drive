@@ -1,20 +1,31 @@
-import React, { Component } from "react";
+import React, { Component, useCallback, Fragment } from "react";
 
 import "./AutocompletableInput.scss";
 
-const Variant = (props) => (
-  <p
-    className="AutocompletableInput-Variants-Variant"
-    onClick={() => {
-      props.setInputValue(props.text);
-    }}
-    onKeyDown={() => {
-      props.setInputValue(props.text);
-    }}
-  >
-    {props.text}
-  </p>
-);
+const Variant = ({ text, setInputValue }) => {
+  const clickHandler = useCallback(() => {
+    setInputValue(text[0]);
+  }, [text, setInputValue]);
+
+  const keyDownHandler = useCallback(() => {
+    setInputValue(text[0]);
+  }, [text, setInputValue]);
+
+  return (
+    <p
+      className="AutocompletableInput-Variants-Variant"
+      onClick={clickHandler}
+      onKeyDown={keyDownHandler}
+    >
+      {text.map((e, i) => (
+        <Fragment key={i}>
+          <span>{e}</span>
+          <br />
+        </Fragment>
+      ))}
+    </p>
+  );
+};
 
 class AutocompletableInput extends Component {
   constructor(props) {
@@ -23,13 +34,15 @@ class AutocompletableInput extends Component {
       value: this.props.defaultValue || "",
     };
     this.state.filtered = props.variants.filter((variant) =>
-      variant.toLowerCase().startsWith(this.state.value.toLowerCase())
+      variant.some((e) =>
+        e.toLowerCase().startsWith(this.state.value.toLowerCase())
+      )
     );
   }
 
   isDone = () =>
-    this.props.variants.some(
-      (e) => e.toLowerCase() === this.state.value.toLowerCase()
+    this.props.variants.some((e) =>
+      e.some((e2) => e2.toLowerCase() === this.state.value.toLowerCase())
     );
 
   getValue = () => this.state.value;
@@ -37,15 +50,23 @@ class AutocompletableInput extends Component {
   setInputValue = (value) => {
     this.setState(
       {
-        value: this.props.variants.includes(value)
-          ? value
-          : this.props.variants.find(
-              (e) => e.toLowerCase() === value.toLowerCase(value)
-            ) || value,
+        value: this.props.variants.find((e) =>
+          e.some((e2) => e2.toLowerCase() === value.toLowerCase(value))
+        )
+          ? this.props.variants.find((e) =>
+              e.some((e2) => e2.toLowerCase() === value.toLowerCase(value))
+            )[0]
+          : value,
       },
       () => this.props.onChange(this.state.value)
     );
   };
+
+  getInputValue = (e) => {
+    this.setInputValue(e.target.value.trim());
+  };
+
+  clearInput = () => this.setInputValue("");
 
   render = () => (
     <div className={`${this.props.className || ""} AutocompletableInput`}>
@@ -54,20 +75,20 @@ class AutocompletableInput extends Component {
         disabled={this.props.disabled}
         className="AutocompletableInput-Input"
         placeholder={this.props.placeholder || ""}
-        onChange={(e) => {
-          this.setInputValue(e.target.value.trim());
-        }}
+        onChange={this.getInputValue}
       />
       <button
         type="button"
         className="AutocompletableInput-Clear"
-        onClick={() => this.setInputValue("")}
+        onClick={this.clearInput}
       />
       <div className="AutocompletableInput-Variants">
         {this.state.value.length >= 2
           ? this.props.variants
               .filter((variant) =>
-                variant.toLowerCase().startsWith(this.state.value.toLowerCase())
+                variant.some((e) =>
+                  e.toLowerCase().startsWith(this.state.value.toLowerCase())
+                )
               )
               .map((e, i) => (
                 <Variant text={e} key={i} setInputValue={this.setInputValue} />
