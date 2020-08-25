@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/carsharing-need-for-drive/static/css/main.d1ed0199.chunk.css",
-    "main.js": "/carsharing-need-for-drive/static/js/main.92f00d09.chunk.js",
-    "main.js.map": "/carsharing-need-for-drive/static/js/main.92f00d09.chunk.js.map",
+    "main.css": "/carsharing-need-for-drive/static/css/main.5bbb3f93.chunk.css",
+    "main.js": "/carsharing-need-for-drive/static/js/main.23f890a1.chunk.js",
+    "main.js.map": "/carsharing-need-for-drive/static/js/main.23f890a1.chunk.js.map",
     "runtime-main.js": "/carsharing-need-for-drive/static/js/runtime-main.f99e8ff4.js",
     "runtime-main.js.map": "/carsharing-need-for-drive/static/js/runtime-main.f99e8ff4.js.map",
-    "static/js/2.f5df8430.chunk.js": "/carsharing-need-for-drive/static/js/2.f5df8430.chunk.js",
-    "static/js/2.f5df8430.chunk.js.map": "/carsharing-need-for-drive/static/js/2.f5df8430.chunk.js.map",
+    "static/js/2.42e5c492.chunk.js": "/carsharing-need-for-drive/static/js/2.42e5c492.chunk.js",
+    "static/js/2.42e5c492.chunk.js.map": "/carsharing-need-for-drive/static/js/2.42e5c492.chunk.js.map",
     "index.html": "/carsharing-need-for-drive/index.html",
-    "precache-manifest.7a072db9de3473a3c71358f5051d1a9c.js": "/carsharing-need-for-drive/precache-manifest.7a072db9de3473a3c71358f5051d1a9c.js",
+    "precache-manifest.209b943dbdf25aeff2528d982df43bdc.js": "/carsharing-need-for-drive/precache-manifest.209b943dbdf25aeff2528d982df43bdc.js",
     "service-worker.js": "/carsharing-need-for-drive/service-worker.js",
-    "static/css/main.d1ed0199.chunk.css.map": "/carsharing-need-for-drive/static/css/main.d1ed0199.chunk.css.map",
-    "static/js/2.f5df8430.chunk.js.LICENSE.txt": "/carsharing-need-for-drive/static/js/2.f5df8430.chunk.js.LICENSE.txt",
+    "static/css/main.5bbb3f93.chunk.css.map": "/carsharing-need-for-drive/static/css/main.5bbb3f93.chunk.css.map",
+    "static/js/2.42e5c492.chunk.js.LICENSE.txt": "/carsharing-need-for-drive/static/js/2.42e5c492.chunk.js.LICENSE.txt",
     "static/media/BurgerMenu.scss": "/carsharing-need-for-drive/static/media/menu_btn_open.0fc651f5.svg",
     "static/media/index.css": "/carsharing-need-for-drive/static/media/Roboto-ThinItalic.35a9c89a.ttf",
     "static/media/Slider.scss": "/carsharing-need-for-drive/static/media/arrow.3a9e700a.svg",
@@ -25,8 +25,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.f99e8ff4.js",
-    "static/js/2.f5df8430.chunk.js",
-    "static/css/main.d1ed0199.chunk.css",
-    "static/js/main.92f00d09.chunk.js"
+    "static/js/2.42e5c492.chunk.js",
+    "static/css/main.5bbb3f93.chunk.css",
+    "static/js/main.23f890a1.chunk.js"
   ]
 }
