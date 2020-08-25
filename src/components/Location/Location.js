@@ -93,9 +93,7 @@ class Location extends Component {
   onCityChange = (value) =>
     this.setState((state) => {
       if (state.city !== value) this.addressInput.current.setInputValue("");
-      const marker = state.cities.find(
-        (e) => e.name === value
-      );
+      const marker = state.cities.find((e) => e.name === value);
       if (marker) {
         this.map.setCenter(
           marker.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
@@ -123,7 +121,7 @@ class Location extends Component {
             }
             onChange={this.onCityChange}
             placeholder="Начните вводить город выдачи"
-            variants={this.state.cities.map((e) => e.name)}
+            variants={this.state.cities.map((e) => [e.name])}
           />
           <span>Пункт выдачи</span>
           <AutocompletableInput
@@ -141,7 +139,7 @@ class Location extends Component {
             }
             variants={this.state.points
               .filter((e) => e.cityId.name === this.state.city)
-              .map((e) => e.name)}
+              .map((e) => [e.name, e.address])}
           />
         </div>
         <div className="Location-Map">

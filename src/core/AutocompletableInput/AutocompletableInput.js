@@ -1,14 +1,14 @@
-import React, { Component, useCallback } from "react";
+import React, { Component, useCallback, Fragment } from "react";
 
 import "./AutocompletableInput.scss";
 
 const Variant = ({ text, setInputValue }) => {
   const clickHandler = useCallback(() => {
-    setInputValue(text);
+    setInputValue(text[0]);
   }, [text, setInputValue]);
 
   const keyDownHandler = useCallback(() => {
-    setInputValue(text);
+    setInputValue(text[0]);
   }, [text, setInputValue]);
 
   return (
@@ -17,7 +17,12 @@ const Variant = ({ text, setInputValue }) => {
       onClick={clickHandler}
       onKeyDown={keyDownHandler}
     >
-      {text}
+      {text.map((e, i) => (
+        <Fragment key={i}>
+          <span>{e}</span>
+          <br />
+        </Fragment>
+      ))}
     </p>
   );
 };
@@ -29,13 +34,15 @@ class AutocompletableInput extends Component {
       value: this.props.defaultValue || "",
     };
     this.state.filtered = props.variants.filter((variant) =>
-      variant.toLowerCase().startsWith(this.state.value.toLowerCase())
+      variant.some((e) =>
+        e.toLowerCase().startsWith(this.state.value.toLowerCase())
+      )
     );
   }
 
   isDone = () =>
-    this.props.variants.some(
-      (e) => e.toLowerCase() === this.state.value.toLowerCase()
+    this.props.variants.some((e) =>
+      e.some((e2) => e2.toLowerCase() === this.state.value.toLowerCase())
     );
 
   getValue = () => this.state.value;
@@ -43,11 +50,13 @@ class AutocompletableInput extends Component {
   setInputValue = (value) => {
     this.setState(
       {
-        value: this.props.variants.includes(value)
-          ? value
-          : this.props.variants.find(
-              (e) => e.toLowerCase() === value.toLowerCase(value)
-            ) || value,
+        value: this.props.variants.find((e) =>
+          e.some((e2) => e2.toLowerCase() === value.toLowerCase(value))
+        )
+          ? this.props.variants.find((e) =>
+              e.some((e2) => e2.toLowerCase() === value.toLowerCase(value))
+            )[0]
+          : value,
       },
       () => this.props.onChange(this.state.value)
     );
@@ -77,7 +86,9 @@ class AutocompletableInput extends Component {
         {this.state.value.length >= 2
           ? this.props.variants
               .filter((variant) =>
-                variant.toLowerCase().startsWith(this.state.value.toLowerCase())
+                variant.some((e) =>
+                  e.toLowerCase().startsWith(this.state.value.toLowerCase())
+                )
               )
               .map((e, i) => (
                 <Variant text={e} key={i} setInputValue={this.setInputValue} />

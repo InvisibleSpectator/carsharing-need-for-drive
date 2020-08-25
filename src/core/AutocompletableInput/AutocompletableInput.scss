@@ -68,7 +68,9 @@
       line-height: 16px;
       color: $GrayDark;
       margin: 3px 0;
-
+      & > span:not(:first-child) {
+        font-size: 0.65em;
+      }
       &:hover {
         color: $MainAccent;
         cursor: pointer;
