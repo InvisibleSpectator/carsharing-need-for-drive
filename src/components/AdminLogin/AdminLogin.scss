@@ -1,3 +1,5 @@
+@import "../../assets/style/colors.scss";
+
 .LoginForm {
   display: grid;
   width: 376px;
@@ -22,56 +24,19 @@
     text-align: center;
     letter-spacing: -0.4375px;
 
-    color: #3d5170;
+    color: $AdminDarkBlue;
 
     grid-column: span 3;
     padding-bottom: 17px;
   }
-}
 
-.AdminInput {
-  grid-column: span 3;
-  display: flex;
-  flex-direction: column;
-  & > span {
-    font-weight: normal;
-    font-size: 10.5px;
-    line-height: 12px;
-    letter-spacing: -0.18421px;
-
-    color: #495057;
-    padding-bottom: 8px;
+  &-AdminButton {
+    grid-column-start: 3;
   }
-  & > input {
-    border: 0.5px solid #becad6;
-    box-sizing: border-box;
-    border-radius: 3px;
-    height: 29px;
-    padding-left: 12px;
 
-    font-weight: normal;
-    font-size: 11px;
-    line-height: 13px;
-    letter-spacing: -0.192982px;
-
-    color: #3d5170;
+  &-AdminInput{
+    grid-column: span 3;
   }
-}
-
-.AdminButton {
-  grid-column-start: 3;
-  background: #007bff;
-  border: 0.5px solid #007bff;
-  box-sizing: border-box;
-  border-radius: 4px;
-
-  font-weight: normal;
-  font-size: 11.5px;
-  line-height: 13px;
-  letter-spacing: -0.0821429px;
-
-  color: #ffffff;
-  height: 29px;
 }
 
 .AdminLink {
@@ -82,7 +47,7 @@
 
   letter-spacing: -0.18421px;
 
-  color: #007bff;
+  color: $AdminMainBlue;
 }
 
 .LoginBackground {
@@ -111,7 +76,7 @@
     font-size: 24px;
     line-height: 28px;
 
-    color: #3d5170;
+    color: $AdminDarkBlue;
 
     padding-left: 12px;
   }

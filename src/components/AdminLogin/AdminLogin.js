@@ -1,6 +1,8 @@
 import React from "react";
 import "./AdminLogin.scss";
 import Logo from "../../assets/icons/Logo.svg";
+import { AdminButton } from "../../adminStuff/AdminButton";
+import { AdminInput } from "../../adminStuff/AdminInput";
 
 const AdminLogin = () => (
   <div className="LoginBackground">
@@ -12,20 +14,16 @@ const AdminLogin = () => (
       </div>
       <div className="LoginForm">
         <span className="LoginForm-Title">Вход</span>
-        <label className="AdminInput">
-          <span>Логин</span>
-          <input type="text" />
-        </label>
-        <label className="AdminInput">
-          <span>Пароль</span>
-          <input type="password" />
-        </label>
+        <AdminInput text="Логин" type="text" className="LoginForm-AdminInput" />
+        <AdminInput
+          text="Пароль"
+          type="password"
+          className="LoginForm-AdminInput"
+        />
         <a className="AdminLink" href="#">
           Запросить доступ
         </a>
-        <button className="AdminButton" type="submit">
-          Войти
-        </button>
+        <AdminButton text="Войти" className="LoginForm-AdminButton" />
       </div>
     </div>
   </div>
