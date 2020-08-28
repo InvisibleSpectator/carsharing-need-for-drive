@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b47e154e795b00bda789c3c4c8cb1172",
+    "revision": "5305b6de59f5d7f8e2291cdb9c4cc78e",
     "url": "/carsharing-need-for-drive/index.html"
   },
   {
-    "revision": "346ceffc37bfe034ad27",
+    "revision": "2366c82fe469ccd8a98f",
     "url": "/carsharing-need-for-drive/static/css/main.681724b1.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/carsharing-need-for-drive/static/js/2.33a24fc5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "346ceffc37bfe034ad27",
-    "url": "/carsharing-need-for-drive/static/js/main.964d2c99.chunk.js"
+    "revision": "2366c82fe469ccd8a98f",
+    "url": "/carsharing-need-for-drive/static/js/main.733f72e8.chunk.js"
   },
   {
     "revision": "88d8c6249f47d66274a3",
