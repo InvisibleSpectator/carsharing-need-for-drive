@@ -1,0 +1,29 @@
+@import "../../assets/style/colors.scss";
+
+.AdminInput {
+  display: flex;
+  flex-direction: column;
+  & > span {
+    font-weight: normal;
+    font-size: 10.5px;
+    line-height: 12px;
+    letter-spacing: -0.18421px;
+
+    color: #495057;
+    padding-bottom: 8px;
+  }
+  & > input {
+    border: 0.5px solid #becad6;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 29px;
+    padding-left: 12px;
+
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: -0.192982px;
+
+    color: $AdminDarkBlue;
+  }
+}
