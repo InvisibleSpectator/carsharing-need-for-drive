@@ -1,7 +1,9 @@
 export const YANDEX_API_KEY = "1254b552-75fa-48c4-88c3-5df1350fbe3e";
 const PROXY = "https://cors-anywhere.herokuapp.com/";
 const DATABASE_URL = "http://api-factory.simbirsoft1.com/api/db/";
+const ADMIN_AUTH_URL = "http://api-factory.simbirsoft1.com/api/auth/";
 const APPLICATION_ID = "5e25c641099b810b946c5d5b";
+const SECRET_KEY = "4cbcea96de";
 
 export const formatDate = (normalDate) => {
   const formatter = new Intl.NumberFormat("ru", { minimumIntegerDigits: 2 });
@@ -13,6 +15,18 @@ export const formatDate = (normalDate) => {
       )}:${formatter.format(normalDate.getMinutes())}`
     : "";
 };
+
+const getBasicToken = ()=>{
+  let basicToken = "";
+  const words =
+    "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  const maxPosition = words.length - 1;
+  for (let i = 0; i < 7; i += 1) {
+    const position = Math.floor(Math.random() * maxPosition);
+    basicToken += words.substring(position, position + 1);
+  }
+  return basicToken;
+}
 
 export const getAllFromTableClient = async (table) => {
   const response = await fetch(`${PROXY}${DATABASE_URL}${table}`, {
@@ -64,4 +78,34 @@ export const getGeoData = async (key, address) => {
   );
   const json = await response.json();
   return json.response;
+};
+
+export const register = async (username, password) => {
+  const basicKey = btoa(`${getBasicToken()}:${SECRET_KEY}`);
+  const response = await fetch(`${PROXY}${ADMIN_AUTH_URL}register`, {
+    method: "POST",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+      Authorization: `Basic ${basicKey}`,
+    },
+    body: JSON.stringify({ username, password }),
+  });
+  const json = await response.json();
+  return json;
+};
+
+export const logIn = async (username, password) => {
+  const basicKey = btoa(`${getBasicToken()}:${SECRET_KEY}`);
+  const response = await fetch(`${PROXY}${ADMIN_AUTH_URL}login`, {
+    method: "POST",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+      Authorization: `Basic ${basicKey}`,
+    },
+    body: JSON.stringify({ username, password }),
+  });
+  const json = await response.json();
+  return json;
 };

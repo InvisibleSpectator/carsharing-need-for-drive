@@ -1,10 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 
-import "./AdminButton.scss"
+import "./AdminButton.scss";
 
-const AdminButton = ({ text, className }) => {
+const AdminButton = ({ text, className, onClick = () => {} }) => {
   return (
-    <button className={`AdminButton ${className}`} type="submit">
+    <button
+      className={`AdminButton ${className}`}
+      onClick={onClick}
+      type="submit"
+    >
       {text}
     </button>
   );

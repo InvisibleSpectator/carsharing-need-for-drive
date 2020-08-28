@@ -34,7 +34,7 @@
     grid-column-start: 3;
   }
 
-  &-AdminInput{
+  &-AdminInput {
     grid-column: span 3;
   }
 }
@@ -46,7 +46,11 @@
   line-height: 12px;
 
   letter-spacing: -0.18421px;
-
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  text-align: left;
   color: $AdminMainBlue;
 }
 
