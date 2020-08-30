@@ -1,8 +1,8 @@
 import React from "react";
 import "./AdminLogin.scss";
 import Logo from "../../assets/icons/Logo.svg";
-import { AdminButton } from "../../adminStuff/AdminButton";
-import { AdminInput } from "../../adminStuff/AdminInput";
+import { AdminButton } from "../AdminButton";
+import { AdminInput } from "../AdminInput";
 import { logIn, register } from "../../utils";
 
 class AdminLogin extends React.Component {
@@ -42,7 +42,7 @@ class AdminLogin extends React.Component {
       <div className="LoginContaner">
         <div className="Logo">
           <img src={Logo} alt="Logo" />
-          <span>Need for car</span>
+          <h1>Need for car</h1>
         </div>
         <div className="LoginForm">
           <span className="LoginForm-Title">Вход</span>

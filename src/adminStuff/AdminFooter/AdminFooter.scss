@@ -1,0 +1,21 @@
+@import "../../assets/style/colors.scss";
+
+.AdminFooter {
+  display: flex;
+  min-height: 68px;
+  position: sticky;
+  box-sizing: border-box;
+  bottom: 0;
+  background-color: white;
+  box-shadow: 0px -0.5px 0px #d7dae3;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 27.5px;
+  &-Copyright {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: $AdminDarkBlue;
+  }
+}

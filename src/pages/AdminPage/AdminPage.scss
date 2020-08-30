@@ -1,0 +1,59 @@
+@import "../../assets/style/colors.scss";
+
+.AdminPage {
+  display: flex;
+  flex-direction: row;
+  &-Content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 100%;
+    overflow-y: auto;
+    & > main {
+      flex-grow: 1;
+      background-color: #F5F6F8;
+    }
+  }
+  &-NavLink {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 58px;
+    box-shadow: inset 0px -1px 0px #e1e5eb;
+    align-items: center;
+    text-decoration: none;
+    color: $AdminDarkBlue;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+    letter-spacing: -0.234375px;
+    padding-left: 26.5px;
+    box-shadow: inset 4px 0px 0px white, inset 0px -1px 0px #e1e5eb;
+    &:hover{
+      color: $AdminMainBlue;
+      .AdminPage-NavLink-Icon {
+        background-color: $AdminMainBlue;
+      }
+    }
+    &-Icon {
+      width: 16px;
+      height: 16px;
+      background-color: #cacedb;
+      padding-right: 11.5px;
+      mask-repeat: no-repeat;
+      &_edit {
+        mask-image: url(../../assets/icons/edit_icon.svg);
+      }
+      &_list {
+        mask-image: url(../../assets/icons/list_icon.svg);
+      }
+    }
+    &_active {
+      color: $AdminMainBlue;
+      box-shadow: inset 4px 0px 0px $AdminMainBlue, inset 0px -1px 0px #e1e5eb;
+      .AdminPage-NavLink-Icon {
+        background-color: $AdminMainBlue;
+      }
+    }
+  }
+}
