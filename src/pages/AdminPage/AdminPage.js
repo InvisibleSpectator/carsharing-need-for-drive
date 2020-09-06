@@ -5,6 +5,7 @@ import { Redirect, NavLink, Switch, Route } from "react-router-dom";
 import { AdminHeader } from "../../adminStuff/AdminHeader";
 import { AdminNav } from "../../adminStuff/AdminNav";
 import { AdminFooter } from "../../adminStuff/AdminFooter";
+import { CarCard } from "../../adminStuff/CarCard";
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -67,6 +68,9 @@ class AdminPage extends React.Component {
                 <Redirect to="/admin/orderlist" />
               </Route>
               <Route path="/admin/carlist">
+              </Route>
+              <Route path="/admin/car">
+                <CarCard />
               </Route>
             </Switch>
           </main>

@@ -3,6 +3,8 @@
 .AdminPage {
   display: flex;
   flex-direction: row;
+  overflow-y: hidden;
+  max-height: 100vh;
   &-Content {
     display: flex;
     flex-direction: column;
@@ -11,7 +13,10 @@
     overflow-y: auto;
     & > main {
       flex-grow: 1;
-      background-color: #F5F6F8;
+      background-color: #f5f6f8;
+      padding: 28px;
+      padding-top: 0;
+      overflow-y: auto;
     }
   }
   &-NavLink {
@@ -29,7 +34,7 @@
     letter-spacing: -0.234375px;
     padding-left: 26.5px;
     box-shadow: inset 4px 0px 0px white, inset 0px -1px 0px #e1e5eb;
-    &:hover{
+    &:hover {
       color: $AdminMainBlue;
       .AdminPage-NavLink-Icon {
         background-color: $AdminMainBlue;
@@ -55,5 +60,16 @@
         background-color: $AdminMainBlue;
       }
     }
+  }
+}
+
+.AdminStyledBlock {
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+  border-radius: 9px;
+  box-sizing: border-box;
+  &-Content {
+    box-sizing: border-box;
+    padding: 18px;
   }
 }

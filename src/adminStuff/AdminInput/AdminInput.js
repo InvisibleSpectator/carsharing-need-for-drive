@@ -5,20 +5,35 @@ import "./AdminInput.scss";
 class AdminInput extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { value: props.value || "" };
   }
 
   updateValue = (e) => {
-    this.setState({ value: e.target.value.trim() });
+    this.setState({
+      value: this.props.trim ? e.target.value.trim() : e.target.value,
+    });
   };
 
   getValue = () => this.state.value;
 
+  setValue = (value) => {
+    this.setState({ value });
+  };
+
   render = () => (
     <label className={`AdminInput ${this.props.className}`}>
-      <span>{this.props.text}</span>
+      <div className="AdminInput-Titles">
+        <span className="AdminInput-Titles-Title">{this.props.text}</span>
+        {this.props.type === "range" ? (
+          <span className="AdminInput-Titles-Value">{+this.state.value} %</span>
+        ) : (
+          ""
+        )}
+      </div>
       <input
-        value={this.state.value}
+        value={
+          this.props.type === "range" ? +this.state.value : this.state.value
+        }
         type={this.props.type}
         onChange={this.updateValue}
       />

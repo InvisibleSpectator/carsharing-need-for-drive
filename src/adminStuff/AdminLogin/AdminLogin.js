@@ -48,17 +48,21 @@ class AdminLogin extends React.Component {
           <span className="LoginForm-Title">Вход</span>
           <AdminInput
             ref={this.login}
+            trim
             text="Логин"
             type="text"
             className="LoginForm-AdminInput"
           />
           <AdminInput
             ref={this.password}
+            trim
             text="Пароль"
             type="password"
             className="LoginForm-AdminInput"
           />
-          <button onClick={this.register} type="submit" className="AdminLink">Запросить доступ</button>
+          <button onClick={this.register} type="submit" className="AdminLink">
+            Запросить доступ
+          </button>
           <AdminButton
             text="Войти"
             className="LoginForm-AdminButton"

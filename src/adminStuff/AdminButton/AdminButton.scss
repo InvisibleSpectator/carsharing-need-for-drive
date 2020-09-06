@@ -17,5 +17,11 @@
 
   &_decline{
     background:$AdminDecline;
+    border-color: $AdminDecline;
+  }
+  &_gray{
+    background: #E9ECEF;
+    color:$AdminDarkBlue;
+    border-color: #E9ECEF;
   }
 }
