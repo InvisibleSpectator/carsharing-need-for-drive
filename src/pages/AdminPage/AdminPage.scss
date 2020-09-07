@@ -5,6 +5,14 @@
   flex-direction: row;
   overflow-y: hidden;
   max-height: 100vh;
+  &-Title {
+    font-weight: normal;
+    font-size: 29px;
+    line-height: 33px;
+
+    letter-spacing: -0.725px;
+    color: $AdminDarkBlue;
+  }
   &-Content {
     display: flex;
     flex-direction: column;

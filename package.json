@@ -12,7 +12,7 @@
     "react-dom": "^16.13.1",
     "react-normalize": "^0.4.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
     "react-yandex-maps": "^4.4.0"
   },
   "scripts": {

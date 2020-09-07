@@ -75,6 +75,7 @@
     }
 
     &-Drawer {
+      z-index: 200;
       position: absolute;
       width: 100%;
       top: 100%;

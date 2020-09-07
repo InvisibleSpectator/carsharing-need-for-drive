@@ -6,6 +6,7 @@ import { AdminHeader } from "../../adminStuff/AdminHeader";
 import { AdminNav } from "../../adminStuff/AdminNav";
 import { AdminFooter } from "../../adminStuff/AdminFooter";
 import { CarCard } from "../../adminStuff/CarCard";
+import { ClaimPoint } from "../../adminStuff/ClaimPoint";
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -46,6 +47,11 @@ class AdminPage extends React.Component {
               text: "Карточка автомобиля",
               icon_type: "edit",
             },
+            {
+              link: "/admin/point",
+              text: "Точка выдачи",
+              icon_type: "edit",
+            },
           ].map((e, i) => (
             <NavLink
               to={e.link}
@@ -67,10 +73,12 @@ class AdminPage extends React.Component {
               <Route exact path="/admin/">
                 <Redirect to="/admin/orderlist" />
               </Route>
-              <Route path="/admin/carlist">
-              </Route>
+              <Route path="/admin/carlist"></Route>
               <Route path="/admin/car">
                 <CarCard />
+              </Route>
+              <Route path="/admin/point">
+                <ClaimPoint />
               </Route>
             </Switch>
           </main>

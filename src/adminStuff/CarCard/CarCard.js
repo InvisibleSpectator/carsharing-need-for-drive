@@ -48,7 +48,7 @@ class CarCard extends React.Component {
   render = () => {
     return (
       <div className="CarCard">
-        <h2 className="CarCard-Title">Карточка автомобиля</h2>
+        <h2 className="AdminPage-Title">Карточка автомобиля</h2>
         <div className="CarCard-Settings">
           <div className="AdminStyledBlock CarCard-Settings-Card">
             <div className="CarCard-Settings-ImageBlock AdminStyledBlock-Content">
@@ -146,7 +146,6 @@ class CarCard extends React.Component {
             <div className=" AdminStyledBlock-Content CarCard-Buttons">
               <AdminButton text="Сохранить" />
               <AdminButton text="Отменить" className="AdminButton_gray" />
-
               <AdminButton text="Удалить" className="AdminButton_decline" />
             </div>
           </div>

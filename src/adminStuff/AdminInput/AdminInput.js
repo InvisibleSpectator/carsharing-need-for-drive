@@ -31,6 +31,7 @@ class AdminInput extends Component {
         )}
       </div>
       <input
+        readOnly={this.props.readOnly}
         value={
           this.props.type === "range" ? +this.state.value : this.state.value
         }

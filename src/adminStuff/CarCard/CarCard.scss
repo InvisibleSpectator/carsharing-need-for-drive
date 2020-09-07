@@ -1,15 +1,6 @@
 @import "../../assets/style/colors.scss";
 
 .CarCard {
-
-  &-Title {
-    font-weight: normal;
-    font-size: 29px;
-    line-height: 33px;
-
-    letter-spacing: -0.725px;
-    color: $AdminDarkBlue;
-  }
   &-Settings {
     display: grid;
     grid-template-columns: minmax(auto,334px) auto;
