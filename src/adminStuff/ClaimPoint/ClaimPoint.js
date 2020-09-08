@@ -10,28 +10,38 @@ import {
 import "./ClaimPoint.scss";
 import { YANDEX_API_KEY, getGeoData } from "../../utils";
 import { AdminInput } from "../AdminInput";
+import { AdminButton } from "../AdminButton";
 
 class ClaimPoint extends React.Component {
   constructor(props) {
     super(props);
     this.searchControl = React.createRef();
-
     this.map = React.createRef();
+
+    this.cityInput = React.createRef();
+    this.addressInput = React.createRef();
     this.state = { name: "", address: "", city: "", coords: null };
   }
 
   parseAddress = (prefix) => {
     const tmpAddress =
       prefix.metaDataProperty.GeocoderMetaData.Address.Components;
-    if (tmpAddress.some((e) => e.kind === "house"))
-      return {
+    if (tmpAddress.some((e) => e.kind === "house")) {
+      const retValue = {
         city: tmpAddress.find((e) => e.kind === "locality").name,
         address:
           tmpAddress.find((e) => e.kind === "street").name +
           " " +
           tmpAddress.find((e) => e.kind === "house").name,
       };
-    else return false;
+      this.cityInput.current.setValue(retValue.city);
+      this.addressInput.current.setValue(retValue.address);
+      return retValue;
+    } else return false;
+  };
+
+  updateName = (name) => {
+    this.setState({ name });
   };
 
   getCoordsFromSearch = (e) => {
@@ -85,10 +95,10 @@ class ClaimPoint extends React.Component {
 
   render = () => {
     return (
-      <div>
+      <div className="ClaimPoint">
         <h2 className="AdminPage-Title">Пункт выдачи</h2>
-        <div className="AdminStyledBlock">
-          <div>
+        <div className="ClaimPoint-Grid">
+          <div className="AdminStyledBlock">
             <YMaps query={{ apikey: YANDEX_API_KEY }}>
               <Map
                 onClick={this.getCoordsFromClick}
@@ -119,10 +129,27 @@ class ClaimPoint extends React.Component {
               </Map>
             </YMaps>
           </div>
-          <div className="AdminStyledBlock-Content">
-            <AdminInput text="Название точки" />
-            <AdminInput readOnly text="Город" value={this.state.city} />
-            <AdminInput readOnly text="Адрес" value={this.state.address} />
+          <div className="AdminStyledBlock ClaimPoint-Controls">
+            <div className="AdminStyledBlock-Content">
+              <AdminInput text="Название точки" onChange={this.updateName} />
+              <AdminInput
+                readOnly
+                text="Город"
+                value={this.state.city}
+                ref={this.cityInput}
+              />
+              <AdminInput
+                readOnly
+                text="Адрес"
+                value={this.state.address}
+                ref={this.addressInput}
+              />
+            </div>
+            <div className=" AdminStyledBlock-Content ClaimPoint-Buttons">
+              <AdminButton text="Сохранить" />
+              <AdminButton text="Отменить" className="AdminButton_gray" />
+              <AdminButton text="Удалить" className="AdminButton_decline" />
+            </div>
           </div>
         </div>
       </div>

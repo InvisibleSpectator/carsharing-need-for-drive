@@ -9,9 +9,12 @@ class AdminInput extends Component {
   }
 
   updateValue = (e) => {
-    this.setState({
-      value: this.props.trim ? e.target.value.trim() : e.target.value,
-    });
+    this.setState(
+      {
+        value: this.props.trim ? e.target.value.trim() : e.target.value,
+      },
+      () => this.props.onChange(this.state.value)
+    );
   };
 
   getValue = () => this.state.value;
@@ -41,5 +44,9 @@ class AdminInput extends Component {
     </label>
   );
 }
+
+AdminInput.defaultProps = {
+  onChange: () => {},
+};
 
 export default AdminInput;
