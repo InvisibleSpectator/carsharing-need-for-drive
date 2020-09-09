@@ -15,12 +15,13 @@
     column-gap: 28px;
     grid-auto-rows: 100%;
     @media (max-width: 768px) {
-      grid-template-columns: none;
+      grid-template-columns: 100%;
+      grid-auto-rows: minmax(300px,auto);
     }
   }
   &-Map {
     z-index: 1;
-    width: auto;
+    width: 99%;
     height: 100%;
   }
 
@@ -33,7 +34,9 @@
   &-Buttons {
     justify-self: flex-end;
     display: grid;
-
+    @media (max-width: 768px) {
+      column-gap: 4px;
+    }
     grid-template-columns: minmax(auto, 110px) minmax(auto, 110px) 1fr minmax(
         auto,
         110px

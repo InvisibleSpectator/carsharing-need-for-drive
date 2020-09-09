@@ -17,6 +17,9 @@
 
     letter-spacing: -0.725px;
     color: $AdminDarkBlue;
+    @media (max-width: 768px) {
+      margin-left:18px;
+    }
   }
   &-Content {
     display: flex;

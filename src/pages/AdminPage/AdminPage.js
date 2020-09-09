@@ -7,6 +7,7 @@ import { AdminNav } from "../../adminStuff/AdminNav";
 import { AdminFooter } from "../../adminStuff/AdminFooter";
 import { CarCard } from "../../adminStuff/CarCard";
 import { ClaimPoint } from "../../adminStuff/ClaimPoint";
+import { AdminError } from "../../adminStuff/AdminError";
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -78,6 +79,9 @@ class AdminPage extends React.Component {
               </Route>
               <Route path="/admin/point">
                 <ClaimPoint />
+              </Route>
+              <Route path="/admin/*">
+                <AdminError />
               </Route>
             </Switch>
           </main>
