@@ -47,6 +47,7 @@ class AdminInput extends Component {
 
 AdminInput.defaultProps = {
   onChange: () => {},
+  className:""
 };
 
 export default AdminInput;
