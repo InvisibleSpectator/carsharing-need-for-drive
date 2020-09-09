@@ -11,8 +11,7 @@ import { ClaimPoint } from "../../adminStuff/ClaimPoint";
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    // this.bearer = localStorage.getItem("bearer");
-    this.bearer = true;
+    this.bearer = localStorage.getItem("bearer");
   }
 
   componentDidMount() {
@@ -62,7 +61,7 @@ class AdminPage extends React.Component {
               <div
                 className={`AdminPage-NavLink-Icon AdminPage-NavLink-Icon_${e.icon_type}`}
               />
-              {e.text}
+              <p>{e.text}</p>
             </NavLink>
           ))}
         </AdminNav>
@@ -73,7 +72,7 @@ class AdminPage extends React.Component {
               <Route exact path="/admin/">
                 <Redirect to="/admin/orderlist" />
               </Route>
-              <Route path="/admin/carlist"></Route>
+              <Route path="/admin/carlist" />
               <Route path="/admin/car">
                 <CarCard />
               </Route>

@@ -14,10 +14,13 @@
     grid-template-columns: 1fr minmax(auto, 290px);
     column-gap: 28px;
     grid-auto-rows: 100%;
+    @media (max-width: 768px) {
+      grid-template-columns: none;
+    }
   }
   &-Map {
     z-index: 1;
-    width: 99%;
+    width: auto;
     height: 100%;
   }
 

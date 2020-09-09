@@ -29,15 +29,15 @@ class ClaimPoint extends React.Component {
     if (tmpAddress.some((e) => e.kind === "house")) {
       const retValue = {
         city: tmpAddress.find((e) => e.kind === "locality").name,
-        address:
-          tmpAddress.find((e) => e.kind === "street").name +
-          " " +
-          tmpAddress.find((e) => e.kind === "house").name,
+        address: `${tmpAddress.find((e) => e.kind === "street").name} ${
+          tmpAddress.find((e) => e.kind === "house").name
+        }`,
       };
       this.cityInput.current.setValue(retValue.city);
       this.addressInput.current.setValue(retValue.address);
       return retValue;
-    } else return false;
+    }
+    return false;
   };
 
   updateName = (name) => {
@@ -102,7 +102,9 @@ class ClaimPoint extends React.Component {
             <YMaps query={{ apikey: YANDEX_API_KEY }}>
               <Map
                 onClick={this.getCoordsFromClick}
-                instanceRef={(ref) => (this.map = ref)}
+                instanceRef={(ref) => {
+                  this.map = ref;
+                }}
                 className="AdminStyledBlock-Content ClaimPoint-Map"
                 defaultState={{
                   center: [60.4, 93.98],
@@ -122,7 +124,9 @@ class ClaimPoint extends React.Component {
                 )}
                 <SearchControl
                   options={{ noPlacemark: true, noCentering: true }}
-                  instanceRef={(ref) => (this.searchControl = ref)}
+                  instanceRef={(ref) => {
+                    this.searchControl = ref;
+                  }}
                   onResultShow={this.getCoordsFromSearch}
                 />
                 <ZoomControl />

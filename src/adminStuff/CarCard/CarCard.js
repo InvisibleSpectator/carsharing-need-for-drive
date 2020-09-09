@@ -24,7 +24,7 @@ class CarCard extends React.Component {
   constructor(props) {
     super(props);
     this.colorInput = React.createRef();
-    this.state = { isDataLoaded: false, colors: new Set() };
+    this.state = { colors: new Set() };
   }
 
   addColor = () => {
@@ -72,7 +72,7 @@ class CarCard extends React.Component {
             </div>
             <div className="AdminStyledBlock-Content CarCard-Settings-Progress">
               <div className="CarCard-Settings-Progress-Title">
-                <span>Заполненно</span> <span>{`%`}</span>
+                <span>Заполненно</span> <span>%</span>
               </div>
               <span className="CarCard-Settings-Progress-ProgressBar">
                 <span

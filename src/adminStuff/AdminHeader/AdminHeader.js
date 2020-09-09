@@ -15,7 +15,7 @@ class AdminHeader extends React.Component {
   render = () => {
     return (
       <header className="AdminHeader">
-        <div className="AdminHeader-SearchBar"></div>
+        <div className="AdminHeader-SearchBar" />
         <div className="AdminHeader-Notification">
           <div className="AdminHeader-Notification-Count">{1}</div>
         </div>
@@ -40,7 +40,7 @@ class AdminHeader extends React.Component {
                 ? "AdminHeader-Profile-Drawer_isOpened"
                 : ""
             }`}
-          ></div>
+           />
         </div>
       </header>
     );
