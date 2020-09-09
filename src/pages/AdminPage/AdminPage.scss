@@ -1,0 +1,93 @@
+@import "../../assets/style/colors.scss";
+
+.AdminPage {
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 1023px) {
+    display: grid;
+    grid-template-columns: 57px auto;
+    overflow-y: auto;
+  }
+  overflow-y: hidden;
+  max-height: 100vh;
+  &-Title {
+    font-weight: normal;
+    font-size: 29px;
+    line-height: 33px;
+
+    letter-spacing: -0.725px;
+    color: $AdminDarkBlue;
+  }
+  &-Content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 100%;
+    & > main {
+      flex-grow: 1;
+      background-color: #f5f6f8;
+      padding: 28px;
+      padding-top: 0;
+      overflow-y: auto;
+      @media (max-width: 768px) {
+        padding: 0;
+      }
+    }
+  }
+  &-NavLink {
+    width: 285px;
+    display: flex;
+    box-sizing: border-box;
+    height: 58px;
+    box-shadow: inset 0px -1px 0px #e1e5eb;
+    align-items: center;
+    text-decoration: none;
+    color: $AdminDarkBlue;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 17px;
+    letter-spacing: -0.234375px;
+    padding-left: 26.5px;
+    box-shadow: inset 4px 0px 0px white, inset 0px -1px 0px #e1e5eb;
+    &:hover {
+      color: $AdminMainBlue;
+      .AdminPage-NavLink-Icon {
+        background-color: $AdminMainBlue;
+      }
+    }
+    &-Icon {
+      min-width: 16px;
+      min-height: 16px;
+      background-color: #cacedb;
+      padding-right: 16px;
+      mask-repeat: no-repeat;
+      &_edit {
+        mask-image: url(../../assets/icons/edit_icon.svg);
+      }
+      &_list {
+        mask-image: url(../../assets/icons/list_icon.svg);
+      }
+    }
+    &_active {
+      color: $AdminMainBlue;
+      box-shadow: inset 4px 0px 0px $AdminMainBlue, inset 0px -1px 0px #e1e5eb;
+      .AdminPage-NavLink-Icon {
+        background-color: $AdminMainBlue;
+      }
+    }
+  }
+}
+
+.AdminStyledBlock {
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(90, 97, 105, 0.12);
+  border-radius: 9px;
+  box-sizing: border-box;
+  &-Content {
+    box-sizing: border-box;
+    padding: 18px;
+  }
+  @media (max-width: 768px) {
+    border-radius: 0;
+  }
+}

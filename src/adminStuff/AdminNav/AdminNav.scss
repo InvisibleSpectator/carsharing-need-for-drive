@@ -1,0 +1,61 @@
+@import "../../assets/style/colors.scss";
+
+.AdminNav {
+  position: sticky;
+  transition: min-width 2s;
+  top: 0;
+  min-width: max-content;
+  background-color: white;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 75px rgba(90, 97, 105, 0.11),
+    0px 2px 4px rgba(90, 97, 105, 0.12), 0px 7.5px 11px rgba(90, 97, 105, 0.1),
+    0px 3.5px 17.5px rgba(165, 182, 201, 0.1);
+  height: 100vh;
+  overflow-x: hidden;
+
+  &-Logo {
+    box-sizing: border-box;
+    height: 68px;
+    width: 285px;
+    padding: 23px 49px;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0px -1px 0px #e1e5eb;
+
+    & > img {
+      width: 22px;
+    }
+
+    & > h1 {
+      margin: 0;
+      font-weight: normal;
+      padding-left: 8px;
+      font-size: 16px;
+      line-height: 21px;
+      color: $AdminDarkBlue;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    width: 57px;
+    min-width: 57px;
+    &-Logo {
+      padding-left: 18px;
+      & > img {
+        padding-right: 20px;
+      }
+    }
+    &:hover {
+      width: 57px;
+      min-width: max-content;
+      .AdminNav-Logo {
+        padding: 23px 49px;
+        & > img {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

@@ -3,20 +3,24 @@
 .AdminInput {
   display: flex;
   flex-direction: column;
-  & > span {
+  &-Titles {
     font-weight: normal;
     font-size: 10.5px;
     line-height: 12px;
     letter-spacing: -0.18421px;
 
     color: #495057;
+    padding-top: 5px;
     padding-bottom: 8px;
+
+    display: flex;
+    justify-content: space-between;
   }
   & > input {
     border: 0.5px solid #becad6;
     box-sizing: border-box;
     border-radius: 3px;
-    height: 29px;
+    height: 30px;
     padding-left: 12px;
 
     font-weight: normal;
@@ -25,5 +29,28 @@
     letter-spacing: -0.192982px;
 
     color: $AdminDarkBlue;
+
+    &[type="range"] {
+      -webkit-appearance: none;
+      -moz-appearance: initial;
+      display: block;
+      position: relative;
+      height: 8px;
+      cursor: pointer;
+      outline: none;
+      padding: 0;
+
+      &::-webkit-slider-thumb,
+      &::-moz-range-thumb {
+        cursor: pointer;
+        -webkit-appearance: none;
+        box-sizing: border-box;
+        height: 12px;
+        width: 12px;
+        border: 0;
+        border-radius: 50%;
+        background-color: $AdminMainBlue;
+      }
+    }
   }
 }
