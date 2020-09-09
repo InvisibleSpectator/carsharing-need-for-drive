@@ -2,7 +2,7 @@
 
 .AdminNav {
   position: sticky;
-  transition: min-width 2s;
+  transition: width 0.3s ease-in-out;
   top: 0;
   min-width: max-content;
   background-color: white;
@@ -23,8 +23,9 @@
     display: flex;
     align-items: center;
     box-shadow: inset 0px -1px 0px #e1e5eb;
-
+    transition: padding 0.3s ease-in-out;
     & > img {
+      transition: padding 0.3s ease-in-out;
       width: 22px;
     }
 
@@ -48,8 +49,7 @@
       }
     }
     &:hover {
-      width: 57px;
-      min-width: max-content;
+      width: 285px;
       .AdminNav-Logo {
         padding: 23px 49px;
         & > img {
