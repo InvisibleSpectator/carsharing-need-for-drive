@@ -16,7 +16,7 @@ import OrderList from "../../adminStuff/OrderList/OrderList";
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    this.bearer = localStorage.getItem("bearer");
+    this.state.bearer = localStorage.getItem("bearer");
   }
 
   componentDidMount() {
