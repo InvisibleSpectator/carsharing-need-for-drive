@@ -1,6 +1,9 @@
 import React from "react";
 
 import "./AdminPage.scss";
+
+import { Redirect } from "react-router-dom";
+
 import { Redirect, NavLink, Switch, Route } from "react-router-dom";
 import { AdminHeader } from "../../adminStuff/AdminHeader";
 import { AdminNav } from "../../adminStuff/AdminNav";
@@ -8,11 +11,12 @@ import { AdminFooter } from "../../adminStuff/AdminFooter";
 import { CarCard } from "../../adminStuff/CarCard";
 import { ClaimPoint } from "../../adminStuff/ClaimPoint";
 import { AdminError } from "../../adminStuff/AdminError";
+import OrderList from "../../adminStuff/OrderList/OrderList";
 
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    this.bearer = localStorage.getItem("bearer");
+    this.state.bearer = localStorage.getItem("bearer");
   }
 
   componentDidMount() {
@@ -28,7 +32,7 @@ class AdminPage extends React.Component {
   };
 
   render = () => {
-    return this.bearer ? (
+    return this.state.bearer ? (
       <div className="AdminPage">
         <AdminNav>
           {[
@@ -72,6 +76,9 @@ class AdminPage extends React.Component {
             <Switch>
               <Route exact path="/admin/">
                 <Redirect to="/admin/orderlist" />
+              </Route>
+              <Route path="/admin/orderlist">
+                <OrderList />
               </Route>
               <Route path="/admin/carlist" />
               <Route path="/admin/car">
