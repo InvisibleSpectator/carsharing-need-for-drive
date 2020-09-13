@@ -13,6 +13,7 @@ class Checkbox extends Component {
     <div className="Checkbox">
       <label className="Checkbox-Label">
         <input
+          disabled={this.props.readonly}
           checked={this.props.checked}
           type="checkbox"
           className="Checkbox-Input"

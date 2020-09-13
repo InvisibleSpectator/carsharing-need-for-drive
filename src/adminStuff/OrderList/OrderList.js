@@ -1,4 +1,7 @@
 import React from "react";
+import OrderCard from "./OrderCard";
+
+import "./OrderList.scss";
 
 class OrderList extends React.Component {
   render = () => {
@@ -6,7 +9,11 @@ class OrderList extends React.Component {
       <div className="OrderList">
         <h2 className="AdminPage-Title">Список заказов</h2>
         <div className="AdminStyledBlock">
-          <div className="AdminStyledBlock-Content"></div>
+          <div>
+            <OrderCard />
+            <OrderCard />
+            <OrderCard />
+          </div>
         </div>
       </div>
     );

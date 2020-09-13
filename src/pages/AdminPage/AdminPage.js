@@ -2,8 +2,6 @@ import React from "react";
 
 import "./AdminPage.scss";
 
-import { Redirect } from "react-router-dom";
-
 import { Redirect, NavLink, Switch, Route } from "react-router-dom";
 import { AdminHeader } from "../../adminStuff/AdminHeader";
 import { AdminNav } from "../../adminStuff/AdminNav";
@@ -16,7 +14,8 @@ import OrderList from "../../adminStuff/OrderList/OrderList";
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state.bearer = localStorage.getItem("bearer");
+    //this.state.bearer = localStorage.getItem("bearer");
+    this.state = { bearer: true };
   }
 
   componentDidMount() {
