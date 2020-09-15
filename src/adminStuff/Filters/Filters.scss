@@ -1,0 +1,43 @@
+@import "../../assets/style/colors.scss";
+
+.Filters {
+  box-shadow: 0px -0.5px 0px #e0e2e8, 0px 0.5px 0px #e0e2e8;
+  display: grid;
+  grid-template-columns: 1fr 205px;
+
+  @media (max-width: 550px) {
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
+
+  &-Container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-Filter {
+    box-sizing: border-box;
+    width: 95px;
+    height: 29px;
+    margin-right: 15px;
+    margin-bottom: 7px;
+    border: 0.5px solid #becad6;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+
+    letter-spacing: -0.345714px;
+
+    color: #868e96;
+
+    padding-left: 14px;
+  }
+  &-Buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 95px);
+    column-gap: 15px;
+  }
+}
