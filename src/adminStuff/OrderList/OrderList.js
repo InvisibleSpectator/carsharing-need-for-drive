@@ -1,4 +1,5 @@
 import React from "react";
+import { Paginator } from "../Paginator";
 import OrderCard from "./OrderCard";
 
 import "./OrderList.scss";
@@ -14,6 +15,7 @@ class OrderList extends React.Component {
             <OrderCard />
             <OrderCard />
           </div>
+          <Paginator last={8} />
         </div>
       </div>
     );
