@@ -15,8 +15,7 @@ import { AdminTable } from "../../adminStuff/AdminTable";
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    // this.state.bearer = localStorage.getItem("bearer");
-    this.state = { bearer: true };
+    this.state = { bearer: localStorage.getItem("bearer") };
   }
 
   componentDidMount() {
