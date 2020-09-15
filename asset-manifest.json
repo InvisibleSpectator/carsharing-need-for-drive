@@ -1,28 +1,29 @@
 {
   "files": {
-    "main.css": "/carsharing-need-for-drive/static/css/main.45136e04.chunk.css",
-    "main.js": "/carsharing-need-for-drive/static/js/main.88a6543d.chunk.js",
-    "main.js.map": "/carsharing-need-for-drive/static/js/main.88a6543d.chunk.js.map",
+    "main.css": "/carsharing-need-for-drive/static/css/main.dbb032f2.chunk.css",
+    "main.js": "/carsharing-need-for-drive/static/js/main.5f7bc617.chunk.js",
+    "main.js.map": "/carsharing-need-for-drive/static/js/main.5f7bc617.chunk.js.map",
     "runtime-main.js": "/carsharing-need-for-drive/static/js/runtime-main.f99e8ff4.js",
     "runtime-main.js.map": "/carsharing-need-for-drive/static/js/runtime-main.f99e8ff4.js.map",
     "static/js/2.3eed8430.chunk.js": "/carsharing-need-for-drive/static/js/2.3eed8430.chunk.js",
     "static/js/2.3eed8430.chunk.js.map": "/carsharing-need-for-drive/static/js/2.3eed8430.chunk.js.map",
     "index.html": "/carsharing-need-for-drive/index.html",
-    "precache-manifest.39d904218ba4ee88f06298c579341495.js": "/carsharing-need-for-drive/precache-manifest.39d904218ba4ee88f06298c579341495.js",
+    "precache-manifest.60736066e7e62ba2ed842b7773d5485c.js": "/carsharing-need-for-drive/precache-manifest.60736066e7e62ba2ed842b7773d5485c.js",
     "service-worker.js": "/carsharing-need-for-drive/service-worker.js",
-    "static/css/main.45136e04.chunk.css.map": "/carsharing-need-for-drive/static/css/main.45136e04.chunk.css.map",
+    "static/css/main.dbb032f2.chunk.css.map": "/carsharing-need-for-drive/static/css/main.dbb032f2.chunk.css.map",
     "static/js/2.3eed8430.chunk.js.LICENSE.txt": "/carsharing-need-for-drive/static/js/2.3eed8430.chunk.js.LICENSE.txt",
     "static/media/BurgerMenu.scss": "/carsharing-need-for-drive/static/media/menu_btn_open.0fc651f5.svg",
     "static/media/Logo.svg": "/carsharing-need-for-drive/static/media/Logo.177d2cfd.svg",
-    "static/media/AdminHeader.scss": "/carsharing-need-for-drive/static/media/Notifications.f5f249d7.svg",
+    "static/media/AdminHeader.scss": "/carsharing-need-for-drive/static/media/Notifications.28cd5969.svg",
     "static/media/index.css": "/carsharing-need-for-drive/static/media/Roboto-ThinItalic.35a9c89a.ttf",
-    "static/media/CarCard.scss": "/carsharing-need-for-drive/static/media/delete.f2e7d259.svg",
+    "static/media/CarCard.scss": "/carsharing-need-for-drive/static/media/delete.844a6a42.svg",
     "static/media/Slider.scss": "/carsharing-need-for-drive/static/media/arrow.3a9e700a.svg",
+    "static/media/OrderList.scss": "/carsharing-need-for-drive/static/media/ok_icon.3a6b9487.svg",
     "static/media/car0.png": "/carsharing-need-for-drive/static/media/car0.0f70766b.png",
     "static/media/car1.png": "/carsharing-need-for-drive/static/media/car1.f506d8de.png",
     "static/media/car2.png": "/carsharing-need-for-drive/static/media/car2.e749d54b.png",
     "static/media/car3.png": "/carsharing-need-for-drive/static/media/car3.9e412414.png",
-    "static/media/AdminPage.scss": "/carsharing-need-for-drive/static/media/list_icon.d698e33f.svg",
+    "static/media/AdminPage.scss": "/carsharing-need-for-drive/static/media/list_icon.d76aafc9.svg",
     "static/media/marker.svg": "/carsharing-need-for-drive/static/media/marker.111ef1ff.svg",
     "static/media/AutocompletableInput.scss": "/carsharing-need-for-drive/static/media/menu_btn_close.b20e2ce3.svg",
     "static/media/slide1.jpg": "/carsharing-need-for-drive/static/media/slide1.109b5e6a.jpg"
@@ -30,7 +31,7 @@
   "entrypoints": [
     "static/js/runtime-main.f99e8ff4.js",
     "static/js/2.3eed8430.chunk.js",
-    "static/css/main.45136e04.chunk.css",
-    "static/js/main.88a6543d.chunk.js"
+    "static/css/main.dbb032f2.chunk.css",
+    "static/js/main.5f7bc617.chunk.js"
   ]
 }

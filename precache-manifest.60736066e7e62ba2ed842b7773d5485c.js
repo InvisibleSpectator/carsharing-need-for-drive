@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "741c20ca35315726bb52c87b84e0ce81",
+    "revision": "fc265811a8011da63021166e65716898",
     "url": "/carsharing-need-for-drive/index.html"
   },
   {
-    "revision": "e1046bf409659fc57f1b",
-    "url": "/carsharing-need-for-drive/static/css/main.45136e04.chunk.css"
+    "revision": "ae7bbd6778ec19fae98a",
+    "url": "/carsharing-need-for-drive/static/css/main.dbb032f2.chunk.css"
   },
   {
     "revision": "6f65b5662b44e282e700",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/carsharing-need-for-drive/static/js/2.3eed8430.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e1046bf409659fc57f1b",
-    "url": "/carsharing-need-for-drive/static/js/main.88a6543d.chunk.js"
+    "revision": "ae7bbd6778ec19fae98a",
+    "url": "/carsharing-need-for-drive/static/js/main.5f7bc617.chunk.js"
   },
   {
     "revision": "88d8c6249f47d66274a3",
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/carsharing-need-for-drive/static/media/Logo.177d2cfd.svg"
   },
   {
-    "revision": "f5f249d7a99fa55655a68f7b941d29be",
-    "url": "/carsharing-need-for-drive/static/media/Notifications.f5f249d7.svg"
+    "revision": "28cd5969d16b70375c22a655def0f7f3",
+    "url": "/carsharing-need-for-drive/static/media/Notifications.28cd5969.svg"
   },
   {
     "revision": "5ebb24ee1112dd9562629375c387879a",
@@ -92,12 +92,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/carsharing-need-for-drive/static/media/Telegram.a2d8f1e3.svg"
   },
   {
-    "revision": "0e4c647bc060fda3577faafa7b9f4692",
-    "url": "/carsharing-need-for-drive/static/media/add.0e4c647b.svg"
+    "revision": "42ca808b2668db1464e654ef08ba2fc0",
+    "url": "/carsharing-need-for-drive/static/media/add.42ca808b.svg"
   },
   {
     "revision": "3a9e700ad9bf55a8926c506600e9f220",
     "url": "/carsharing-need-for-drive/static/media/arrow.3a9e700a.svg"
+  },
+  {
+    "revision": "d557872af3b832ce1deb078f18be36c1",
+    "url": "/carsharing-need-for-drive/static/media/cancel_icon.d557872a.svg"
   },
   {
     "revision": "0f70766b772fa5a2d50f39b69987e2c0",
@@ -116,16 +120,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/carsharing-need-for-drive/static/media/car3.9e412414.png"
   },
   {
-    "revision": "f2e7d25980e7156e29532b77be69cad8",
-    "url": "/carsharing-need-for-drive/static/media/delete.f2e7d259.svg"
+    "revision": "844a6a429db44f054311b85d66452658",
+    "url": "/carsharing-need-for-drive/static/media/delete.844a6a42.svg"
   },
   {
-    "revision": "20a1db5fd40a4826710e322b13b1887c",
-    "url": "/carsharing-need-for-drive/static/media/edit_icon.20a1db5f.svg"
+    "revision": "732bee55a05c276c8fa1a252be9a6718",
+    "url": "/carsharing-need-for-drive/static/media/dots_icon.732bee55.svg"
   },
   {
-    "revision": "d698e33f369353f49f0abb1f9d87303b",
-    "url": "/carsharing-need-for-drive/static/media/list_icon.d698e33f.svg"
+    "revision": "c816cc709ecd4faed72e9f788bbd0350",
+    "url": "/carsharing-need-for-drive/static/media/edit_icon.c816cc70.svg"
+  },
+  {
+    "revision": "d76aafc97fb3caa6a8c9a6fd28d8242e",
+    "url": "/carsharing-need-for-drive/static/media/list_icon.d76aafc9.svg"
   },
   {
     "revision": "111ef1ff111c97e0fd0057c3de8fce31",
@@ -138,6 +146,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "0fc651f5597d4036a75a1cb80086309b",
     "url": "/carsharing-need-for-drive/static/media/menu_btn_open.0fc651f5.svg"
+  },
+  {
+    "revision": "3a6b9487c2ed014991e144360395cba0",
+    "url": "/carsharing-need-for-drive/static/media/ok_icon.3a6b9487.svg"
   },
   {
     "revision": "109b5e6ab9c3ff600000f916cb993f17",
