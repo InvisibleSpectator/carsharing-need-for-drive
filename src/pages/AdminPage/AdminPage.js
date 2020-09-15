@@ -10,11 +10,12 @@ import { CarCard } from "../../adminStuff/CarCard";
 import { ClaimPoint } from "../../adminStuff/ClaimPoint";
 import { AdminError } from "../../adminStuff/AdminError";
 import OrderList from "../../adminStuff/OrderList/OrderList";
+import { AdminTable } from "../../adminStuff/AdminTable";
 
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    //this.state.bearer = localStorage.getItem("bearer");
+    // this.state.bearer = localStorage.getItem("bearer");
     this.state = { bearer: true };
   }
 
@@ -55,6 +56,11 @@ class AdminPage extends React.Component {
               text: "Точка выдачи",
               icon_type: "edit",
             },
+            {
+              link: "/admin/sometable",
+              text: "Абстрактная таблица",
+              icon_type: "list",
+            },
           ].map((e, i) => (
             <NavLink
               to={e.link}
@@ -85,6 +91,13 @@ class AdminPage extends React.Component {
               </Route>
               <Route path="/admin/point">
                 <ClaimPoint />
+              </Route>
+              <Route path="/admin/sometable">
+                {" "}
+                <AdminTable
+                  title="Абстрактная таблица"
+                  tableHead={["Пример", "заголовка", "таблицы"]}
+                />
               </Route>
               <Route path="/admin/*">
                 <AdminError />
