@@ -5,6 +5,8 @@ const ADMIN_AUTH_URL = "http://api-factory.simbirsoft1.com/api/auth/";
 const APPLICATION_ID = "5e25c641099b810b946c5d5b";
 const SECRET_KEY = "4cbcea96de";
 
+export const SEARCH_LIMIT = 20;
+
 export const formatDate = (normalDate) => {
   const formatter = new Intl.NumberFormat("ru", { minimumIntegerDigits: 2 });
   return normalDate
@@ -16,7 +18,7 @@ export const formatDate = (normalDate) => {
     : "";
 };
 
-const getBasicToken = ()=>{
+const getBasicToken = () => {
   let basicToken = "";
   const words =
     "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
@@ -26,7 +28,7 @@ const getBasicToken = ()=>{
     basicToken += words.substring(position, position + 1);
   }
   return basicToken;
-}
+};
 
 export const getAllFromTableClient = async (table) => {
   const response = await fetch(`${PROXY}${DATABASE_URL}${table}`, {
@@ -106,6 +108,26 @@ export const logIn = async (username, password) => {
     },
     body: JSON.stringify({ username, password }),
   });
+  const json = await response.json();
+  return json;
+};
+
+export const getAllFromTableAdmin = async (
+  table,
+  page = 1,
+  filters = "",
+  bearer
+) => {
+  const response = await fetch(
+    `${PROXY}${DATABASE_URL}${table}?page=${page}&limit=${SEARCH_LIMIT}&${filters}`,
+    {
+      method: "GET",
+      headers: {
+        "X-Api-Factory-Application-Id": APPLICATION_ID,
+        Authorization: `Bearer ${bearer}`,
+      },
+    }
+  );
   const json = await response.json();
   return json;
 };

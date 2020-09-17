@@ -82,18 +82,18 @@ class AdminPage extends React.Component {
                 <Redirect to="/admin/orderlist" />
               </Route>
               <Route path="/admin/orderlist">
-                <OrderList />
+                <OrderList bearer={this.state.bearer} />
               </Route>
               <Route path="/admin/carlist" />
               <Route path="/admin/car">
-                <CarCard />
+                <CarCard bearer={this.state.bearer} />
               </Route>
               <Route path="/admin/point">
-                <ClaimPoint />
+                <ClaimPoint bearer={this.state.bearer} />
               </Route>
               <Route path="/admin/sometable">
-                {" "}
                 <AdminTable
+                  bearer={this.state.bearer}
                   title="Абстрактная таблица"
                   tableHead={["Пример", "заголовка", "таблицы"]}
                 />
