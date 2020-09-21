@@ -37,6 +37,10 @@ class Paginator extends React.Component {
     this.setState({ page }, () => this.props.onChangePage(this.state.page));
   };
 
+  restorePage = () => {
+    this.setPage(1);
+  };
+
   render = () => {
     return (
       <div className="AdminStyledBlock-Content Paginator">

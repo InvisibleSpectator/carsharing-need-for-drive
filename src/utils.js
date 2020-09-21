@@ -119,7 +119,7 @@ export const getAllFromTableAdmin = async (
   bearer
 ) => {
   const response = await fetch(
-    `${PROXY}${DATABASE_URL}${table}?page=${page}&limit=${SEARCH_LIMIT}&${filters}`,
+    `${PROXY}${DATABASE_URL}${table}?page=${page}&limit=${SEARCH_LIMIT}${filters}`,
     {
       method: "GET",
       headers: {

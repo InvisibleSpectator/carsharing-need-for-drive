@@ -46,6 +46,11 @@ class AdminPage extends React.Component {
               icon_type: "list",
             },
             {
+              link: "/admin/pointlist",
+              text: "Точки выдачи",
+              icon_type: "list",
+            },
+            {
               link: "/admin/car",
               text: "Карточка автомобиля",
               icon_type: "edit",
@@ -81,23 +86,81 @@ class AdminPage extends React.Component {
               <Route exact path="/admin/">
                 <Redirect to="/admin/orderlist" />
               </Route>
-              <Route path="/admin/orderlist">
-                <OrderList bearer={this.state.bearer} />
-              </Route>
-              <Route path="/admin/carlist" />
-              <Route path="/admin/car">
-                <CarCard bearer={this.state.bearer} />
-              </Route>
-              <Route path="/admin/point">
-                <ClaimPoint bearer={this.state.bearer} />
-              </Route>
-              <Route path="/admin/sometable">
-                <AdminTable
-                  bearer={this.state.bearer}
-                  title="Абстрактная таблица"
-                  tableHead={["Пример", "заголовка", "таблицы"]}
-                />
-              </Route>
+              <Route
+                path="/admin/orderlist"
+                render={(routeProps) => (
+                  <OrderList {...routeProps} bearer={this.state.bearer} />
+                )}
+              ></Route>
+              <Route
+                path="/admin/carlist"
+                render={(routeProps) => (
+                  <AdminTable
+                    key={1}
+                    {...routeProps}
+                    bearer={this.state.bearer}
+                    title="Автомобили"
+                    table="car"
+                    filters={[]}
+                    filterTemplate={[
+                      {
+                        table: "category",
+                        keyField: "categoryId",
+                        sign: "=",
+                        name: "Категория",
+                      },
+                    ]}
+                    dataTemplate={
+                      new Map([
+                        ["name", "Модель"],
+                        ["categoryId.name", "Категория"],
+                        ["description", "Описание"],
+                      ])
+                    }
+                  />
+                )}
+              />
+              <Route
+                path="/admin/pointlist"
+                render={(routeProps) => (
+                  <AdminTable
+                    key={2}
+                    {...routeProps}
+                    bearer={this.state.bearer}
+                    title="Точки выдачи"
+                    table="point"
+                    filters={[]}
+                    filterTemplate={[
+                      {
+                        table: "city",
+                        keyField: "cityId",
+                        sign: "=",
+                        name: "Город",
+                      },
+                    ]}
+                    dataTemplate={
+                      new Map([
+                        ["name", "Имя"],
+                        ["cityId.name", "Город"],
+                        ["address", "Адрес"],
+                      ])
+                    }
+                  />
+                )}
+              />
+
+              <Route
+                path="/admin/car:id?"
+                render={(routeProps) => (
+                  <CarCard {...routeProps} bearer={this.state.bearer} />
+                )}
+              />
+              <Route
+                path="/admin/point:id?"
+                render={(routeProps) => (
+                  <ClaimPoint {...routeProps} bearer={this.state.bearer} />
+                )}
+              />
               <Route path="/admin/*">
                 <AdminError />
               </Route>
