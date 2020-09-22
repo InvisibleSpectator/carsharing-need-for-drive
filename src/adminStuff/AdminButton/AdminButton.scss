@@ -15,13 +15,18 @@
   height: 29px;
   cursor: pointer;
 
-  &_decline{
-    background:$AdminDecline;
+  &_decline {
+    background: $AdminDecline;
     border-color: $AdminDecline;
   }
-  &_gray{
-    background: #E9ECEF;
-    color:$AdminDarkBlue;
-    border-color: #E9ECEF;
+  &_gray {
+    background: #e9ecef;
+    color: $AdminDarkBlue;
+    border-color: #e9ecef;
+  }
+
+  &_disabled {
+    background-color: $GrayDark;
+    pointer-events: none;
   }
 }

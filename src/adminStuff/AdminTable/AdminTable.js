@@ -86,7 +86,6 @@ class AdminTable extends React.Component {
 
   fillTableBody = (rowData) => {
     const row = [];
-    console.log(rowData);
     this.props.dataTemplate.forEach((e, i) => {
       const keyChain = i.split(".");
       let tmpRowData = rowData;

@@ -150,13 +150,13 @@ class AdminPage extends React.Component {
               />
 
               <Route
-                path="/admin/car:id?"
+                path="/admin/car/:id?"
                 render={(routeProps) => (
                   <CarCard {...routeProps} bearer={this.state.bearer} />
                 )}
               />
               <Route
-                path="/admin/point:id?"
+                path="/admin/point/:id?"
                 render={(routeProps) => (
                   <ClaimPoint {...routeProps} bearer={this.state.bearer} />
                 )}

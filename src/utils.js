@@ -131,3 +131,43 @@ export const getAllFromTableAdmin = async (
   const json = await response.json();
   return json;
 };
+
+export const postToTableAdmin = async (table, data, bearer) => {
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}`, {
+    method: "POST",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${bearer}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const json = await response.json();
+  return json;
+};
+
+export const putToTableAdmin = async (table, id, data, bearer) => {
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}/${id}`, {
+    method: "PUT",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${bearer}`,
+    },
+    body: JSON.stringify(data),
+  });
+  const json = await response.json();
+  return json;
+};
+
+export const deleteFromTableAdmin = async (table, id, data, bearer) => {
+  const response = await fetch(`${PROXY}${DATABASE_URL}${table}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      Authorization: `Bearer ${bearer}`,
+    },
+  });
+  const json = await response.json();
+  return json;
+};
