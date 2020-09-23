@@ -3,14 +3,14 @@ import React from "react";
 import "./AdminPage.scss";
 
 import { Redirect, NavLink, Switch, Route } from "react-router-dom";
-import { AdminHeader } from "../../adminStuff/AdminHeader";
-import { AdminNav } from "../../adminStuff/AdminNav";
-import { AdminFooter } from "../../adminStuff/AdminFooter";
-import { CarCard } from "../../adminStuff/CarCard";
-import { ClaimPoint } from "../../adminStuff/ClaimPoint";
-import { AdminError } from "../../adminStuff/AdminError";
-import OrderList from "../../adminStuff/OrderList/OrderList";
-import { AdminTable } from "../../adminStuff/AdminTable";
+import { AdminHeader } from "../../adminPageComponents/AdminHeader";
+import { AdminNav } from "../../adminPageComponents/AdminNav";
+import { AdminFooter } from "../../adminPageComponents/AdminFooter";
+import { CarCard } from "../../adminPageComponents/CarCard";
+import { ClaimPoint } from "../../adminPageComponents/ClaimPoint";
+import { AdminError } from "../../adminPageComponents/AdminError";
+import OrderList from "../../adminPageComponents/OrderList/OrderList";
+import { AdminTable } from "../../adminPageComponents/AdminTable";
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -59,11 +59,6 @@ class AdminPage extends React.Component {
               link: "/admin/point",
               text: "Точка выдачи",
               icon_type: "edit",
-            },
-            {
-              link: "/admin/sometable",
-              text: "Абстрактная таблица",
-              icon_type: "list",
             },
           ].map((e, i) => (
             <NavLink

@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { MainPage } from "./pages/MainPage";
 import { OrderPage } from "./pages/OrderPage";
-import { AdminLogin } from "./adminStuff/AdminLogin";
+import { AdminLogin } from "./adminPageComponents/AdminLogin";
 import { AdminPage } from "./pages/AdminPage";
 
 function App() {
