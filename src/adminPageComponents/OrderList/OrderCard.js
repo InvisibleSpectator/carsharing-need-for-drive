@@ -2,7 +2,7 @@ import React from "react";
 
 import { Checkbox } from "../../core/Checkbox";
 
-const OrderCard = () => {
+const OrderCard = ({ order }) => {
   const formatter = new Intl.DateTimeFormat("ru", {
     day: "2-digit",
     month: "2-digit",
@@ -17,35 +17,47 @@ const OrderCard = () => {
         <img
           alt="car"
           className="OrderCard-Image"
-          src="http://api-factory.simbirsoft1.com/files/5f21d9059d3a610b850fcd56_5ecaa87d099b810b946ca32e_32a0ec8797f5ee5b08c70fdabb7b06bd.png"
+          crossOrigin="anonymous"
+          referrerPolicy="origin"
+          src={
+            order.carId
+              ? `http://api-factory.simbirsoft1.com${order.carId.thumbnail.path}`
+              : ""
+          }
         />
         <div className="OrderCard-TextInfo">
           <p>
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
-              ELANTRA
+              {order.carId ? order.carId.name : "нет данных"}
             </span>{" "}
             в{" "}
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
-              Ульяновск, нариманова 12
+              {`${order.cityId ? order.cityId.name : "нет данных"}, ${
+                order.pointId ? order.pointId.address : "нет данных"
+              }`}
             </span>
           </p>
           <p>
-            <span>{formatter.format(new Date())}</span> —{" "}
-            <span>{formatter.format(new Date())}</span>
+            <span>{formatter.format(new Date(order.dateFrom))}</span> —{" "}
+            <span>{formatter.format(new Date(order.dateTo))}</span>
           </p>
           <p>
             <span>Цвет: </span>
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
-              Голубой
+              {order.color}
             </span>
           </p>
         </div>
         <div className="OrderCard-Checks">
-          <Checkbox readonly text="Полный бак" />
-          <Checkbox readonly text="Детское кресло" />
-          <Checkbox readonly checked text="Правый руль" />
+          <Checkbox readonly checked={order.isFullTank} text="Полный бак" />
+          <Checkbox
+            readonly
+            checked={order.isNeedChildChair}
+            text="Детское кресло"
+          />
+          <Checkbox readonly checked={order.isRightWheel} text="Правый руль" />
         </div>
-        <p className="OrderCard-Price">4 300 ₽</p>
+        <p className="OrderCard-Price">{order.price} ₽</p>
         <div className="OrderCard-Buttons">
           <button className="OrderCard-Buttons-Button OrderCard-Buttons-Button_ok">
             Готово

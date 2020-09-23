@@ -10,6 +10,7 @@ class AdminLogin extends React.Component {
     super(props);
     this.login = React.createRef();
     this.password = React.createRef();
+    this.state = { isValid: false };
   }
 
   getBearerKey = async () => {
@@ -23,6 +24,13 @@ class AdminLogin extends React.Component {
     } catch {
       alert("Неверные данные");
     }
+  };
+
+  validate = () => {
+    this.setState({
+      isValid:
+        this.login.current.validate() && this.password.current.validate(),
+    });
   };
 
   register = async () => {
@@ -52,6 +60,9 @@ class AdminLogin extends React.Component {
             text="Логин"
             type="text"
             className="LoginForm-AdminInput"
+            onChange={this.validate}
+            validationExp={/^\w+$/g}
+            validationError="Введите логин"
           />
           <AdminInput
             ref={this.password}
@@ -59,13 +70,18 @@ class AdminLogin extends React.Component {
             text="Пароль"
             type="password"
             className="LoginForm-AdminInput"
+            onChange={this.validate}
+            validationExp={/^\w+$/g}
+            validationError="Введите пароль"
           />
           <button onClick={this.register} type="submit" className="AdminLink">
             Запросить доступ
           </button>
           <AdminButton
             text="Войти"
-            className="LoginForm-AdminButton"
+            className={`LoginForm-AdminButton ${
+              this.state.isValid ? "" : "AdminButton_disabled"
+            }`}
             onClick={this.getBearerKey}
           />
         </div>

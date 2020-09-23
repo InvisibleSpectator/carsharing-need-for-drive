@@ -1,0 +1,70 @@
+@import "../../assets/style/colors.scss";
+
+.AdminTable {
+  &-EditButton {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    background-color: inherit;
+    background-image: url(../../assets/icons/edit_icon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &-Table {
+    width: 100%;
+    font-size: 12px;
+    line-height: 14px;
+
+    /* identical to box height */
+
+    letter-spacing: -0.377143px;
+
+    border-collapse: collapse;
+
+    color: #3d5170;
+    & th {
+      font-weight: bold;
+    }
+
+    & td {
+      font-weight: normal;
+      padding: 8px;
+      border-bottom: 1px solid $GrayDark;
+    }
+
+    & tr {
+      height: 36.5px;
+
+      &:nth-child(odd) {
+      }
+
+      &:nth-child(even) {
+        background: $GrayLight;
+      }
+    }
+
+    @media (max-width: 600px) {
+      & thead {
+        display: none;
+      }
+
+      & tr {
+        border-bottom: 2px solid $GrayDark;
+      }
+
+      & td {
+        display: block;
+        text-align: right;
+      }
+
+      & td:before {
+        content: attr(title);
+        float: left;
+        font-weight: bold;
+      }
+    }
+  }
+}

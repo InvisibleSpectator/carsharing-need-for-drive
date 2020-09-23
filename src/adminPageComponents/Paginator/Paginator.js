@@ -22,7 +22,7 @@ const PageButton = ({ newPage, clickHandler, page }) => {
 class Paginator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { page: 1, last: props.last || 1 };
+    this.state = { page: 1 };
   }
 
   moveLeft = () => {
@@ -34,7 +34,11 @@ class Paginator extends React.Component {
   };
 
   setPage = (page) => {
-    this.setState({ page });
+    this.setState({ page }, () => this.props.onChangePage(this.state.page));
+  };
+
+  restorePage = () => {
+    this.setPage(1);
   };
 
   render = () => {
@@ -57,7 +61,7 @@ class Paginator extends React.Component {
           ) : (
             ""
           )}
-          {this.state.last > 3 && this.state.page > 3 ? "..." : ""}
+          {this.props.last > 3 && this.state.page > 3 ? "..." : ""}
 
           {this.state.page - 1 > 1 ? (
             <PageButton
@@ -68,7 +72,7 @@ class Paginator extends React.Component {
           ) : (
             ""
           )}
-          {this.state.last > 1 ? (
+          {this.props.last > 1 ? (
             <PageButton
               newPage={this.state.page}
               page={this.state.page}
@@ -77,7 +81,7 @@ class Paginator extends React.Component {
           ) : (
             ""
           )}
-          {this.state.page + 1 < this.state.last ? (
+          {this.state.page + 1 < this.props.last ? (
             <PageButton
               newPage={this.state.page + 1}
               page={this.state.page}
@@ -87,17 +91,17 @@ class Paginator extends React.Component {
             ""
           )}
 
-          {this.state.last - this.state.page > 2 ? "..." : ""}
-          {this.state.page !== this.state.last ? (
+          {this.props.last - this.state.page > 2 ? "..." : ""}
+          {this.state.page !== this.props.last ? (
             <PageButton
-              newPage={this.state.last}
+              newPage={this.props.last}
               page={this.state.page}
               clickHandler={this.setPage}
             />
           ) : (
             ""
           )}
-          {this.state.page < this.state.last ? (
+          {this.state.page < this.props.last ? (
             <div className="Paginator-Pages-Page" onClick={this.moveRight}>
               &raquo;
             </div>

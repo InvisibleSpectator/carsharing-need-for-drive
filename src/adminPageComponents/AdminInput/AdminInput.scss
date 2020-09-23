@@ -3,6 +3,32 @@
 .AdminInput {
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  &_isError {
+    & > input {
+      border-color: $AdminDecline !important;
+    }
+    & > .AdminInput-Error {
+      display: block;
+    }
+  }
+
+  &-Error {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 11px;
+    /* identical to box height */
+
+    letter-spacing: -0.175439px;
+    color: $AdminDecline;
+    text-align: right;
+  }
   &-Titles {
     font-weight: normal;
     font-size: 10.5px;

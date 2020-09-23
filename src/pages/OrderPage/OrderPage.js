@@ -135,7 +135,7 @@ class OrderPage extends Component {
   };
 
   componentDidUpdate = async (prevProps) => {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
+    if (this.props.match.id !== prevProps.match.id) {
       await this.getData();
     }
   };
@@ -183,7 +183,7 @@ class OrderPage extends Component {
       tmp.pages[state.page].isDone = this.activePage.current.isDone();
       return tmp;
     });
-  }
+  };
 
   // #endregion CallbacksForTab
 
