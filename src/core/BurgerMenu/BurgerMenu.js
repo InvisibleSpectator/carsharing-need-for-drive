@@ -25,7 +25,7 @@ class BurgerMenu extends React.Component {
       <div className="BurgerMenu-Contaner">
         <div className="BurgerMenu-Draver">
           <ul className="BurgerMenu-Content">
-            {["ПАРКОВКА", "СТРАХОВКА", "БЕНЗИН", "ОБСЛУЖИВАНИЕ"].map((e, i) => (
+            {["ЗАБРОНИРОВАТЬ", "ЗАБРОНИРОВАТЬ ПО ID", "ВЫЙТИ"].map((e, i) => (
               <li key={i}>
                 <Link text={e} className="Link_bg_black_white" />
               </li>
@@ -37,10 +37,6 @@ class BurgerMenu extends React.Component {
               className="BurgerMenu-SN_telegram"
             />
             <a
-              href="https://ru-ru.facebook.com/"
-              className="BurgerMenu-SN_facebook"
-            />
-            <a
               href="https://www.instagram.com/?hl=ru"
               className="BurgerMenu-SN_instagram"
             />
@@ -48,9 +44,6 @@ class BurgerMenu extends React.Component {
         </div>
         <div className="BurgerMenu-Background" onClick={this.toggleBurger} />
       </div>
-      <button className="BurgerMenu-LangButton" type="button">
-        <span>ENG</span>
-      </button>
     </aside>
   );
 }

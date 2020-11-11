@@ -13,21 +13,21 @@ const MainPage = () => (
     <div className="MainPage-MainContent">
       <Header />
       <main className="MainPage-MainContent-Main">
-        <p>Каршеринг</p>
-        <p>Need for drive</p>
-        <p>Поминутная аренда авто твоего города</p>
+        <p>Велошеринг</p>
+        <p>Pedali V Dali</p>
+        <p>Возьми в прокат, и крути верти</p>
         <RouterLink to="/order">
           <Button text="Забронировать" className="Button_main" />
         </RouterLink>
       </main>
       <footer className="MainPage-MainContent-Footer">
         <span className="MainPage-MainContent-Footer-Copyright">
-          © 2016-2019 «Need for drive»
+          © 2020 «Pedali V Dali»
         </span>
         <Link
           className="MainPage-MainContent-Footer-Tel Link_footer"
-          href="tel:84952342244"
-          text="8 (495) 234-22-44"
+          href="tel:81234567890"
+          text="8 (123) 456-78-90"
         />
       </footer>
     </div>
