@@ -41,13 +41,17 @@ class Model extends Component {
 
   componentDidMount = async () => {
     const cars = await getAllFromTableClient("car");
-    const categories = await getAllFromTableClient("category");
+    // const categories = await getAllFromTableClient("category");
+    const categories = [
+      { name: "Велосипед", id: "5e25c98d099b810b946c5d62" },
+      { name: "Ролики", id: "5e25c99a099b810b946c5d63" },
+    ];
     this.setState((state) => {
       return {
         loaded: true,
         cars: cars.data,
         categories: state.categories.concat(
-          categories.data.map((e) => {
+          categories.map((e) => {  //categories.data.map((e) => {
             return { value: e.id, text: e.name };
           })
         ),
