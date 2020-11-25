@@ -7,7 +7,7 @@ import {
   ZoomControl,
 } from "react-yandex-maps";
 import { AutocompletableInput } from "../../core/AutocompletableInput";
-import { getAllFromTableClient, getGeoData, YANDEX_API_KEY } from "../../utils";
+import { getAllFromTableClient, getLocal, getGeoData, YANDEX_API_KEY } from "../../utils";
 
 import "./Location.scss";
 import { Spinner } from "../../core/Spinner";
@@ -58,8 +58,8 @@ class Location extends Component {
   };
 
   componentDidMount = async () => {
-    const cities = await getAllFromTableClient("city");
-    const points = await getAllFromTableClient("point");
+    const cities = await getLocal("db/city");
+    const points = await getLocal("db/point");
     const geomarkers = [];
     const tpmCities = [];
 

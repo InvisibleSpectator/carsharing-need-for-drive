@@ -1,7 +1,7 @@
 import React, { Component, useCallback } from "react";
 import "./Model.scss";
 import { RadiobuttonGroup } from "../../core/RadiobuttonGroup";
-import { getAllFromTableClient } from "../../utils";
+import { getAllFromTableClient, getLocal } from "../../utils";
 import { Spinner } from "../../core/Spinner";
 
 const CarCard = ({ car, onClick, className }) => {
@@ -14,15 +14,15 @@ const CarCard = ({ car, onClick, className }) => {
       onClick={onClickHandler}
       onKeyDown={onClickHandler}
     >
-      <h3>{car.name.split(",")[1]}</h3>
+      <h3>{car.name}</h3>
       <span>
-        <span>{car.priceMin}</span> - <span>{car.priceMax}</span> ₽
+        <span>{car.priceMax}</span> ₽
       </span>
       <img
         crossOrigin="anonymous"
         referrerPolicy="origin"
         alt="car"
-        src={`http://api-factory.simbirsoft1.com${car.thumbnail.path}`}
+        src={`${car.thumbnail.path}`}
       />
     </div>
   );
@@ -40,18 +40,14 @@ class Model extends Component {
   }
 
   componentDidMount = async () => {
-    const cars = await getAllFromTableClient("car");
-    // const categories = await getAllFromTableClient("category");
-    const categories = [
-      { name: "Велосипед", id: "5e25c98d099b810b946c5d62" },
-      { name: "Ролики", id: "5e25c99a099b810b946c5d63" },
-    ];
+    const cars = await getLocal("db/vehicle");
+    const categories = await getLocal("db/category");
     this.setState((state) => {
       return {
         loaded: true,
         cars: cars.data,
         categories: state.categories.concat(
-          categories.map((e) => {  //categories.data.map((e) => {
+          categories.data.map((e) => {
             return { value: e.id, text: e.name };
           })
         ),
@@ -116,7 +112,7 @@ class Model extends Component {
                   );
                 })
               : this.state.cars
-                  .filter((e) => e.categoryId.id === this.state.data.category)
+                  .filter((e) => e.categoryId.id == this.state.data.category)
                   .map((e, i) => (
                     <CarCard
                       key={i}

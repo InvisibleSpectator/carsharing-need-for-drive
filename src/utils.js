@@ -171,3 +171,11 @@ export const deleteFromTableAdmin = async (table, id, data, bearer) => {
   const json = await response.json();
   return json;
 };
+
+export const getLocal = async (path) => {
+  const response = await fetch(`http://localhost:8080/${path}`, {
+    method: "GET",
+  });
+  const json = await response.json();
+  return json;
+};

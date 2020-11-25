@@ -11,6 +11,7 @@ class RadiobuttonGroup extends Component {
   getValue = () => this.state.value;
 
   onChangeHandler = (e) => {
+    console.log(e.target.value);
     this.setState({ value: e.target.value }, () =>
       this.props.onChange(this.state.value)
     );
@@ -23,8 +24,8 @@ class RadiobuttonGroup extends Component {
           <label className="Radiobutton-Label">
             <input
               checked={
-                element.value === this.props.defaultValue ||
-                element.value === this.state.value
+                element.value == this.props.defaultValue ||
+                element.value == this.state.value
               }
               type="radio"
               className="Radiobutton-Input"
