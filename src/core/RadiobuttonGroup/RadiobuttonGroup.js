@@ -11,7 +11,6 @@ class RadiobuttonGroup extends Component {
   getValue = () => this.state.value;
 
   onChangeHandler = (e) => {
-    console.log(e.target.value);
     this.setState({ value: e.target.value }, () =>
       this.props.onChange(this.state.value)
     );

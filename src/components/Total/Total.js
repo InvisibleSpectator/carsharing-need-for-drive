@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Total.scss";
 import { Button } from "../../core/Button";
-import { formatDate, postToTableClient, putToTableClient } from "../../utils";
+import { formatDate, postToTableClient, postToLocal,  putToTableClient } from "../../utils";
 
 class Total extends Component {
   constructor(props) {
@@ -25,21 +25,21 @@ class Total extends Component {
       orderStatusId: "5e26a1f5099b810b946c5d8c",
       cityId: this.props.data.cityId.id,
       pointId: this.props.data.pointId.id,
-      carId: this.props.data.carId.id,
+      carId: this.props.data.vehicleId.id,
       rateId: this.props.data.rateId.id,
     });
     this.props.onChange();
   };
 
   getStatus = () => {
-    switch (this.props.data.orderStatusId.name) {
-      case "new":
+    switch (this.props.data.orderStatus) {
+      case "NEW":
         return "сформирован";
-      case "cancelled":
+      case "CANCELED":
         return "отменён";
-      case "confirmed":
+      case "FINISHED":
         return "подтвёрждён";
-      case "issued":
+      case "ERROR":
         return "с проблемами";
       default:
         return "что-то странное";
@@ -87,7 +87,7 @@ class Total extends Component {
         </div>
         <div className="Total-Image">
           <img
-            src={`http://api-factory.simbirsoft1.com/${this.props.data.carId.thumbnail.path}`}
+            src={`${this.props.data.carId.thumbnail.path}`}
             alt="car"
           />
         </div>
@@ -99,15 +99,15 @@ class Total extends Component {
               className="Button_max Total-Modal-Accept"
               onClick={async (e) => {
                 e.currentTarget.classList.toggle("Button_loading");
-                const postedOrder = await postToTableClient("order", {
+                const postedOrder = await postToLocal("db/order/new", {
                   ...this.props.data,
                   orderStatusId: this.props.data.orderStatusId.id,
                   cityId: this.props.data.cityId.id,
                   pointId: this.props.data.pointId.id,
-                  carId: this.props.data.carId.id,
+                  vehicleId: this.props.data.carId.id,
                   rateId: this.props.data.rateId.id,
                 });
-                this.props.history.replace(`/order/${postedOrder.data.id}`);
+                this.props.history.replace(`/order/${postedOrder.id}`);
               }}
             />
             <Button

@@ -54,17 +54,13 @@ const OrderDetails = (props) => {
         ) : (
           ""
         )}
-        {props.order.isFullTank ? <Detail name="Полный бак" value="Да" /> : ""}
+        {props.order.isBodyProtect ? <Detail name="Защита тела" value="Да" /> : ""}
         {props.order.isNeedChildChair ? (
           <Detail name="Детское кресло" value="Да" />
         ) : (
           ""
         )}
-        {props.order.isRightWheel ? (
-          <Detail name="Правый руль" value="Да" />
-        ) : (
-          ""
-        )}
+        
       </div>
       <span className="OrderDetails-Price">
         <span className="OrderDetails-Title">Цена:</span>

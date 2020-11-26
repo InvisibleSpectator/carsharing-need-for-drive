@@ -12,11 +12,11 @@ class Extra extends Component {
     super(props);
     this.state = {
       loaded: false,
-      colors: [{ value: "Любой", text: "Любой" }].concat(
-        props.colors.map((e) => {
-          return { value: e, text: e };
-        })
-      ),
+      // colors: [{ value: "Любой", text: "Любой" }].concat(
+      //   props.colors.map((e) => {
+      //     return { value: e, text: e };
+      //   })
+      // ),
       rates: [],
       data: props.data,
     };
@@ -46,21 +46,20 @@ class Extra extends Component {
     switch (this.state.data.rateId.rateTypeId.unit) {
       case "мин":
         newPrice =
-          Math.floor(
+          Math.ceil(
             (this.state.data.dateTo - this.state.data.dateFrom) / 60000
           ) * this.state.data.rateId.price;
         break;
       case "сутки":
         newPrice =
-          Math.floor(
+          Math.ceil(
             (this.state.data.dateTo - this.state.data.dateFrom) / 86400000
           ) * this.state.data.rateId.price;
         break;
     }
     newPrice = Math.max(0, newPrice) || 0;
-    newPrice += this.state.data.isFullTank * 500;
+    newPrice += this.state.data.isBodyProtect * 500;
     newPrice += this.state.data.isNeedChildChair * 200;
-    newPrice += this.state.data.isRightWheel * 1600;
     this.setState((state) => {
       return {
         data: {
@@ -112,7 +111,7 @@ class Extra extends Component {
       return {
         data: {
           ...state.data,
-          isFullTank: newValue,
+          isBodyProtect: newValue,
         },
       };
     }, this.setPrice);
@@ -129,21 +128,12 @@ class Extra extends Component {
     }, this.setPrice);
   };
 
-  onRightWheelChange = (newValue) => {
-    this.setState((state) => {
-      return {
-        data: {
-          ...state.data,
-          isRightWheel: newValue,
-        },
-      };
-    }, this.setPrice);
-  };
+  
 
   render = () => {
     return this.state.loaded ? (
       <div className="Extra">
-        <div className="Extra-Color">
+        {/* <div className="Extra-Color">
           <p className="Extra-Title">Цвет</p>
           <div className="Extra-Colors">
             <RadiobuttonGroup
@@ -153,7 +143,7 @@ class Extra extends Component {
               data={this.state.colors}
             />
           </div>
-        </div>
+        </div> */}
         <div className="Extra-Time">
           <p className="Extra-Title">Дата аренды</p>
           <div className="Extra-TimeRange">
@@ -221,20 +211,15 @@ class Extra extends Component {
           <p className="Extra-Title">Доп опции</p>
           <div>
             <Checkbox
-              text="Полный бак, 500 ₽"
-              checked={this.state.data.isFullTank}
+              text="Защита тела, 500 ₽"
+              checked={this.state.data.isBodyProtect}
               onChange={this.onFullTankChange}
             />
             <Checkbox
               text="Детское кресло, 200 ₽"
               checked={this.state.data.isNeedChildChair}
               onChange={this.onChildChairChange}
-            />
-            <Checkbox
-              text="Правый руль, 1600 ₽"
-              checked={this.state.data.isRightWheel}
-              onChange={this.onRightWheelChange}
-            />
+            />           
           </div>
         </div>
       </div>

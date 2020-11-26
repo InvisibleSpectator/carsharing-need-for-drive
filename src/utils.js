@@ -61,6 +61,7 @@ export const postToTableClient = async (table, data) => {
   return json;
 };
 
+
 export const putToTableClient = async (table, id, data) => {
   const response = await fetch(`${PROXY}${DATABASE_URL}${table}/${id}`, {
     method: "PUT",
@@ -175,6 +176,19 @@ export const deleteFromTableAdmin = async (table, id, data, bearer) => {
 export const getLocal = async (path) => {
   const response = await fetch(`http://localhost:8080/${path}`, {
     method: "GET",
+  });
+  const json = await response.json();
+  return json;
+};
+
+export const postToLocal = async (table, data) => {
+  const response = await fetch(`http://localhost:8080/${table}`, {
+    method: "POST",
+    headers: {
+      "X-Api-Factory-Application-Id": APPLICATION_ID,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   });
   const json = await response.json();
   return json;

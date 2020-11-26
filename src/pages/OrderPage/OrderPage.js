@@ -9,7 +9,7 @@ import "./OrderPage.scss";
 import { Extra } from "../../components/Extra";
 import { Total } from "../../components/Total";
 import { OrderDetails } from "../../components/OrderDetails";
-import { getFromTableByIdClient } from "../../utils";
+import { getFromTableByIdClient, getLocal } from "../../utils";
 import { Spinner } from "../../core/Spinner";
 
 class OrderPage extends Component {
@@ -40,7 +40,7 @@ class OrderPage extends Component {
             this.setState((state) => {
               return { page: state.page + 1 };
             }),
-          render: (pageProps) => <Model {...pageProps} />,
+          render: (pageProps) => <Model point={this.state.order.pointId} {...pageProps} />,
         },
         {
           name: "Дополнительно",
@@ -51,9 +51,8 @@ class OrderPage extends Component {
             dateFrom: 0,
             dateTo: 0,
             rateId: null,
-            isFullTank: false,
+            isBodyProtect: false,
             isNeedChildChair: false,
-            isRightWheel: false,
             price: 0,
           },
           onClick: () =>
@@ -61,7 +60,7 @@ class OrderPage extends Component {
               return { page: state.page + 1 };
             }),
           render: (pageProps) => (
-            <Extra colors={this.state.order.carId.colors} {...pageProps} />
+            <Extra  {...pageProps} />
           ),
         },
         {
@@ -77,9 +76,8 @@ class OrderPage extends Component {
             dateFrom: 0,
             dateTo: 0,
             rateId: null,
-            isFullTank: false,
+            isBodyProtect: false,
             isNeedChildChair: false,
-            isRightWheel: false,
             price: 0,
           },
           onClick: () => this.activePage.current.action(),
@@ -92,9 +90,8 @@ class OrderPage extends Component {
 
   getData = async () => {
     if (this.props.match.params.id) {
-      const order = await getFromTableByIdClient(
-        "order",
-        this.props.match.params.id
+      const order = await getLocal(
+        `db/order/${this.props.match.params.id}`        
       );
       this.setState({
         order: (({
@@ -108,9 +105,8 @@ class OrderPage extends Component {
           dateTo,
           rateId,
           price,
-          isFullTank,
+          isBodyProtect,
           isNeedChildChair,
-          isRightWheel,
         }) => ({
           id,
           orderStatusId,
@@ -122,10 +118,9 @@ class OrderPage extends Component {
           dateTo,
           rateId,
           price,
-          isFullTank,
+          isBodyProtect,
           isNeedChildChair,
-          isRightWheel,
-        }))(order.data),
+        }))(order),
       });
     } else this.setState({ order: {} });
   };
@@ -266,7 +261,7 @@ class OrderPage extends Component {
                 order={this.state.order}
                 onClick={
                   this.props.match.params.id &&
-                  this.state.order.orderStatusId.name === "new"
+                  this.state.order.orderStatus === "NEW"
                     ? (e) => {
                         e.currentTarget.classList.toggle("Button_loading");
                         this.activePage.current.editOrder();
@@ -275,7 +270,7 @@ class OrderPage extends Component {
                 }
                 buttonClass={
                   this.props.match.params.id
-                    ? this.state.order.orderStatusId.name === "new"
+                    ? this.state.order.orderStatus === "NEW"
                       ? "Button_decline"
                       : "Button_hidden"
                     : !this.state.pages[this.state.page].isDone
@@ -284,7 +279,7 @@ class OrderPage extends Component {
                 }
                 buttonText={
                   this.props.match.params.id &&
-                  this.state.order.orderStatusId.name === "new"
+                  this.state.order.orderStatus === "NEW"
                     ? "Отменить"
                     : this.state.pages[this.state.page].buttonText
                 }

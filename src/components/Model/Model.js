@@ -40,7 +40,7 @@ class Model extends Component {
   }
 
   componentDidMount = async () => {
-    const cars = await getLocal("db/vehicle");
+    const cars = await getLocal(`db/vehicle/atPoint/${this.props.point.id}`);
     const categories = await getLocal("db/category");
     this.setState((state) => {
       return {

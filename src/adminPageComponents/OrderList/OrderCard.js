@@ -49,13 +49,12 @@ const OrderCard = ({ order }) => {
           </p>
         </div>
         <div className="OrderCard-Checks">
-          <Checkbox readonly checked={order.isFullTank} text="Полный бак" />
+          <Checkbox readonly checked={order.isBodyProtect} text="Защита тела" />
           <Checkbox
             readonly
             checked={order.isNeedChildChair}
             text="Детское кресло"
           />
-          <Checkbox readonly checked={order.isRightWheel} text="Правый руль" />
         </div>
         <p className="OrderCard-Price">{order.price} ₽</p>
         <div className="OrderCard-Buttons">
