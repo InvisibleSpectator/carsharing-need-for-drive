@@ -31,8 +31,8 @@ const OrderDetails = (props) => {
         ) : (
           ""
         )}
-        {props.order.carId ? (
-          <Detail name="Модель" value={props.order.carId.name} />
+        {props.order.vehicleId ? (
+          <Detail name="Модель" value={props.order.vehicleId.name} />
         ) : (
           ""
         )}

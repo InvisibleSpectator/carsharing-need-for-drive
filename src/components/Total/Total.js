@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import "./Total.scss";
 import { Button } from "../../core/Button";
-import { formatDate, postToTableClient, postToLocal,  putToTableClient } from "../../utils";
+import {
+  formatDate,
+  postToTableClient,
+  postToLocal,
+  putToTableClient,
+  getLocal,
+} from "../../utils";
 
 class Total extends Component {
   constructor(props) {
@@ -20,18 +26,20 @@ class Total extends Component {
   };
 
   editOrder = async () => {
-    await putToTableClient("order", this.props.data.id, {
-      ...this.props.data,
-      orderStatusId: "5e26a1f5099b810b946c5d8c",
-      cityId: this.props.data.cityId.id,
-      pointId: this.props.data.pointId.id,
-      carId: this.props.data.vehicleId.id,
-      rateId: this.props.data.rateId.id,
-    });
+    // await putToTableClient("order", this.props.data.id, {
+    //   ...this.props.data,
+    //   orderStatusId: "5e26a1f5099b810b946c5d8c",
+    //   cityId: this.props.data.cityId.id,
+    //   pointId: this.props.data.pointId.id,
+    //   vehicleId: this.props.data.vehicleId.id,
+    //   rateId: this.props.data.rateId.id,
+    // });
+    await getLocal(`db/order/cancel/${this.props.data.id}`);
     this.props.onChange();
   };
 
   getStatus = () => {
+    console.log(this.props.data.orderStatus);
     switch (this.props.data.orderStatus) {
       case "NEW":
         return "сформирован";
@@ -55,19 +63,19 @@ class Total extends Component {
           ) : (
             ""
           )}
-          <h2>{this.props.data.carId.name}</h2>
-          {this.props.data.carId.number ? (
+          <h2>{this.props.data.vehicleId.name}</h2>
+          {this.props.data.vehicleId.number ? (
             <span className="Total-Text-Number">
-              {this.props.data.carId.number}
+              {this.props.data.vehicleId.number}
             </span>
           ) : (
             ""
           )}
-          {this.props.data.carId.tank ? (
+          {this.props.data.vehicleId.tank ? (
             <span>
               <span className="Total-Text-Title">Топливо</span>{" "}
               <span className="Total-Text-Value">
-                {this.props.data.carId.tank}%
+                {this.props.data.vehicleId.tank}%
               </span>
             </span>
           ) : (
@@ -86,10 +94,7 @@ class Total extends Component {
           </span>
         </div>
         <div className="Total-Image">
-          <img
-            src={`${this.props.data.carId.thumbnail.path}`}
-            alt="car"
-          />
+          <img src={`${this.props.data.vehicleId.thumbnail.path}`} alt="car" />
         </div>
         <div className="Total-Modal Total-Modal_disabled" ref={this.modal}>
           <div className="Total-Modal-Grid">
@@ -104,7 +109,7 @@ class Total extends Component {
                   orderStatusId: this.props.data.orderStatusId.id,
                   cityId: this.props.data.cityId.id,
                   pointId: this.props.data.pointId.id,
-                  vehicleId: this.props.data.carId.id,
+                  vehicleId: this.props.data.vehicleId.id,
                   rateId: this.props.data.rateId.id,
                 });
                 this.props.history.replace(`/order/${postedOrder.id}`);

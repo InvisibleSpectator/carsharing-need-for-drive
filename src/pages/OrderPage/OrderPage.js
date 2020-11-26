@@ -35,12 +35,14 @@ class OrderPage extends Component {
           name: "Модель",
           isDone: false,
           buttonText: "Дополнительно",
-          data: { carId: null, category: "" },
+          data: { vehicleId: null, category: "" },
           onClick: () =>
             this.setState((state) => {
               return { page: state.page + 1 };
             }),
-          render: (pageProps) => <Model point={this.state.order.pointId} {...pageProps} />,
+          render: (pageProps) => (
+            <Model point={this.state.order.pointId} {...pageProps} />
+          ),
         },
         {
           name: "Дополнительно",
@@ -59,9 +61,7 @@ class OrderPage extends Component {
             this.setState((state) => {
               return { page: state.page + 1 };
             }),
-          render: (pageProps) => (
-            <Extra  {...pageProps} />
-          ),
+          render: (pageProps) => <Extra {...pageProps} />,
         },
         {
           name: "Итого",
@@ -71,7 +71,7 @@ class OrderPage extends Component {
             orderStatusId: { id: "5e26a191099b810b946c5d89", name: "new" },
             cityId: null,
             pointId: null,
-            carId: null,
+            vehicleId: null,
             color: "Любой",
             dateFrom: 0,
             dateTo: 0,
@@ -89,17 +89,20 @@ class OrderPage extends Component {
   }
 
   getData = async () => {
+    console.log(this.props.match.params.id);
     if (this.props.match.params.id) {
-      const order = await getLocal(
-        `db/order/${this.props.match.params.id}`        
-      );
+      console.log("server");
+      const order = await getLocal(`db/order/${this.props.match.params.id}`);
+      const vehicle = { ...order.specificVehicleId.vehicle };
+      order["vehicleId"] = vehicle;
+
       this.setState({
         order: (({
           id,
-          orderStatusId,
+          orderStatus,
           cityId,
           pointId,
-          carId,
+          vehicleId,
           color,
           dateFrom,
           dateTo,
@@ -109,10 +112,10 @@ class OrderPage extends Component {
           isNeedChildChair,
         }) => ({
           id,
-          orderStatusId,
+          orderStatus,
           cityId,
           pointId,
-          carId,
+          vehicleId,
           color,
           dateFrom,
           dateTo,
@@ -122,7 +125,10 @@ class OrderPage extends Component {
           isNeedChildChair,
         }))(order),
       });
-    } else this.setState({ order: {} });
+    } else {
+      console.log("empty");
+      this.setState({ order: {} });
+    }
   };
 
   componentDidMount = async () => {
@@ -130,7 +136,9 @@ class OrderPage extends Component {
   };
 
   componentDidUpdate = async (prevProps) => {
-    if (this.props.match.id !== prevProps.match.id) {
+    console.log("🚀 prevProps.match.id", prevProps.match.params.id);
+    console.log("🚀 this.props.match.id", this.props.match.params.id);
+    if (this.props.match.params.id !== prevProps.match.params.id) {
       await this.getData();
     }
   };

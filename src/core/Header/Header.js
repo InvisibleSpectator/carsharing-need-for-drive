@@ -3,7 +3,7 @@ import "./Header.scss";
 
 const Header = () => (
   <header className="Header">
-    <a href="/carsharing-need-for-drive">
+    <a href="/pedali-v-dali">
       <h1 className="Header-Head">Pedali V Dali</h1>
     </a>
   </header>

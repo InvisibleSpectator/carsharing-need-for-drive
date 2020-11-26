@@ -59,14 +59,14 @@ class Model extends Component {
 
   isDone = () =>
     this.state.cars.some((e) =>
-      this.state.data.carId ? e.id === this.state.data.carId.id : false
+      this.state.data.vehicleId ? e.id === this.state.data.vehicleId.id : false
     );
 
   setData = (car) => {
     this.setState(
       (state) => ({
         ...state,
-        data: { ...state.data, carId: car },
+        data: { ...state.data, vehicleId: car },
       }),
       this.props.onChange
     );
@@ -101,8 +101,8 @@ class Model extends Component {
                       key={i}
                       onClick={this.setData}
                       className={
-                        (this.state.data.carId
-                          ? this.state.data.carId.id
+                        (this.state.data.vehicleId
+                          ? this.state.data.vehicleId.id
                           : "") === e.id
                           ? "Model-CarCard_selected"
                           : ""
@@ -118,8 +118,8 @@ class Model extends Component {
                       key={i}
                       onClick={this.setData}
                       className={
-                        (this.state.data.carId
-                          ? this.state.data.carId.id
+                        (this.state.data.vehicleId
+                          ? this.state.data.vehicleId.id
                           : "") === e.id
                           ? "Model-CarCard_selected"
                           : ""

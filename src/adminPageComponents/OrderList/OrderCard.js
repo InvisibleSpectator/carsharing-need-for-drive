@@ -20,15 +20,15 @@ const OrderCard = ({ order }) => {
           crossOrigin="anonymous"
           referrerPolicy="origin"
           src={
-            order.carId
-              ? `http://api-factory.simbirsoft1.com${order.carId.thumbnail.path}`
+            order.vehicleId
+              ? `http://api-factory.simbirsoft1.com${order.vehicleId.thumbnail.path}`
               : ""
           }
         />
         <div className="OrderCard-TextInfo">
           <p>
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
-              {order.carId ? order.carId.name : "нет данных"}
+              {order.vehicleId ? order.vehicleId.name : "нет данных"}
             </span>{" "}
             в{" "}
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
