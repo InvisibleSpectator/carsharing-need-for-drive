@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/admin/login" component={AdminLogin} />
+        <Route exact path="/lk/login" component={AdminLogin} />
         <Route path="/admin" component={AdminPage} />
         <Route exact path="/" component={MainPage} />
         <Route path="/order/:id?" component={OrderPage} />

@@ -23,7 +23,19 @@ class Extra extends Component {
   }
 
   componentDidMount = async () => {
-    const rates = await getAllFromTableClient("rate");
+    // const rates = await getAllFromTableClient("rate");
+    const rates = {data:[
+      {
+        createdAt: 1579589842853,
+id: "5e26a0d2099b810b946c5d85",
+price: 7,
+rateTypeId: {unit: "мин", name: "Поминутно", id: "5e26a07f099b810b946c5d82"},
+id: "5e26a07f099b810b946c5d82",
+name: "Поминутно",
+unit: "мин",
+updatedAt: 1579589842853,
+      },
+    ]};
     this.setState((state) => {
       return {
         loaded: true,

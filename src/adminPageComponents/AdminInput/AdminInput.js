@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 
 import "./AdminInput.scss";
 
-class AdminInput extends Component {
+class AdminInput extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { value: props.value || "", isValid: true };
@@ -18,7 +18,8 @@ class AdminInput extends Component {
   };
 
   validate = () => {
-    const isValid = this.props.validationExp.test(this.state.value);
+    // const isValid = this.props.validationExp.test(this.state.value);
+    const isValid = true;
     this.setState({ isValid });
     return isValid;
   };
