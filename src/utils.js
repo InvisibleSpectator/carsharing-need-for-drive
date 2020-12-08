@@ -176,6 +176,7 @@ export const deleteFromTableAdmin = async (table, id, data, bearer) => {
 export const getLocal = async (path) => {
   const response = await fetch(`http://localhost:8080/${path}`, {
     method: "GET",
+    credentials: 'include',
   });
   const json = await response.json();
   return json;
@@ -188,7 +189,7 @@ export const getLocal = async (path) => {
 export const postToLocal = async (table, data) => {
   const response = await fetch(`http://localhost:8080/${table}`, {
     method: "POST",
-    // credentials: 'include', // include
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
     },
