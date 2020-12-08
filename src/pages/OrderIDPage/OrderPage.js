@@ -135,7 +135,12 @@ class OrderPage extends Component {
   };
 
   componentDidMount = async () => {
-    await this.getData();
+    const isAuth = sessionStorage.getItem("isAuth");
+    if (isAuth.length === 5) {
+      this.props.history.push("");
+    } else {
+      await this.getData();
+    }
   };
 
   componentDidUpdate = async (prevProps) => {

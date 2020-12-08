@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { MainPage } from "./pages/MainPage";
 import { OrderPage } from "./pages/OrderPage";
@@ -7,6 +7,14 @@ import { AdminLogin } from "./adminPageComponents/AdminLogin";
 import { AdminPage } from "./pages/AdminPage";
 
 function App() {
+  useEffect(() => {
+    const isAuth = sessionStorage.getItem("isAuth");
+    if (isAuth) {
+    } else {
+      console.log("сброс сесион стораге");
+      sessionStorage.setItem("isAuth", false);
+    }
+  }, []);
   return (
     <div className="App">
       <Switch>

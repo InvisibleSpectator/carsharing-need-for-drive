@@ -181,15 +181,31 @@ export const getLocal = async (path) => {
   return json;
 };
 
+
+
+
+// САША ТУТ
 export const postToLocal = async (table, data) => {
   const response = await fetch(`http://localhost:8080/${table}`, {
     method: "POST",
+    // credentials: 'include', // include
     headers: {
-      "X-Api-Factory-Application-Id": APPLICATION_ID,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
   const json = await response.json();
   return json;
+};
+export const postToLocal2 = async (table, data) => {
+  const response = await fetch(`http://localhost:8080/${table}`, {
+    method: "POST",
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+ 
+  return response;
 };

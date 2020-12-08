@@ -6,13 +6,14 @@ import { Slider } from "../../components/Slider";
 import { Button } from "../../core/Button";
 import { Link } from "../../core/Link";
 import { Header } from "../../core/Header";
+import { postToLocal2 as postToLocal } from "../../utils";
 
 import "../../adminPageComponents/AdminLogin/AdminLogin.scss";
 import Logo from "../../assets/icons/Logo.svg";
 import { AdminButton } from "../../adminPageComponents/AdminButton";
 import { AdminInput } from "../../adminPageComponents/AdminInput";
 
-const MainPage = () => {
+const MainPage = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isValid, setValid] = useState(false);
   const [isValidRegistration, setValidRegistration] = useState(false);
@@ -24,11 +25,11 @@ const MainPage = () => {
   const refRPassword = useRef();
   const refREmail = useRef();
 
-  const isAuth = localStorage.getItem("isAuth");
+  const isAuth = sessionStorage.getItem("isAuth");
 
   const validate1 = useCallback(() => {
     setValid(refLogin.current.validate() && refPassword.current.validate());
-  }, [refLogin, refPassword,setValid]);
+  }, [refLogin, refPassword, setValid]);
 
   const validateReg = useCallback(() => {
     setValidRegistration(
@@ -36,7 +37,44 @@ const MainPage = () => {
         refRPassword.current.validate() &&
         refREmail.current.validate()
     );
-  }, [refRLogin, refRPassword, refREmail,setValidRegistration]);
+  }, [refRLogin, refRPassword, refREmail, setValidRegistration]);
+
+  const sendAuth = useCallback(async () => {
+    // САША ТУТ
+    const json = {};
+    json.login = refLogin.current.getValue();
+    json.password = refPassword.current.getValue();
+    console.log(json);
+
+    if (json.login.length > 0 && json.password.length > 0) {
+      const res = await postToLocal("auth", json);
+      console.log("auth", res);
+      if (res.ok) {
+        sessionStorage.setItem('isAuth',true);
+        props.history.push("/order");
+      } else alert("Авторизоваться не удалось");
+    } else alert("Заполните все поля");
+  }, [refLogin, refPassword]);
+
+  const sendRegistration = useCallback(async () => {
+    const json = {};
+    json.email = refREmail.current.getValue();
+    json.login = refRLogin.current.getValue();
+    json.password = refRPassword.current.getValue();
+    console.log(json);
+
+    if (
+      json.email.length > 0 &&
+      json.login.length > 0 &&
+      json.password.length > 0
+    ) {
+      const res = await postToLocal("signup", json);
+      console.log("signup", res);
+      if (res.ok) {
+        setAuthPage(true);
+      } else alert("Зарегистрироваться не удалось");
+    } else alert("Заполните все поля");
+  }, [refRLogin, refRPassword, refREmail]);
 
   return (
     <div className="MainPage">
@@ -98,69 +136,65 @@ const MainPage = () => {
                 <>
                   <AdminInput
                     ref={refLogin}
-                    key='authlogin'
+                    key="authlogin"
                     trim
                     text="Логин"
                     type="text"
                     className="LoginForm-AdminInput"
                     onChange={validate1}
-                    validationExp={''}
+                    validationExp={""}
                     validationError="Введите логин"
                   />
                   <AdminInput
                     ref={refPassword}
-                    key='authpass'
+                    key="authpass"
                     trim
                     text="Пароль"
                     type="password"
                     className="LoginForm-AdminInput"
                     onChange={validate1}
-                    validationExp={''}
+                    validationExp={""}
                     validationError="Введите пароль"
                   />
                 </>
               ) : (
                 <>
-                <AdminInput
-                  ref={refREmail}
-                  key='regemial'
-
-                  trim
-                  text="E-mail"
-                  type="text"
-                  className="LoginForm-AdminInput"
-                  onChange={validateReg}
-                  validationExp={''}
-                  validationError="Введите e-mail"
-                />
-                <AdminInput
-                  ref={refRLogin}
-                  key='reglogin'
-
-                  trim
-                  text="Логин"
-                  type="text"
-                  className="LoginForm-AdminInput"
-                  onChange={validateReg}
-                  validationExp={''}
-                  validationError="Введите логин"
-                />
-                <AdminInput
-                  ref={refRPassword}
-                  key='regpass'
-
-                  trim
-                  text="Пароль"
-                  type="password"
-                  className="LoginForm-AdminInput"
-                  onChange={validateReg}
-                  validationExp={''}
-                  validationError="Введите пароль"
-                />
-              </>
+                  <AdminInput
+                    ref={refREmail}
+                    key="regemial"
+                    trim
+                    text="E-mail"
+                    type="text"
+                    className="LoginForm-AdminInput"
+                    onChange={validateReg}
+                    validationExp={""}
+                    validationError="Введите e-mail"
+                  />
+                  <AdminInput
+                    ref={refRLogin}
+                    key="reglogin"
+                    trim
+                    text="Логин"
+                    type="text"
+                    className="LoginForm-AdminInput"
+                    onChange={validateReg}
+                    validationExp={""}
+                    validationError="Введите логин"
+                  />
+                  <AdminInput
+                    ref={refRPassword}
+                    key="regpass"
+                    trim
+                    text="Пароль"
+                    type="password"
+                    className="LoginForm-AdminInput"
+                    onChange={validateReg}
+                    validationExp={""}
+                    validationError="Введите пароль"
+                  />
+                </>
               )}
 
-            
               <button
                 onClick={() => setAuthPage(!isAuthPage)}
                 className="AdminLink"
@@ -169,23 +203,23 @@ const MainPage = () => {
               </button>
               {isAuthPage ? (
                 <AdminButton
-                key='authbtn'
+                  key="authbtn"
                   text="Войти"
                   className={`LoginForm-AdminButton ${
                     isValid ? "" : "AdminButton_disabled"
                   }`}
+                  onClick={sendAuth}
                 />
-              ): (
+              ) : (
                 <AdminButton
-                key='regbtn'
-
+                  key="regbtn"
                   text="Зарегистрироваться"
                   className={`LoginForm-AdminButton ${
                     isValidRegistration ? "" : "AdminButton_disabled"
                   }`}
+                  onClick={sendRegistration}
                 />
               )}
-              
             </div>
           </div>
         </div>

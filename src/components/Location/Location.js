@@ -7,7 +7,12 @@ import {
   ZoomControl,
 } from "react-yandex-maps";
 import { AutocompletableInput } from "../../core/AutocompletableInput";
-import { getAllFromTableClient, getLocal, getGeoData, YANDEX_API_KEY } from "../../utils";
+import {
+  getAllFromTableClient,
+  getLocal,
+  getGeoData,
+  YANDEX_API_KEY,
+} from "../../utils";
 
 import "./Location.scss";
 import { Spinner } from "../../core/Spinner";
@@ -63,25 +68,29 @@ class Location extends Component {
     const geomarkers = [];
     const tpmCities = [];
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const city of cities.data) {
-      tpmCities.push({
-        // eslint-disable-next-line no-await-in-loop
-        ...(await getGeoData(YANDEX_API_KEY, `${city.name}`)),
-        ...city,
-      });
+    if (cities.data) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const city of cities.data) {
+        tpmCities.push({
+          // eslint-disable-next-line no-await-in-loop
+          ...(await getGeoData(YANDEX_API_KEY, `${city.name}`)),
+          ...city,
+        });
+      }
     }
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const address of points.data) {
-      geomarkers.push({
-        // eslint-disable-next-line no-await-in-loop
-        ...(await getGeoData(
-          YANDEX_API_KEY,
-          `${address.cityId.name},${address.address}`
-        )),
-        ...address,
-      });
+    if (points.data) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const address of points.data) {
+        geomarkers.push({
+          // eslint-disable-next-line no-await-in-loop
+          ...(await getGeoData(
+            YANDEX_API_KEY,
+            `${address.cityId.name},${address.address}`
+          )),
+          ...address,
+        });
+      }
     }
     this.setState({
       cities: tpmCities,

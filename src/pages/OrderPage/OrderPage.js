@@ -131,9 +131,15 @@ class OrderPage extends Component {
     await this.getData();
   };
 
-  componentDidUpdate = async (prevProps) => {   
-    if (this.props.match.params.id !== prevProps.match.params.id) {
-      await this.getData();
+  componentDidUpdate = async (prevProps) => {
+    const isAuth = sessionStorage.getItem("isAuth");
+   
+    if (isAuth.length === 5) {
+      this.props.history.push("");
+    } else {
+      if (this.props.match.params.id !== prevProps.match.params.id) {
+        await this.getData();
+      }
     }
   };
 
