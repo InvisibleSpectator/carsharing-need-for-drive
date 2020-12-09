@@ -315,7 +315,7 @@ class OrderPage extends Component {
                       trim
                       text="Id транспорта"
                       type="text"
-                      className="LoginForm-AdminInput"
+                      className=""
                       onChange={() => {}}
                       validationExp={""}
                       ref={this.inputId}
