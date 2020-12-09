@@ -16,7 +16,7 @@ const CarCard = ({ car, onClick, className }) => {
     >
       <h3>{car.name}</h3>
       <span>
-        <span>{car.priceMax}</span> ₽
+        <span>{car.price}</span> ₽
       </span>
       <img
         crossOrigin="anonymous"

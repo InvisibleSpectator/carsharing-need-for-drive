@@ -71,6 +71,13 @@ const OrderDetails = (props) => {
         onClick={props.onClick}
         text={props.buttonText}
       />
+      {props.secondBtn ==='NEW' && (
+        <Button
+        className={`Button_max ${props.buttonClass} mt-1`}
+        onClick={props.fnBtn}
+        text={'Начать'}
+      />
+      )}
     </aside>
   );
 };

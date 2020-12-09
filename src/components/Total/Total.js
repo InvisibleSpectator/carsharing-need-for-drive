@@ -37,6 +37,14 @@ class Total extends Component {
     await getLocal(`db/order/cancel/${this.props.data.id}`);
     this.props.onChange();
   };
+  fffOrder = async () => {
+    await getLocal(`db/order/finish/${this.props.data.id}`);
+    this.props.onChange();
+  };
+  startOrder = async () => {
+    await getLocal(`db/order/start/${this.props.data.id}`);
+    this.props.onChange();
+  };
 
   getStatus = () => {
     console.log(this.props.data.orderStatus);
@@ -45,8 +53,10 @@ class Total extends Component {
         return "сформирован";
       case "CANCELED":
         return "отменён";
+      case "STARTED":
+        return "в работе";
       case "FINISHED":
-        return "подтвёрждён";
+        return "завершён";
       case "ERROR":
         return "с проблемами";
       default:

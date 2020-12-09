@@ -2,7 +2,7 @@
 import React from "react";
 import "./BurgerMenu.scss";
 import { Link } from "../Link";
-
+import { getLocalRawResponse } from "../../utils";
 class BurgerMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -25,11 +25,27 @@ class BurgerMenu extends React.Component {
       <div className="BurgerMenu-Contaner">
         <div className="BurgerMenu-Draver">
           <ul className="BurgerMenu-Content">
-            {["ЗАБРОНИРОВАТЬ", "ЗАБРОНИРОВАТЬ ПО ID", "ВЫЙТИ"].map((e, i) => (
-              <li key={i}>
-                <Link text={e} className="Link_bg_black_white" />
-              </li>
-            ))}
+            <li key={1}>
+              <Link text={"ЗАБРОНИРОВАТЬ"} className="Link_bg_black_white" />
+            </li>
+            <li key={2}>
+              <Link
+                text={"ЗАБРОНИРОВАТЬ ПО ID"}
+                className="Link_bg_black_white"
+                href="/order_id"
+              />
+            </li>
+            <li
+              key={3}
+              onClick={async () => {
+                // sessionStorage.setItem("isAuth", false);
+                console.log("sss");
+                const resp = await getLocalRawResponse("logout");
+                console.log("logout", resp);
+              }}
+            >
+              <Link text={"ВЫЙТИ"} className="Link_bg_black_white" href="/" />
+            </li>
           </ul>
           <div className="BurgerMenu-SN">
             <a

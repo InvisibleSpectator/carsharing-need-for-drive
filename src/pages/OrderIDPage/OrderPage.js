@@ -4,12 +4,18 @@ import { Header } from "../../core/Header";
 import { BurgerMenu } from "../../core/BurgerMenu";
 import { Location } from "../../components/Location";
 import { Model } from "../../components/Model";
-
+import "../../components/Total/Total.scss";
 import "./OrderPage.scss";
 import { Extra } from "../../components/Extra";
 import { Total } from "../../components/Total";
 import { OrderDetails } from "../../components/OrderDetails";
-import { getFromTableByIdClient, getLocal } from "../../utils";
+import {
+  getFromTableByIdClient,
+  getLocal,
+  postToLocal,
+  getLocalRawResponse,
+  formatDate,
+} from "../../utils";
 import { Spinner } from "../../core/Spinner";
 import "../../adminPageComponents/AdminLogin/AdminLogin.scss";
 import { AdminInput } from "../../adminPageComponents/AdminInput";
@@ -18,9 +24,14 @@ class OrderPage extends Component {
   constructor(props) {
     super(props);
     this.activePage = React.createRef();
+    this.inputId = React.createRef();
 
     this.state = {
       order_id: 0,
+      transport: {},
+      price: 0,
+      dateFrom: 0,
+      dateTo: 0,
       order: {},
       pages: [
         {
@@ -165,6 +176,41 @@ class OrderPage extends Component {
     });
   };
 
+  chePoId = async () => {
+    try {
+      const id = this.inputId.current.getValue();
+      console.log("id", id);
+      // getLocalRawResponse
+      const resp = await getLocal(`db/specificVehicle/${id}`);
+      console.log("db/specificVehicle get resp", resp);
+      if (
+        resp.vehicleState === "FREE" ||
+        resp.vehicleState === "FREE_NOT_AT_POINT"
+      ) {
+        this.setState({
+          ...this.state,
+          order_id: 1,
+          transport: resp,
+          dateFrom: Date.now(),
+        });
+      } else {
+        alert("Занято");
+      }
+    } catch (e) {
+      alert("Не найдено");
+    }
+  };
+
+  sendDDD = async () => {
+    const json = {};
+    json.specificVehicleId = this.state.transport.id;
+    json.dateTo = this.state.dateTo;
+    json.dateFrom = this.state.dateFrom;
+    const resp = await postToLocal("db/order/newForVehicle", json);
+    console.log(resp.id);
+    this.props.history.push(`order/${resp.id}`);
+  };
+
   onTabChange = () => {
     this.setState((state) => {
       const tmp = {
@@ -215,6 +261,27 @@ class OrderPage extends Component {
     return this.state.pages[this.state.page].render(init);
   };
 
+  onDateToChange = (e) => {
+    const date = new Date(e.target.value);
+    this.setState(
+      {
+        ...this.state,
+        dateTo: date.getTime() || 0,
+      },
+      this.setPrice
+    );
+  };
+  setPrice = () => {
+    let newPrice;
+    // eslint-disable-next-line default-case
+
+    newPrice = Math.ceil((this.state.dateTo - this.state.dateFrom) / 60000) * 7;
+
+    newPrice += this.state.transport.vehicle.price;
+
+    newPrice = Math.max(0, newPrice) || 0;
+    this.setState({ ...this.state, price: newPrice });
+  };
   render = () => (
     <div className="OrderPage">
       <BurgerMenu />
@@ -251,47 +318,69 @@ class OrderPage extends Component {
                       className="LoginForm-AdminInput"
                       onChange={() => {}}
                       validationExp={""}
+                      ref={this.inputId}
                       validationError="Введите id транспорта"
                     />
                     <Button
                       className="Button_default"
-                      onClick={this.setSecondOrderId}
+                      onClick={this.chePoId}
                       text="Заказать"
                     ></Button>
                   </div>
                 ) : (
-                  <>ggggg</>
+                  <div className="iuy">
+                    <div className="iuy-r">
+                      <div className="iuy-r-text">
+                        <h2>{this.state.transport.vehicle.name}</h2>
+                        <span>
+                          <span className="">C</span>{" "}
+                          <input
+                            type="datetime-local"
+                            disabled
+                            readOnly
+                            className="Total-Text-Value"
+                            defaultValue={formatDate(
+                              new Date(this.state.dateFrom)
+                            )}
+                          />
+                        </span>
+                        <div className="iuy-d">
+                          <span>По</span>
+                          <input
+                            className="Extra-TimeRange-Input"
+                            type="datetime-local"
+                            disabled={!this.state.dateFrom}
+                            min={formatDate(new Date(this.state.dateFrom))}
+                            value={
+                              this.state.dateFrom >= this.state.dateTo
+                                ? ""
+                                : formatDate(new Date(this.state.dateTo))
+                            }
+                            onChange={this.onDateToChange}
+                          />
+                        </div>
+                        <div className="iuy-p">{`Цена: ${this.state.price} ₽`}</div>
+                      </div>
+                      <div className="Total-Image">
+                        <img
+                          src={`${this.state.transport.vehicle.thumbnail.path}`}
+                          alt="car"
+                        />
+                      </div>
+                    </div>
+
+                    <Button
+                      className={
+                        this.state.price <= 0
+                          ? "Button_disabled"
+                          : "Button_default"
+                      }
+                      onClick={this.sendDDD}
+                      text="Подтвердить заказ"
+                    ></Button>
+                  </div>
                 )}
               </div>
-              {this.state.order_id !== 0 && (
-                <OrderDetails
-                  order={this.state.order}
-                  onClick={
-                    this.props.match.params.id &&
-                    this.state.order.orderStatus === "NEW"
-                      ? (e) => {
-                          e.currentTarget.classList.toggle("Button_loading");
-                          this.activePage.current.editOrder();
-                        }
-                      : this.state.pages[this.state.page].onClick
-                  }
-                  buttonClass={
-                    this.props.match.params.id
-                      ? this.state.order.orderStatus === "NEW"
-                        ? "Button_decline"
-                        : "Button_hidden"
-                      : !this.state.pages[this.state.page].isDone
-                      ? "Button_disabled"
-                      : ""
-                  }
-                  buttonText={
-                    this.props.match.params.id &&
-                    this.state.order.orderStatus === "NEW"
-                      ? "Отменить"
-                      : this.state.pages[this.state.page].buttonText
-                  }
-                />
-              )}
             </div>
           </div>
         ) : (

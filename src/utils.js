@@ -61,7 +61,6 @@ export const postToTableClient = async (table, data) => {
   return json;
 };
 
-
 export const putToTableClient = async (table, id, data) => {
   const response = await fetch(`${PROXY}${DATABASE_URL}${table}/${id}`, {
     method: "PUT",
@@ -176,20 +175,25 @@ export const deleteFromTableAdmin = async (table, id, data, bearer) => {
 export const getLocal = async (path) => {
   const response = await fetch(`http://localhost:8080/${path}`, {
     method: "GET",
-    credentials: 'include',
+    credentials: "include",
   });
   const json = await response.json();
   return json;
 };
 
-
-
+export const getLocalRawResponse = async (path) => {
+  const respose = await fetch(`http://localhost:8080/${path}`, {
+    method: "GET",
+    credentials: "include",
+  });
+  return respose;
+};
 
 // САША ТУТ
 export const postToLocal = async (table, data) => {
   const response = await fetch(`http://localhost:8080/${table}`, {
     method: "POST",
-    credentials: 'include',
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -201,12 +205,12 @@ export const postToLocal = async (table, data) => {
 export const postToLocal2 = async (table, data) => {
   const response = await fetch(`http://localhost:8080/${table}`, {
     method: "POST",
-    credentials: 'include',
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
- 
+
   return response;
 };
