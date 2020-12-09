@@ -25,27 +25,56 @@ class BurgerMenu extends React.Component {
       <div className="BurgerMenu-Contaner">
         <div className="BurgerMenu-Draver">
           <ul className="BurgerMenu-Content">
-            <li key={1}>
-              <Link text={"ЗАБРОНИРОВАТЬ"} className="Link_bg_black_white" />
-            </li>
-            <li key={2}>
-              <Link
-                text={"ЗАБРОНИРОВАТЬ ПО ID"}
-                className="Link_bg_black_white"
-                href="/order_id"
-              />
-            </li>
-            <li
-              key={3}
-              onClick={async () => {
-                // sessionStorage.setItem("isAuth", false);
-                console.log("sss");
-                const resp = await getLocalRawResponse("logout");
-                console.log("logout", resp);
-              }}
-            >
-              <Link text={"ВЫЙТИ"} className="Link_bg_black_white" href="/" />
-            </li>
+            {sessionStorage.getItem("isAuth") &&
+            sessionStorage.getItem("isAuth").length === 4 ? (
+              <>
+                <li key={1}>
+                  <Link
+                    text={"ЗАБРОНИРОВАТЬ"}
+                    className="Link_bg_black_white"
+                    href={"/order"}
+                  />
+                </li>
+                <li key={2}>
+                  <Link
+                    text={"ЗАБРОНИРОВАТЬ ПО ID"}
+                    className="Link_bg_black_white"
+                    href="/order_id"
+                  />
+                </li>
+
+                <li key={3}>
+                  <Link
+                    text={"МОИ ЗАКАЗЫ"}
+                    className="Link_bg_black_white"
+                    href="/my_orders"
+                  />
+                </li>
+                <li
+                  key={4}
+                  onClick={async () => {
+                    sessionStorage.setItem("isAuth", false);
+                    console.log("sss");
+                    const resp = await getLocalRawResponse("logout");
+                    console.log("logout", resp);
+                  }}
+                >
+                  <Link
+                    text={"ВЫЙТИ"}
+                    className="Link_bg_black_white"
+                    href="/"
+                  />
+                </li>
+              </>
+            ) : (
+              <li key={0}>
+                <Link
+                  text={"ВОЙДИ, ЧТОБЫ УВИДЕТЬ ВСЕ ВОЗМОЖНОСТИ"}
+                  className="Link_bg_black_white"
+                  href={""}
+                />
+              </li>
+            )}
           </ul>
           <div className="BurgerMenu-SN">
             <a

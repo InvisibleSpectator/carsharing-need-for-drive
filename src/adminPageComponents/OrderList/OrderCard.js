@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Checkbox } from "../../core/Checkbox";
+import { getLocal } from "../../utils";
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ order, history, updateParen }) => {
   const formatter = new Intl.DateTimeFormat("ru", {
     day: "2-digit",
     month: "2-digit",
@@ -19,16 +20,14 @@ const OrderCard = ({ order }) => {
           className="OrderCard-Image"
           crossOrigin="anonymous"
           referrerPolicy="origin"
-          src={
-            order.vehicleId
-              ? `http://api-factory.simbirsoft1.com${order.vehicleId.thumbnail.path}`
-              : ""
-          }
+          src={order.specificVehicleId.vehicle.thumbnail.path}
         />
         <div className="OrderCard-TextInfo">
           <p>
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
-              {order.vehicleId ? order.vehicleId.name : "нет данных"}
+              {order.specificVehicleId
+                ? order.specificVehicleId.vehicle.name
+                : "нет данных"}
             </span>{" "}
             в{" "}
             <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
@@ -41,12 +40,6 @@ const OrderCard = ({ order }) => {
             <span>{formatter.format(new Date(order.dateFrom))}</span> —{" "}
             <span>{formatter.format(new Date(order.dateTo))}</span>
           </p>
-          <p>
-            <span>Цвет: </span>
-            <span className="OrderCard-TextInfo-Text OrderCard-TextInfo-Text_placable">
-              {order.color}
-            </span>
-          </p>
         </div>
         <div className="OrderCard-Checks">
           <Checkbox readonly checked={order.isBodyProtect} text="Защита тела" />
@@ -58,15 +51,44 @@ const OrderCard = ({ order }) => {
         </div>
         <p className="OrderCard-Price">{order.price} ₽</p>
         <div className="OrderCard-Buttons">
-          <button className="OrderCard-Buttons-Button OrderCard-Buttons-Button_ok">
-            Готово
-          </button>
-          <button className="OrderCard-Buttons-Button OrderCard-Buttons-Button_cancel">
-            Отмена
-          </button>
-          <button className="OrderCard-Buttons-Button OrderCard-Buttons-Button_modify">
-            Изменить
-          </button>
+          {(() => {
+            switch (order.orderStatus) {
+              case "NEW":
+                return (
+                  <button
+                    className="OrderCard-Buttons-Button OrderCard-Buttons-Button_cancel"
+                    onClick={async () => {
+                      await getLocal(`db/order/cancel/${order.id}`);
+                      // history.push("/my_orders");
+                      updateParen();
+                    }}
+                  >
+                    Отменить
+                  </button>
+                );
+              case "CANCELED":
+                return <span style={{lineHeight:'24px', fontSize:'11px', padding:'0px 12px' }}  >Заказ отменен</span>;
+              case "FINISHED":
+                return <span style={{lineHeight:'24px', fontSize:'11px', padding:'0px 12px' }}>Заказ завершен</span>;
+              case "STARTED":
+                return (
+                  <button
+                    className="OrderCard-Buttons-Button OrderCard-Buttons-Button_ok"
+                    onClick={async () => {
+                      await getLocal(`db/order/finish/${order.id}`);
+                      // history.push("/my_orders");
+                      updateParen();
+                    }}
+                  >
+                    Завершить заказ
+                  </button>
+                );
+              case "ERROR":
+                return <span style={{lineHeight:'24px', fontSize:'11px', padding:'0px 12px' }}>Ошибка</span>;
+              default:
+                return "";
+            }
+          })()}
         </div>
       </div>
     </div>

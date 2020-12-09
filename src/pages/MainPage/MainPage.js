@@ -92,7 +92,7 @@ const MainPage = (props) => {
           )}
           {isAuth === "false" && (
             <Button
-              text="Забронировать"
+              text="Войти"
               className="Button_main"
               onClick={() => {
                 setModalOpen(true);
